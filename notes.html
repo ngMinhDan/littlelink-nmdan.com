@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini daily notes - Discipline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .note-form {
+            padding: 30px;
+            background: white;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .checklist-container {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .checklist-item input[type="text"] {
+            flex: 1;
+            border: none;
+            padding: 5px;
+            font-size: 0.95rem;
+        }
+
+        .checklist-item input[type="text"]:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .remove-item {
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            margin-left: 10px;
+            font-size: 0.8rem;
+        }
+
+        .add-checklist-item {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .color-picker-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: #333;
+            transform: scale(1.2);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        .notes-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .notes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .notes-header h2 {
+            color: #495057;
+            font-size: 1.5rem;
+        }
+
+        .notes-count {
+            background: #4facfe;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .note-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .note-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .note-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #495057;
+            margin: 0;
+        }
+
+        .note-date {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8px 16px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .note-content {
+            color: #6c757d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            white-space: pre-wrap;
+        }
+
+        .note-checklist {
+            margin-bottom: 15px;
+        }
+
+        .note-checklist h4 {
+            color: #495057;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        .checklist-display-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .checklist-display-item:hover {
+            background: #e9ecef;
+        }
+
+        .checklist-display-item.completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+            background: #d4edda;
+        }
+
+        .checklist-display-item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .note-actions {
+            display: none;
+        }
+
+        .btn-small {
+            padding: 6px 15px;
+            font-size: 0.85rem;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6c757d;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .note-form,
+            .notes-section {
+                padding: 20px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .note-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .btn {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Mini daily notes - Discipline</h1>
+            <p>Capture your thoughts, ideas, and daily tasks</p>
+        </div>
+
+        <div class="note-form">
+            <form id="noteForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="noteTitle">📌 Title</label>
+                        <input type="text" id="noteTitle" name="title" required placeholder="Enter note title...">
+                    </div>
+                    <div class="form-group">
+                        <label for="noteDate">📅 Date & Time</label>
+                        <input type="datetime-local" id="noteDate" name="date" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="noteChecklist">✅ Daily Checklist</label>
+                    <div class="checklist-container" id="checklistContainer">
+                        <div class="checklist-item">
+                            <input type="text" placeholder="Enter a task..." class="checklist-input">
+                            <button type="button" class="remove-item" onclick="removeChecklistItem(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-checklist-item" onclick="addChecklistItem()">+ Add Task</button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="noteContent">💭 Notes & Thoughts</label>
+                    <textarea id="noteContent" name="content" placeholder="Write your thoughts here..." required></textarea>
+                    <div class="color-picker-container">
+                        <span style="font-size: 0.9rem; color: #6c757d;">Text Color:</span>
+                        <div class="color-option" style="background-color: #000000;" data-color="#000000" onclick="selectColor(this)"></div>
+                        <div class="color-option" style="background-color: #dc3545;" data-color="#dc3545" onclick="selectColor(this)"></div>
+                        <div class="color-option" style="background-color: #28a745;" data-color="#28a745" onclick="selectColor(this)"></div>
+                        <div class="color-option" style="background-color: #007bff;" data-color="#007bff" onclick="selectColor(this)"></div>
+                        <div class="color-option" style="background-color: #ffc107;" data-color="#ffc107" onclick="selectColor(this)"></div>
+                        <div class="color-option" style="background-color: #6f42c1;" data-color="#6f42c1" onclick="selectColor(this)"></div>
+                        <div class="color-option" style="background-color: #fd7e14;" data-color="#fd7e14" onclick="selectColor(this)"></div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn">💾 Save Note</button>
+                <button type="button" class="btn btn-secondary" onclick="clearForm()">🗑️ Clear</button>
+            </form>
+        </div>
+
+        <div class="notes-section">
+            <div class="notes-header">
+                <h2>Your Notes</h2>
+                <span class="notes-count" id="notesCount">0 notes</span>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Search notes..." oninput="searchNotes()">
+            </div>
+            
+            <div id="notesList">
+                <div class="empty-state">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">📝</div>
+                    <h3>No notes yet</h3>
+                    <p>Start by creating your first note above!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let notes = [];
+        let editingIndex = -1;
+        let selectedColor = '#000000';
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNotes();
+            displayNotes();
+            
+            // Set current date and time
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('noteDate').value = now.toISOString().slice(0, 16);
+            
+            // Select default color
+            document.querySelector('.color-option[data-color="#000000"]').classList.add('selected');
+            
+            // Handle form submission
+            document.getElementById('noteForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveNote();
+            });
+        });
+
+        function selectColor(element) {
+            // Remove selected class from all color options
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            selectedColor = element.dataset.color;
+            
+            // Apply color to textarea
+            document.getElementById('noteContent').style.color = selectedColor;
+        }
+
+        function addChecklistItem() {
+            const container = document.getElementById('checklistContainer');
+            const newItem = document.createElement('div');
+            newItem.className = 'checklist-item';
+            newItem.innerHTML = `
+                <input type="text" placeholder="Enter a task..." class="checklist-input">
+                <button type="button" class="remove-item" onclick="removeChecklistItem(this)">×</button>
+            `;
+            container.appendChild(newItem);
+        }
+
+        function removeChecklistItem(button) {
+            const container = document.getElementById('checklistContainer');
+            if (container.children.length > 1) {
+                button.parentElement.remove();
+            }
+        }
+
+        function getChecklistItems() {
+            const inputs = document.querySelectorAll('.checklist-input');
+            const items = [];
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    items.push({
+                        text: input.value.trim(),
+                        completed: false
+                    });
+                }
+            });
+            return items;
+        }
+
+        function saveNote() {
+            const title = document.getElementById('noteTitle').value.trim();
+            const date = document.getElementById('noteDate').value;
+            const content = document.getElementById('noteContent').value.trim();
+            const checklist = getChecklistItems();
+            
+            if (!title || !content) {
+                alert('Please fill in both title and content fields.');
+                return;
+            }
+            
+            const note = {
+                title: title,
+                date: date,
+                content: content,
+                checklist: checklist,
+                textColor: selectedColor,
+                id: Date.now() + Math.random()
+            };
+            
+            if (editingIndex >= 0) {
+                notes[editingIndex] = note;
+                editingIndex = -1;
+                document.querySelector('button[type="submit"]').textContent = '💾 Save Note';
+            } else {
+                notes.unshift(note);
+            }
+            
+            saveToStorage();
+            displayNotes();
+            clearForm();
+        }
+
+        function displayNotes() {
+            const notesList = document.getElementById('notesList');
+            const notesCount = document.getElementById('notesCount');
+            
+            notesCount.textContent = `${notes.length} note${notes.length !== 1 ? 's' : ''}`;
+            
+            if (notes.length === 0) {
+                notesList.innerHTML = `
+                    <div class="empty-state">
+                        <div style="font-size: 3rem; margin-bottom: 20px;">📝</div>
+                        <h3>No notes yet</h3>
+                        <p>Start by creating your first note above!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            notesList.innerHTML = notes.map((note, index) => `
+                <div class="note-item" data-index="${index}">
+                    <div class="note-header">
+                        <h3 class="note-title">${escapeHtml(note.title)}</h3>
+                        <span class="note-date">⏰ ${formatDate(note.date)}</span>
+                    </div>
+                    ${note.checklist && note.checklist.length > 0 ? `
+                        <div class="note-checklist">
+                            <h4>📋 Tasks:</h4>
+                            ${note.checklist.map((item, itemIndex) => `
+                                <div class="checklist-display-item ${item.completed ? 'completed' : ''}" onclick="toggleChecklistItem(${index}, ${itemIndex})">
+                                    <input type="checkbox" ${item.completed ? 'checked' : ''} onclick="event.stopPropagation()">
+                                    <span>${escapeHtml(item.text)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    <div class="note-content" style="color: ${note.textColor || '#6c757d'}">${escapeHtml(note.content)}</div>
+                </div>
+            `).join('');
+        }
+
+        function toggleChecklistItem(noteIndex, itemIndex) {
+            notes[noteIndex].checklist[itemIndex].completed = !notes[noteIndex].checklist[itemIndex].completed;
+            saveToStorage();
+            displayNotes();
+        }
+
+        function editNote(index) {
+            // Edit functionality removed
+        }
+
+        function deleteNote(index) {
+            // Delete functionality removed
+        }
+
+        function clearForm() {
+            document.getElementById('noteForm').reset();
+            
+            // Reset date to current time
+            const now = new Date();
+            now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+            document.getElementById('noteDate').value = now.toISOString().slice(0, 16);
+            
+            // Reset color selection
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector('.color-option[data-color="#000000"]').classList.add('selected');
+            selectedColor = '#000000';
+            document.getElementById('noteContent').style.color = '#000000';
+            
+            // Reset checklist
+            const container = document.getElementById('checklistContainer');
+            container.innerHTML = `
+                <div class="checklist-item">
+                    <input type="text" placeholder="Enter a task..." class="checklist-input">
+                    <button type="button" class="remove-item" onclick="removeChecklistItem(this)">×</button>
+                </div>
+            `;
+            
+            editingIndex = -1;
+            document.querySelector('button[type="submit"]').textContent = '💾 Save Note';
+        }
+
+        function searchNotes() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const noteItems = document.querySelectorAll('.note-item');
+            
+            noteItems.forEach(item => {
+                const title = item.querySelector('.note-title').textContent.toLowerCase();
+                const content = item.querySelector('.note-content').textContent.toLowerCase();
+                const checklistItems = item.querySelectorAll('.checklist-display-item span');
+                let checklistText = '';
+                checklistItems.forEach(span => {
+                    checklistText += span.textContent.toLowerCase() + ' ';
+                });
+                
+                if (title.includes(searchTerm) || content.includes(searchTerm) || checklistText.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('dailyNotes', JSON.stringify(notes));
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem('dailyNotes');
+            if (saved) {
+                notes = JSON.parse(saved);
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
