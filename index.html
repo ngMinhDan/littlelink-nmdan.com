@@ -1,91 +1,603 @@
 <!DOCTYPE html>
-
-<!--
-  To change the theme, change the class on the html tag below to one of:
-  - theme-auto: Automatically switches based on user's system preferences
-  - theme-light: Forces light theme
-  - theme-dark: Forces dark theme
--->
-
-<html class="theme-auto" lang="en"> <!-- Update`class="theme-auto" with your preference -->
+<html lang="en" class="theme-auto">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Minh Dân · Lead at VinFast Virtual Assistant</title>
+    <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/106602643?v=4">
+    <meta name="description"
+        content="Minh Dân (Santiago) — Lead at VinFast Virtual Assistant. Software engineer, multilingual, builder. Open to business collaboration.">
+    <meta name="keywords"
+        content="Minh Dân, Nguyễn Minh Dân, VinFast, VSF, Virtual Assistant, software engineer, product builder, Vietnam">
+    <meta name="author" content="Nguyễn Minh Dân">
+    <meta rel="canonical" href="https://nmdan.com">
 
-  <!-- Page Title - Change this to your name/brand (50-60 characters recommended) -->
-  <title>nmdan.com</title>
-  <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/106602643?v=4"> <!-- Update this with your own favicon -->
+    <!-- Open Graph -->
+    <meta property="og:title" content="Minh Dân · Lead at VinFast Virtual Assistant">
+    <meta property="og:description"
+        content="Software engineer and product builder. Lead at VinFast Virtual Assistant. Let's connect.">
+    <meta property="og:url" content="https://nmdan.com">
+    <meta property="og:type" content="website">
 
-  <!-- Meta Description - Write a description (150-160 characters recommended) -->
-  <meta name="description" content="About me - Nguyễn Minh Dân, a software engineer and product builder. I am passionate about creating innovative solutions and building products that make a difference. Share all my journey with you!">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+        rel="stylesheet">
 
-  <!-- Keywords -->
-  <meta name="keywords" content="Minh Dân, Nguyễn Minh Dân, software engineer, product builder, entrepreneur soon">
+    <script defer src="https://cloud.umami.is/script.js"
+        data-website-id="3cc8f4e1-d2ce-4d0d-921f-0a32de3b18e8"></script>
 
-  <!-- Canonical URL - Helps prevent duplicate content issues -->
-  <meta rel="canonical" href="https://nmdan.com">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  <!-- Author Information -->
-  <meta name="author" content="Nguyễn Minh Dân">
+        :root {
+            --sand: #F5F0E8;
+            --sand-mid: #EDE6D8;
+            --ink: #1C1A16;
+            --ink-mid: #3D3A33;
+            --ink-soft: #6B6760;
+            --accent: #C0553A;
+            --accent-light: #E8D4CE;
+            --accent-glow: rgba(192, 85, 58, 0.12);
+            --white: #FFFFFF;
+            --border: rgba(28, 26, 22, 0.1);
+            --radius: 16px;
+            --font-body: 'DM Sans', sans-serif;
+            --font-display: 'Lora', serif;
+        }
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/brands.css">
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --sand: #1A1814;
+                --sand-mid: #242118;
+                --ink: #F0EBE0;
+                --ink-mid: #C8C2B4;
+                --ink-soft: #8C8880;
+                --accent: #E07055;
+                --accent-light: rgba(224, 112, 85, 0.15);
+                --accent-glow: rgba(224, 112, 85, 0.08);
+                --white: #201E1A;
+                --border: rgba(240, 235, 224, 0.08);
+            }
+        }
 
-  <!-- LittleLink Extended Stylesheet (Optional) -->
-  <!-- <link rel="stylesheet" href="css/brands-extended.css"> -->
-  <!-- Learn more at https://github.com/sethcottle/littlelink-extended.
-         Remove comments if you've added LittleLink Extended dependencies -->
+        html {
+            scroll-behavior: smooth;
+        }
 
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="3cc8f4e1-d2ce-4d0d-921f-0a32de3b18e8"></script>
+        body {
+            font-family: var(--font-body);
+            background: var(--sand);
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px 60px;
+            font-size: 15px;
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
 
+        /* ── Hero ── */
+        .hero {
+            width: 100%;
+            max-width: 600px;
+            padding-top: 72px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            width: 104px;
+            height: 104px;
+            margin-bottom: 28px;
+        }
+
+        .avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 1.5px solid var(--accent);
+            opacity: 0.5;
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-ring {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.06);
+                opacity: 0.2;
+            }
+        }
+
+        .avatar {
+            width: 104px;
+            height: 104px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 3px solid var(--white);
+            box-shadow: 0 4px 24px rgba(28, 26, 22, 0.14);
+        }
+
+        .name {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 12.5px;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+
+        .role-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            animation: blink 2.4s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .tagline {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: 1.05rem;
+            color: var(--ink-soft);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+
+        .intro {
+            font-size: 15px;
+            color: var(--ink-mid);
+            max-width: 460px;
+            margin: 0 auto 36px;
+            line-height: 1.7;
+        }
+
+        .intro strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        /* ── Skills chips ── */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 44px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            background: var(--white);
+            font-size: 13px;
+            color: var(--ink-mid);
+            font-weight: 400;
+        }
+
+        .chip-icon {
+            font-size: 14px;
+            line-height: 1;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.35;
+            margin: 0 auto 44px;
+        }
+
+        /* ── Links ── */
+        .links {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 52px;
+        }
+
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 22px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: var(--ink);
+            transition: border-color 0.2s, box-shadow 0.2s, transform 0.18s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent-glow);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .link-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 4px 20px rgba(192, 85, 58, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .link-item:hover::after {
+            opacity: 1;
+        }
+
+        .link-icon-wrap {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--sand-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            z-index: 1;
+        }
+
+        .link-icon-wrap img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .link-text {
+            flex: 1;
+            z-index: 1;
+        }
+
+        .link-label {
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--ink);
+            display: block;
+            line-height: 1.3;
+        }
+
+        .link-desc {
+            font-size: 13px;
+            color: var(--ink-soft);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .link-arrow {
+            color: var(--ink-soft);
+            font-size: 18px;
+            z-index: 1;
+            transition: transform 0.2s, color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .link-item:hover .link-arrow {
+            transform: translateX(3px);
+            color: var(--accent);
+        }
+
+        /* ── CTA Block ── */
+        .cta-block {
+            width: 100%;
+            max-width: 600px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px 32px 28px;
+            text-align: center;
+            margin-bottom: 44px;
+            position: relative;
+        }
+
+        .cta-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .cta-text {
+            font-size: 14px;
+            color: var(--ink-soft);
+            margin-bottom: 20px;
+            line-height: 1.65;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            padding: 11px 24px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: opacity 0.2s, transform 0.18s;
+            letter-spacing: 0.01em;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.88;
+            transform: translateY(-1px);
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            font-size: 12.5px;
+            color: var(--ink-soft);
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: var(--ink-soft);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        /* ── Fade-in animation ── */
+        @keyframes fade-up {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero,
+        .chips,
+        .divider,
+        .links,
+        .cta-block,
+        footer {
+            animation: fade-up 0.6s ease both;
+        }
+
+        .hero {
+            animation-delay: 0s;
+        }
+
+        .chips {
+            animation-delay: 0.1s;
+        }
+
+        .divider {
+            animation-delay: 0.15s;
+        }
+
+        .links {
+            animation-delay: 0.2s;
+        }
+
+        .cta-block {
+            animation-delay: 0.28s;
+        }
+
+        footer {
+            animation-delay: 0.34s;
+        }
+
+        @media (max-width: 480px) {
+            .name {
+                font-size: 1.8rem;
+            }
+
+            .cta-block {
+                padding: 24px 20px 20px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="column">
-      <img class="avatar avatar--rounded" src="images/avatar.png" srcset="images/avatar.png" alt="Minh Dan">
-      <h1>
-        <div>Minh Dân (Santiago) </div>
-      </h1>
-      <p>When planning, think big;When making progress, start small</p>
-      <div class="button-stack" role="navigation">
-        <!-- LinkedIn -->
-        <a class="button button-linked" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener"
-          role="button">
-          <img class="icon" aria-hidden="true" src="images/icons/linkedin.svg" alt="LinkedIn Logo">LinkedIn
-        </a>
-        <!-- X -->
-        <a class="button button-x" href="https://x.com/MinhDan1998" target="_blank" rel="noopener" role="button">
-          <img class="icon" aria-hidden="true" src="images/icons/x.svg" alt="X Logo">X (Twitter)
-        </a>
-        <!-- Resume -->
-         <a class="button button-slack" href="#" target="_blank" rel="noopener" role="button">
-          <img class="icon" aria-hidden="true" src="images/icons/resume.svg" alt="My Resume">Resume
-        </a>
-        <!-- Tatcamienphi share -->
-         <a class="button button-slack" href="https://tatcaminephi.com" target="_blank" rel="noopener" role="button">
-          <img class="icon" aria-hidden="true" src="images/icons/generic-website.svg" alt="My Share">Tatcamienphi
-        </a>
-        <!-- Adidaphat -->
-        <a class="button button-slack" href="https://www.adidaphat.live/" target="_blank" rel="noopener"
-          role="button">
-          <img class="icon" aria-hidden="true" src="images/icons/adidaphat.png" alt="Adidaphat Logo">Adidaphat
-        </a>
-        <!-- CAD Tool -->
-        <a class="button button-slack" href="cad/beauty_json.html" target="_blank" rel="noopener"
-          role="button">
-          <img class="icon" aria-hidden="true" src="images/icons/dev-to.svg" alt="CAD Tool Logo">JSON Tools
-        </a>
-      </div>
-      <footer>
-        <a href="privacy.html">Privacy Policy</a> | Built with <a href="https://littlelink.io" target="_blank"
-          rel="noopener">LittleLink</a>
-      </footer>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div class="avatar-wrap">
+            <img class="avatar" src="images/avatar.png" alt="Minh Dân">
+        </div>
+
+        <h1 class="name">Minh Dân</h1>
+
+        <span class="role-badge">Lead · VinFast Virtual Assistant</span>
+
+        <p class="tagline">"When planning, think big — when making progress, start small."</p>
+
+        <p class="intro">
+            I build products and businesses at the intersection of software, language, and people. Based in Vietnam,
+            working globally. Open to meaningful collaborations.
+        </p>
     </div>
-  </div>
+
+    <!-- Skill chips -->
+    <div class="chips">
+        <span class="chip"><span class="chip-icon">⚙️</span> Software Engineering</span>
+        <span class="chip"><span class="chip-icon">🤖</span> AI &amp; Virtual Assistant</span>
+        <span class="chip"><span class="chip-icon">🚗</span> Automotive Tech</span>
+        <span class="chip"><span class="chip-icon">🇬🇧</span> English</span>
+        <span class="chip"><span class="chip-icon">🇯🇵</span> Japanese</span>
+        <span class="chip"><span class="chip-icon">🇻🇳</span> Vietnamese</span>
+
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Link list -->
+    <div class="links" role="navigation" aria-label="External links">
+
+        <a class="link-item" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener">
+            <div class="link-icon-wrap">
+                <img src="images/icons/linkedin.png" alt="">
+            </div>
+            <div class="link-text">
+                <span class="link-label">LinkedIn</span>
+                <span class="link-desc">Professional background &amp; experience</span>
+            </div>
+            <span class="link-arrow">→</span>
+        </a>
+
+        <a class="link-item" href="https://x.com/MinhDan1998" target="_blank" rel="noopener">
+            <div class="link-icon-wrap">
+                <img src="images/icons/x.png" alt="">
+            </div>
+            <div class="link-text">
+                <span class="link-label">X (Twitter)</span>
+                <span class="link-desc">Thoughts, updates &amp; observations</span>
+            </div>
+            <span class="link-arrow">→</span>
+        </a>
+
+        <!-- <a class="link-item" href="#" target="_blank" rel="noopener">
+            <div class="link-icon-wrap">
+                <img src="images/icons/resume.svg" alt="">
+            </div>
+            <div class="link-text">
+                <span class="link-label">Resume</span>
+                <span class="link-desc">Full experience &amp; skills overview</span>
+            </div>
+            <span class="link-arrow">→</span>
+        </a> -->
+
+        <!-- <a class="link-item" href="https://tatcaminephi.com" target="_blank" rel="noopener">
+            <div class="link-icon-wrap">
+                <img src="images/icons/generic-website.svg" alt="">
+            </div>
+            <div class="link-text">
+                <span class="link-label">Tatcamienphi</span>
+                <span class="link-desc">Sharing freely — tools &amp; resources</span>
+            </div>
+            <span class="link-arrow">→</span>
+        </a> -->
+
+        <a class="link-item" href="https://www.adidaphat.live/" target="_blank" rel="noopener">
+            <div class="link-icon-wrap">
+                <img src="images/icons/adidaphat.png" alt="">
+            </div>
+            <div class="link-text">
+                <span class="link-label">Adidaphat</span>
+                <span class="link-desc">Buddhist resources platform</span>
+            </div>
+            <span class="link-arrow">→</span>
+        </a>
+
+        <a class="link-item" href="cad/beauty_json.html" target="_blank" rel="noopener">
+            <div class="link-icon-wrap">
+                <img src="images/icons/dev-to.svg" alt="">
+            </div>
+            <div class="link-text">
+                <span class="link-label">JSON Tools</span>
+                <span class="link-desc">Handy developer utilities</span>
+            </div>
+            <span class="link-arrow">→</span>
+        </a>
+
+    </div>
+
+    <!-- CTA block -->
+    <div class="cta-block">
+        <p class="cta-title">Let's build something together</p>
+        <p class="cta-text">
+            Whether it's a product idea, a technical challenge, or a business opportunity —
+            I'd love to hear from you.
+        </p>
+        <a class="cta-btn" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener">
+            Connect on LinkedIn →
+        </a>
+    </div>
+
+    <footer>
+        <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+        Built with <a href="https://littlelink.io" target="_blank" rel="noopener">LittleLink</a>
+        &nbsp;·&nbsp; © 2025 Nguyễn Minh Dân
+    </footer>
 
 </body>
 
