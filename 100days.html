@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>100 Day Tracker</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+}
+
+.day {
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  background: #eee;
+}
+
+.day.done { background: #4caf50; color: white; }
+.day.missed { background: #ff5252; color: white; }
+.day.today { border: 2px solid black; }
+
+textarea, input {
+  width: 100%;
+  margin-top: 6px;
+  padding: 6px;
+}
+
+textarea {
+  min-height: 120px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#scoreLabel {
+  font-weight: bold;
+  margin-top: 4px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>100 Day Tracker</h2>
+
+<!-- SETUP -->
+<div class="card" id="setup" style="display:none;">
+  <h3>Set your 100-day goals (max 5)</h3>
+  <div id="goalInputs"></div>
+  <button onclick="saveGoals()">Start</button>
+</div>
+
+<!-- GOALS -->
+<div class="card">
+  <h3>Your Goals</h3>
+  <div id="goalsList"></div>
+</div>
+
+<!-- STATS -->
+<div class="card">
+  <h3>Stats</h3>
+  <div id="stats"></div>
+</div>
+
+<!-- CALENDAR -->
+<div class="card">
+  <h3>Calendar</h3>
+  <div class="calendar" id="calendar"></div>
+</div>
+
+<!-- DETAIL -->
+<div class="card">
+  <h3>Day Detail</h3>
+  <div id="dayLabel"></div>
+
+  <label>Score (1–10)</label>
+  <input id="score" type="range" min="1" max="10" oninput="updateScoreLabel()">
+  <div id="scoreLabel">5</div>
+
+  <label>Note</label>
+  <textarea id="note" placeholder="What did you do? What did you miss?"></textarea>
+
+  <button id="saveBtn" onclick="save()">Save</button>
+</div>
+
+<!-- SUMMARY -->
+<div class="card">
+  <h3>Day Summary</h3>
+  <div id="summary"></div>
+</div>
+
+<script>
+const TOTAL = 100;
+const MAX_GOALS = 5;
+
+// START DATE
+let START = localStorage.getItem("start_date");
+if (!START) {
+  START = new Date().toISOString();
+  localStorage.setItem("start_date", START);
+}
+START = new Date(START);
+
+let data = JSON.parse(localStorage.getItem("tracker") || "{}");
+let selected = 1;
+
+// ---------- SETUP ----------
+function renderGoalInputs() {
+  const el = document.getElementById("goalInputs");
+  el.innerHTML = "";
+
+  for (let i = 0; i < MAX_GOALS; i++) {
+    const input = document.createElement("input");
+    input.placeholder = "Goal " + (i + 1);
+    input.id = "goal_input_" + i;
+    el.appendChild(input);
+  }
+}
+
+function saveGoals() {
+  let goals = [];
+
+  for (let i = 0; i < MAX_GOALS; i++) {
+    const val = document.getElementById("goal_input_" + i).value.trim();
+    if (val) goals.push(val);
+  }
+
+  if (goals.length === 0) {
+    alert("Add at least 1 goal");
+    return;
+  }
+
+  localStorage.setItem("goals", JSON.stringify(goals));
+  location.reload();
+}
+
+// ---------- GOALS ----------
+function renderGoals() {
+  const goals = JSON.parse(localStorage.getItem("goals") || "[]");
+  const el = document.getElementById("goalsList");
+  el.innerHTML = "";
+
+  goals.forEach((g, i) => {
+    const label = document.createElement("label");
+    label.innerHTML = `<input type="checkbox" id="goal_${i}"> ${g}`;
+    el.appendChild(label);
+    el.appendChild(document.createElement("br"));
+  });
+}
+
+// ---------- DATE ----------
+function formatDate(d) {
+  return d.toISOString().split("T")[0];
+}
+
+function getDateFromDay(day) {
+  const d = new Date(START);
+  d.setDate(d.getDate() + day - 1);
+  return d;
+}
+
+function isToday(day) {
+  return formatDate(new Date()) === formatDate(getDateFromDay(day));
+}
+
+function isPast(day) {
+  return getDateFromDay(day) < new Date() && !isToday(day);
+}
+
+// ---------- CALENDAR ----------
+function renderCalendar() {
+  const el = document.getElementById("calendar");
+  el.innerHTML = "";
+
+  for (let i = 1; i <= TOTAL; i++) {
+    const div = document.createElement("div");
+    const d = getDateFromDay(i);
+
+    div.className = "day";
+    div.innerHTML = i + "<br>" + (d.getMonth()+1) + "/" + d.getDate();
+
+    const dayData = data[i];
+
+    if (dayData && dayData.score > 5) div.classList.add("done");
+    if (!dayData && isPast(i)) div.classList.add("missed");
+    if (isToday(i)) div.classList.add("today");
+
+    div.onclick = () => {
+      selected = i;
+      load();
+    };
+
+    el.appendChild(div);
+  }
+}
+
+// ---------- LOAD ----------
+function load() {
+  const d = getDateFromDay(selected);
+  document.getElementById("dayLabel").innerText =
+    "Day " + selected + " (" + d.toDateString() + ")";
+
+  const dayData = data[selected] || {};
+
+  document.getElementById("score").value = dayData.score || 5;
+  updateScoreLabel();
+
+  document.getElementById("note").value = dayData.note || "";
+
+  const goals = JSON.parse(localStorage.getItem("goals") || "[]");
+
+  goals.forEach((_, i) => {
+    document.getElementById("goal_" + i).checked =
+      dayData.goals ? dayData.goals[i] || false : false;
+  });
+
+  const editable = isToday(selected);
+
+  document.getElementById("score").disabled = !editable;
+  document.getElementById("note").disabled = !editable;
+
+  goals.forEach((_, i) => {
+    document.getElementById("goal_" + i).disabled = !editable;
+  });
+
+  renderSummary();
+}
+
+// ---------- SAVE ----------
+function save() {
+  if (!isToday(selected)) {
+    alert("Only today editable");
+    return;
+  }
+
+  const goals = JSON.parse(localStorage.getItem("goals") || "[]");
+
+  let goalState = {};
+  goals.forEach((_, i) => {
+    goalState[i] = document.getElementById("goal_" + i).checked;
+  });
+
+  const score = parseInt(document.getElementById("score").value);
+
+  data[selected] = {
+    score,
+    note: document.getElementById("note").value,
+    goals: goalState
+  };
+
+  localStorage.setItem("tracker", JSON.stringify(data));
+
+  const btn = document.getElementById("saveBtn");
+  btn.style.background = score > 5 ? "#4caf50" : "#ff5252";
+
+  renderCalendar();
+  renderStats();
+  renderSummary();
+}
+
+// ---------- SCORE UI ----------
+function updateScoreLabel() {
+  document.getElementById("scoreLabel").innerText =
+    document.getElementById("score").value;
+}
+
+// ---------- SUMMARY ----------
+function renderSummary() {
+  const el = document.getElementById("summary");
+  const dayData = data[selected];
+
+  if (!dayData) {
+    el.innerHTML = "No data";
+    return;
+  }
+
+  const goals = JSON.parse(localStorage.getItem("goals") || "[]");
+
+  let html = `<b>Score:</b> ${dayData.score}<br><br>`;
+  html += "<br><b>Note:</b><br>" + (dayData.note || "-");
+
+  el.innerHTML = html;
+}
+
+// ---------- STATS ----------
+function renderStats() {
+  let done = 0;
+
+  for (let i = 1; i <= TOTAL; i++) {
+    if (data[i] && data[i].score > 5) done++;
+  }
+
+  document.getElementById("stats").innerText =
+    done + " days > 5 score (" + Math.round(done / TOTAL * 100) + "%)";
+}
+
+// ---------- INIT ----------
+const goals = JSON.parse(localStorage.getItem("goals") || "[]");
+
+if (goals.length === 0) {
+  document.getElementById("setup").style.display = "block";
+  renderGoalInputs();
+} else {
+  renderGoals();
+}
+
+// auto-select today
+for (let i = 1; i <= TOTAL; i++) {
+  if (isToday(i)) {
+    selected = i;
+    break;
+  }
+}
+
+renderCalendar();
+renderStats();
+load();
+
+</script>
+
+</body>
+</html>
