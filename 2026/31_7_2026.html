@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MongoDB Cert — Study Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #181c27;
+    --surface2: #1e2235;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --dim: #9ca3af;
+
+    --green: #00ed64;
+    --green-dim: rgba(0,237,100,0.12);
+    --green-border: rgba(0,237,100,0.25);
+
+    --blue: #4f9cf9;
+    --blue-dim: rgba(79,156,249,0.1);
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,0.1);
+    --purple: #a78bfa;
+    --purple-dim: rgba(167,139,250,0.1);
+    --red: #f87171;
+    --red-dim: rgba(248,113,113,0.1);
+    --teal: #2dd4bf;
+    --teal-dim: rgba(45,212,191,0.1);
+
+    --radius: 10px;
+    --font: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── top bar ── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15,17,23,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mongo-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--green);
+    flex-shrink: 0;
+  }
+  .topbar-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    font-family: var(--mono);
+  }
+  .topbar-title span {
+    color: var(--green);
+  }
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .stat-inline {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+  }
+  .stat-inline .val {
+    font-family: var(--mono);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--green);
+  }
+  .stat-inline .lbl {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .days-badge {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    color: var(--green);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+
+  /* ── hero ── */
+  .hero {
+    padding: 56px 24px 40px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--green);
+  }
+  .hero-sub {
+    font-size: 14px;
+    color: var(--dim);
+    margin-bottom: 28px;
+  }
+
+  /* ── overall progress ── */
+  .progress-section {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+  }
+  .overall-bar-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+  .overall-bar-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .overall-bar-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+  .overall-pct {
+    font-size: 28px;
+    font-weight: 600;
+    font-family: var(--mono);
+    color: var(--green);
+  }
+  .bar-track {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 6px;
+    border-radius: 99px;
+    background: var(--green);
+    transition: width 0.5s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+  }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .stat-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  .stat-card .num {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .stat-card .lbl {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── legend ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 24px 28px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.03em;
+  }
+  .t-crud   { background: var(--blue-dim);   color: var(--blue);   border: 1px solid rgba(79,156,249,0.2); }
+  .t-agg    { background: var(--teal-dim);   color: var(--teal);   border: 1px solid rgba(45,212,191,0.2); }
+  .t-index  { background: var(--purple-dim); color: var(--purple); border: 1px solid rgba(167,139,250,0.2); }
+  .t-driver { background: var(--amber-dim);  color: var(--amber);  border: 1px solid rgba(245,158,11,0.2); }
+  .t-model  { background: rgba(236,72,153,.09); color: #f472b6;    border: 1px solid rgba(236,72,153,.2); }
+  .t-practice { background: var(--red-dim);  color: var(--red);    border: 1px solid rgba(248,113,113,0.2); }
+
+  /* ── weeks ── */
+  .weeks {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .week {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .week:hover { border-color: var(--border2); }
+
+  .week-hdr {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .week-hdr:hover { background: rgba(255,255,255,0.02); }
+  .week-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .week-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    flex: 1;
+  }
+  .week-dates {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+  .week-prog-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mini-bar {
+    width: 60px;
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .mini-bar-fill {
+    height: 4px;
+    border-radius: 99px;
+    background: var(--green);
+    width: 0%;
+    transition: width 0.4s;
+  }
+  .mini-pct {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 28px;
+    text-align: right;
+  }
+  .chevron {
+    color: var(--muted);
+    font-size: 14px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .chevron.open { transform: rotate(180deg); }
+
+  .week-body {
+    border-top: 1px solid var(--border);
+    padding: 14px 18px 18px;
+  }
+  .week-body.collapsed { display: none; }
+
+  .day-group {
+    margin-bottom: 4px;
+  }
+  .task-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 4px 0;
+  }
+  .day-lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    min-width: 22px;
+    padding-top: 5px;
+    flex-shrink: 0;
+  }
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    flex: 1;
+    cursor: pointer;
+    transition: background 0.12s, border-color 0.12s;
+  }
+  .task-item:hover { background: rgba(255,255,255,0.04); border-color: var(--border2); }
+  .task-item.done { opacity: 0.45; }
+  .task-item.done .task-txt { text-decoration: line-through; color: var(--muted); }
+
+  .check-box {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 1.5px solid var(--border2);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    background: transparent;
+  }
+  .check-box.checked {
+    background: var(--green);
+    border-color: var(--green);
+  }
+  .check-box.checked::after {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 9px;
+    border: 2px solid #000;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+  .task-txt {
+    font-size: 13px;
+    color: var(--text);
+    flex: 1;
+    line-height: 1.4;
+  }
+  .task-tag {
+    flex-shrink: 0;
+  }
+
+  .tip-box {
+    display: flex;
+    gap: 8px;
+    background: var(--green-dim);
+    border: 1px solid var(--green-border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-top: 14px;
+    font-size: 12px;
+    color: #86efac;
+    line-height: 1.5;
+  }
+  .tip-icon {
+    flex-shrink: 0;
+    font-size: 14px;
+    margin-top: 1px;
+  }
+
+  .week-bar-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
+    gap: 12px;
+  }
+  .week-bar-track {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .week-bar-fill {
+    height: 3px;
+    background: var(--green);
+    border-radius: 99px;
+    width: 0%;
+    transition: width 0.4s;
+  }
+  .week-bar-lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  /* ── exam countdown card ── */
+  .exam-card {
+    max-width: 760px;
+    margin: 0 auto 0;
+    padding: 0 24px;
+  }
+  .exam-inner {
+    background: linear-gradient(135deg, rgba(0,237,100,0.08) 0%, rgba(0,237,100,0.02) 100%);
+    border: 1px solid var(--green-border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .exam-label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .exam-date {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--green);
+  }
+  .exam-countdown {
+    text-align: right;
+  }
+  .countdown-num {
+    font-family: var(--mono);
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text);
+  }
+  .countdown-lbl {
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  @media (max-width: 600px) {
+    .topbar-right .stat-inline:nth-child(2) { display: none; }
+    .stats-row { grid-template-columns: repeat(3, 1fr); }
+    .exam-inner { flex-direction: column; align-items: flex-start; }
+    .exam-countdown { text-align: left; }
+    .week-prog-mini { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar-fill, .mini-bar-fill, .week-bar-fill { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- top bar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="mongo-dot"></div>
+    <span class="topbar-title">MongoDB <span>Associate Developer</span> — Python track</span>
+  </div>
+  <div class="topbar-right">
+    <div class="stat-inline">
+      <span class="val" id="tb-done">0</span>
+      <span class="lbl">/ <span id="tb-total">0</span> tasks</span>
+    </div>
+    <div class="stat-inline">
+      <span class="val" id="tb-pct">0%</span>
+      <span class="lbl">done</span>
+    </div>
+    <div class="days-badge" id="tb-days">— ngày</div>
+  </div>
+</div>
+
+<!-- hero -->
+<div class="hero">
+  <p class="hero-eyebrow">study plan · 2026</p>
+  <h1>Chuẩn bị thi<br><em>MongoDB Associate Developer</em></h1>
+  <p class="hero-sub">1 tiếng/ngày &nbsp;·&nbsp; Python track &nbsp;·&nbsp; Thi ngày 31/7/2026 &nbsp;·&nbsp; Tick từng task khi hoàn thành</p>
+</div>
+
+<!-- exam countdown -->
+<div class="exam-card">
+  <div class="exam-inner">
+    <div>
+      <p class="exam-label">Ngày thi</p>
+      <p class="exam-date">31 / 07 / 2026</p>
+    </div>
+    <div class="exam-countdown">
+      <p class="countdown-num" id="cd-days">—</p>
+      <p class="countdown-lbl">ngày còn lại</p>
+    </div>
+  </div>
+</div>
+
+<!-- overall progress -->
+<div class="progress-section">
+  <div class="overall-bar-wrap">
+    <div class="overall-bar-top">
+      <span class="overall-bar-label">Tiến độ tổng thể</span>
+      <span class="overall-pct" id="overall-pct">0%</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="overall-bar"></div></div>
+    <div class="stats-row">
+      <div class="stat-card"><div class="num" id="st-done">0</div><div class="lbl">đã hoàn thành</div></div>
+      <div class="stat-card"><div class="num" id="st-total">0</div><div class="lbl">tổng tasks</div></div>
+      <div class="stat-card"><div class="num" id="st-remain">0</div><div class="lbl">còn lại</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- legend -->
+<div class="legend">
+  <span class="tag t-crud">CRUD · 51%</span>
+  <span class="tag t-agg">Aggregation</span>
+  <span class="tag t-index">Indexes · 17%</span>
+  <span class="tag t-driver">Python Driver · 18%</span>
+  <span class="tag t-model">Data Modeling</span>
+  <span class="tag t-practice">Practice Exam</span>
+</div>
+
+<!-- weeks -->
+<div class="weeks" id="weeks-container"></div>
+
+<script>
+const STORAGE_KEY = 'mongo_cert_v2';
+
+const WEEKS = [
+  {
+    id:'w0', num:'Hiện tại', name:'Close Developer Path', dates:'29/6 – 5/7',
+    color:'rgba(0,237,100,0.15)', textColor:'#00ed64',
+    tip:'Priority #1: hoàn thành Developer Path → lấy discount code 50% ($87 saved). Code này có hạn, đừng để expire.',
+    days:[
+      {d:'T2', tasks:[
+        {text:'Hoàn thành MongoDB Developer Path (phần còn lại)', tag:'t-crud'},
+        {text:'Lấy 50% discount code từ MongoDB University', tag:'t-practice'},
+      ]},
+      {d:'T3', tasks:[{text:'Review: CRUD operators — $set, $unset, $push, $pull, $addToSet, $inc', tag:'t-crud'}]},
+      {d:'T4', tasks:[{text:'Review: Query operators — $gt, $lt, $in, $nin, $or, $and, $elemMatch', tag:'t-crud'}]},
+      {d:'T5', tasks:[{text:'Review: Cursor methods — sort(), limit(), skip(), projection', tag:'t-crud'}]},
+      {d:'T6', tasks:[{text:'Practice: upsert vs replace vs update — phân biệt chính xác', tag:'t-crud'}]},
+      {d:'T7', tasks:[{text:'Hands-on: CRUD trên Atlas M0 với sample_mflix dataset', tag:'t-crud'}]},
+    ]
+  },
+  {
+    id:'w1', num:'Tuần 1', name:'Aggregation Pipeline', dates:'6/7 – 12/7',
+    color:'rgba(45,212,191,0.12)', textColor:'#2dd4bf',
+    tip:'Aggregation nằm trong CRUD section (51%). $lookup và $unwind là điểm khó nhất — tập trung vào 2 cái này.',
+    days:[
+      {d:'T2', tasks:[{text:'$match, $project, $sort, $limit, $skip — basic pipeline stages', tag:'t-agg'}]},
+      {d:'T3', tasks:[{text:'$group — $sum, $avg, $count, $first, $last và _id grouping patterns', tag:'t-agg'}]},
+      {d:'T4', tasks:[{text:'$lookup — left outer join, localField / foreignField / as', tag:'t-agg'}]},
+      {d:'T5', tasks:[{text:'$unwind — flatten arrays, includeArrayIndex, preserveNullAndEmptyArrays', tag:'t-agg'}]},
+      {d:'T6', tasks:[{text:'$addFields, $set, $replaceRoot, $merge — advanced stages', tag:'t-agg'}]},
+      {d:'T7', tasks:[{text:'Practice: viết 5 aggregation pipelines phức tạp trên sample_mflix', tag:'t-agg'}]},
+    ]
+  },
+  {
+    id:'w2', num:'Tuần 2', name:'Indexes + explain()', dates:'13/7 – 19/7',
+    color:'rgba(167,139,250,0.12)', textColor:'#a78bfa',
+    tip:'explain() hay xuất hiện trong exam. Phân biệt COLLSCAN vs IXSCAN, totalDocsExamined. Nhớ ESR rule khi tạo compound index.',
+    days:[
+      {d:'T2', tasks:[{text:'Single field index, compound index — field order và sort direction', tag:'t-index'}]},
+      {d:'T3', tasks:[{text:'Multikey index (arrays), wildcard index — cách MongoDB tạo entries', tag:'t-index'}]},
+      {d:'T4', tasks:[{text:'Text index và geospatial index — khi nào dùng, limitations', tag:'t-index'}]},
+      {d:'T5', tasks:[{text:"explain('executionStats') — đọc COLLSCAN vs IXSCAN, totalDocsExamined", tag:'t-index'}]},
+      {d:'T6', tasks:[{text:'Covered query, index selectivity, ESR rule (Equality → Sort → Range)', tag:'t-index'}]},
+      {d:'T7', tasks:[{text:'Data Modeling: embedding vs referencing, 1:1 / 1:N / N:M patterns', tag:'t-model'}]},
+    ]
+  },
+  {
+    id:'w3', num:'Tuần 3', name:'Python Driver + Official Practice', dates:'20/7 – 26/7',
+    color:'rgba(245,158,11,0.1)', textColor:'#f59e0b',
+    tip:'Section 6 (Python Driver) = 18% điểm. Biết cả PyMongo lẫn Motor. Cuối tuần này làm official practice questions lần đầu.',
+    days:[
+      {d:'T2', tasks:[{text:'PyMongo: MongoClient, connection string, SSL/TLS, maxPoolSize options', tag:'t-driver'}]},
+      {d:'T3', tasks:[{text:'PyMongo CRUD syntax — find() returns Cursor, iteration patterns', tag:'t-driver'}]},
+      {d:'T4', tasks:[{text:'Aggregation pipeline trong Python — list of dicts, syntax differences', tag:'t-driver'}]},
+      {d:'T5', tasks:[{text:'Transactions với session — start_session(), start_transaction(), retry pattern', tag:'t-driver'}]},
+      {d:'T6', tasks:[{text:'Error handling: DuplicateKeyError, WriteError, OperationFailure labels', tag:'t-driver'}]},
+      {d:'T7', tasks:[{text:'Official Practice Questions trên learn.mongodb.com — round 1', tag:'t-practice'}]},
+    ]
+  },
+  {
+    id:'w4', num:'Tuần 4', name:'Mock Exams + Final Review', dates:'27/7 – 31/7',
+    color:'rgba(248,113,113,0.1)', textColor:'#f87171',
+    tip:'Target 80%+ trên mock exam trước khi thi thật. Nếu chưa đạt ngày T4, delay thêm 3-4 ngày — không thi khi chưa sẵn sàng.',
+    days:[
+      {d:'T2', tasks:[{text:'Mock exam #1 (Udemy) — đánh dấu câu sai, không xem đáp án ngay', tag:'t-practice'}]},
+      {d:'T3', tasks:[{text:'Review tất cả câu sai từ mock #1 — focus CRUD và Python Driver', tag:'t-practice'}]},
+      {d:'T4', tasks:[{text:'Mock exam #2 — target 80%+. Nếu đạt → book exam ngay hôm nay', tag:'t-practice'}]},
+      {d:'T5', tasks:[{text:'Official Practice Questions round 2 — chỉ làm phần còn yếu', tag:'t-practice'}]},
+      {d:'T6', tasks:[{text:'Ôn nhanh: BSON types, $jsonSchema validation, Atlas Compass tools', tag:'t-model'}]},
+      {d:'T7', tasks:[{text:'🎯 THI THẬT — 31/7/2026', tag:'t-practice'}]},
+    ]
+  },
+];
+
+let checked = {};
+try { checked = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){}
+
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(checked)); } catch(e){}
+}
+
+function taskKey(wid, d, txt) {
+  return wid + '_' + d + '_' + txt.slice(0, 24);
+}
+
+function countAll() {
+  let total = 0, done = 0;
+  WEEKS.forEach(w => w.days.forEach(d => d.tasks.forEach(t => {
+    total++;
+    if (checked[taskKey(w.id, d.d, t.text)]) done++;
+  })));
+  return { total, done };
+}
+
+function countWeek(wid) {
+  const w = WEEKS.find(x => x.id === wid);
+  let total = 0, done = 0;
+  w.days.forEach(d => d.tasks.forEach(t => {
+    total++;
+    if (checked[taskKey(w.id, d.d, t.text)]) done++;
+  }));
+  return { total, done };
+}
+
+function updateStats() {
+  const { total, done } = countAll();
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('overall-pct').textContent = pct + '%';
+  document.getElementById('overall-bar').style.width = pct + '%';
+  document.getElementById('st-done').textContent = done;
+  document.getElementById('st-total').textContent = total;
+  document.getElementById('st-remain').textContent = total - done;
+  document.getElementById('tb-done').textContent = done;
+  document.getElementById('tb-total').textContent = total;
+  document.getElementById('tb-pct').textContent = pct + '%';
+}
+
+function updateWeekBar(wid) {
+  const { total, done } = countWeek(wid);
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  const fill = document.getElementById('wbar_' + wid);
+  const mpct = document.getElementById('mpct_' + wid);
+  const fill2 = document.getElementById('wfill_' + wid);
+  const lbl = document.getElementById('wlbl_' + wid);
+  if (fill) fill.style.width = pct + '%';
+  if (fill2) fill2.style.width = pct + '%';
+  if (mpct) mpct.textContent = pct + '%';
+  if (lbl) lbl.textContent = done + '/' + total;
+}
+
+function updateCountdown() {
+  const target = new Date('2026-07-31T00:00:00');
+  const now = new Date();
+  const diff = Math.max(0, Math.ceil((target - now) / (1000 * 60 * 60 * 24)));
+  document.getElementById('cd-days').textContent = diff;
+  document.getElementById('tb-days').textContent = diff + ' ngày';
+}
+
+function buildUI() {
+  const container = document.getElementById('weeks-container');
+  WEEKS.forEach((w, wi) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'week';
+
+    // header
+    const hdr = document.createElement('div');
+    hdr.className = 'week-hdr';
+    hdr.innerHTML = `
+      <span class="week-num" style="background:${w.color};color:${w.textColor}">${w.num}</span>
+      <span class="week-name">${w.name}</span>
+      <span class="week-dates">${w.dates}</span>
+      <div class="week-prog-mini">
+        <div class="mini-bar"><div class="mini-bar-fill" id="wbar_${w.id}"></div></div>
+        <span class="mini-pct" id="mpct_${w.id}">0%</span>
+      </div>
+      <svg class="chevron${wi === 0 ? ' open' : ''}" id="chev_${w.id}" width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    `;
+
+    // body
+    const body = document.createElement('div');
+    body.className = 'week-body' + (wi > 0 ? ' collapsed' : '');
+    body.id = 'wbody_' + w.id;
+
+    let html = '';
+    w.days.forEach(d => {
+      d.tasks.forEach((t, ti) => {
+        const key = taskKey(w.id, d.d, t.text);
+        const done = !!checked[key];
+        html += `
+          <div class="task-row">
+            <span class="day-lbl">${ti === 0 ? d.d : ''}</span>
+            <div class="task-item${done ? ' done' : ''}" data-key="${key}" data-wid="${w.id}">
+              <div class="check-box${done ? ' checked' : ''}"></div>
+              <span class="task-txt">${t.text}</span>
+              <span class="tag ${t.tag} task-tag">${t.tag.replace('t-','').replace('crud','CRUD').replace('agg','Agg').replace('index','Index').replace('driver','Driver').replace('practice','Practice').replace('model','Modeling')}</span>
+            </div>
+          </div>`;
+      });
+    });
+
+    html += `
+      <div class="tip-box">
+        <span class="tip-icon">→</span>
+        <span>${w.tip}</span>
+      </div>
+      <div class="week-bar-row">
+        <span class="week-bar-lbl" id="wlbl_${w.id}">0/0</span>
+        <div class="week-bar-track"><div class="week-bar-fill" id="wfill_${w.id}"></div></div>
+        <span class="week-bar-lbl" style="color:${w.textColor}">${w.dates.split('–')[1].trim()}</span>
+      </div>`;
+
+    body.innerHTML = html;
+
+    body.addEventListener('click', e => {
+      const item = e.target.closest('.task-item');
+      if (!item) return;
+      const key = item.dataset.key;
+      const wid = item.dataset.wid;
+      checked[key] = !checked[key];
+      save();
+      const done = checked[key];
+      item.classList.toggle('done', done);
+      item.querySelector('.check-box').classList.toggle('checked', done);
+      updateWeekBar(wid);
+      updateStats();
+    });
+
+    hdr.addEventListener('click', () => {
+      const b = document.getElementById('wbody_' + w.id);
+      const chev = document.getElementById('chev_' + w.id);
+      const isOpen = !b.classList.contains('collapsed');
+      b.classList.toggle('collapsed', isOpen);
+      chev.classList.toggle('open', !isOpen);
+    });
+
+    wrap.appendChild(hdr);
+    wrap.appendChild(body);
+    container.appendChild(wrap);
+  });
+
+  WEEKS.forEach(w => updateWeekBar(w.id));
+  updateStats();
+  updateCountdown();
+}
+
+buildUI();
+setInterval(updateCountdown, 60000);
+</script>
+</body>
+</html>

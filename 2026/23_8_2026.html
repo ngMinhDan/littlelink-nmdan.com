@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Half Marathon — 23/8/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --surface: #13161e;
+  --surface2: #191d28;
+  --surface3: #1f2435;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #e4e8f0;
+  --muted: #64748b;
+  --dim: #94a3b8;
+
+  --orange: #ff6b35;
+  --orange-dim: rgba(255,107,53,0.1);
+  --orange-border: rgba(255,107,53,0.22);
+  --orange-glow: rgba(255,107,53,0.06);
+
+  --blue: #60a5fa;
+  --blue-dim: rgba(96,165,250,0.1);
+  --green: #34d399;
+  --green-dim: rgba(52,211,153,0.1);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251,191,36,0.1);
+  --red: #f87171;
+  --red-dim: rgba(248,113,113,0.08);
+  --purple: #c084fc;
+  --purple-dim: rgba(192,132,252,0.1);
+
+  --radius: 10px;
+  --font: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* topbar */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(13,15,20,0.88); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 11px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.topbar-brand { display: flex; align-items: center; gap: 9px; }
+.run-icon { font-size: 18px; }
+.topbar-title { font-family: var(--mono); font-size: 13px; font-weight: 500; }
+.topbar-title span { color: var(--orange); }
+.topbar-stats { display: flex; align-items: center; gap: 18px; }
+.ts { display: flex; align-items: baseline; gap: 4px; }
+.ts .v { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--orange); }
+.ts .l { font-size: 11px; color: var(--muted); }
+.race-badge {
+  font-family: var(--mono); font-size: 11px;
+  background: var(--orange-dim); border: 1px solid var(--orange-border);
+  color: var(--orange); padding: 4px 10px; border-radius: 20px;
+}
+
+/* hero */
+.hero { max-width: 780px; margin: 0 auto; padding: 52px 24px 32px; }
+.eyebrow { font-family: var(--mono); font-size: 11px; color: var(--orange); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 14px; }
+.hero h1 { font-size: clamp(28px,4.5vw,42px); font-weight: 600; letter-spacing: -.025em; line-height: 1.15; margin-bottom: 10px; }
+.hero h1 em { font-style: normal; color: var(--orange); }
+.hero-sub { font-size: 14px; color: var(--dim); }
+
+/* race card */
+.race-wrap { max-width: 780px; margin: 0 auto; padding: 0 24px 20px; }
+.race-card {
+  background: linear-gradient(135deg, rgba(255,107,53,0.09) 0%, rgba(255,107,53,0.02) 100%);
+  border: 1px solid var(--orange-border); border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+}
+.race-info p.lbl { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.race-info p.val { font-family: var(--mono); font-size: 20px; font-weight: 600; color: var(--orange); }
+.race-countdown { text-align: right; }
+.rc-num { font-family: var(--mono); font-size: 36px; font-weight: 600; color: var(--text); line-height: 1; }
+.rc-lbl { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+/* summary stats */
+.summary { max-width: 780px; margin: 0 auto; padding: 0 24px 20px; }
+.sum-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 8px; }
+.sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.sum-card .num { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--text); }
+.sum-card .lbl { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+/* overall progress */
+.prog-wrap { max-width: 780px; margin: 0 auto; padding: 0 24px 24px; }
+.prog-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 22px; }
+.prog-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.prog-top .lbl { font-size: 12px; color: var(--muted); font-family: var(--mono); }
+.prog-top .pct { font-family: var(--mono); font-size: 26px; font-weight: 600; color: var(--orange); }
+.bar-track { height: 6px; background: rgba(255,255,255,0.05); border-radius: 99px; overflow: hidden; }
+.bar-fill { height: 6px; border-radius: 99px; background: var(--orange); transition: width .5s cubic-bezier(.4,0,.2,1); width: 0%; }
+
+/* legend */
+.legend { display: flex; flex-wrap: wrap; gap: 6px; max-width: 780px; margin: 0 auto; padding: 0 24px 20px; }
+.tag { font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 3px 8px; border-radius: 4px; }
+.t-easy     { background: var(--blue-dim);   color: var(--blue);   border: 1px solid rgba(96,165,250,.2); }
+.t-race     { background: var(--yellow-dim); color: var(--yellow); border: 1px solid rgba(251,191,36,.2); }
+.t-long     { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange-border); }
+.t-taper    { background: var(--green-dim);  color: var(--green);  border: 1px solid rgba(52,211,153,.2); }
+.t-raceday  { background: var(--red-dim);    color: var(--red);    border: 1px solid rgba(248,113,113,.2); }
+
+/* phase headers */
+.phase-header { max-width: 780px; margin: 0 auto; padding: 4px 24px 10px; }
+.phase-label { font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border-left: 2px solid var(--orange); padding-left: 10px; }
+
+/* runs list */
+.runs { max-width: 780px; margin: 0 auto; padding: 0 24px 80px; display: flex; flex-direction: column; gap: 7px; }
+
+.run-item {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 13px 16px;
+  cursor: pointer; transition: background .12s, border-color .12s;
+  position: relative; overflow: hidden;
+}
+.run-item::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  border-radius: 3px 0 0 3px;
+}
+.run-item:hover { background: var(--surface2); border-color: var(--border2); }
+.run-item.done { opacity: .45; }
+.run-item.done .run-name { text-decoration: line-through; color: var(--muted); }
+.run-item.done .run-dist { color: var(--muted); }
+.run-item.is-race { border-color: rgba(248,113,113,.25); background: var(--red-dim); }
+.run-item.is-race::before { background: var(--red); }
+
+/* accent lines by type */
+.run-item.type-easy::before    { background: var(--blue); }
+.run-item.type-race-pace::before { background: var(--yellow); }
+.run-item.type-long::before    { background: var(--orange); }
+.run-item.type-taper::before   { background: var(--green); }
+.run-item.type-raceday::before { background: var(--red); }
+
+.run-num { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 22px; flex-shrink: 0; }
+.check-box {
+  width: 20px; height: 20px; border-radius: 6px;
+  border: 1.5px solid var(--border2); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.check-box.checked { background: var(--orange); border-color: var(--orange); }
+.check-box.checked::after {
+  content:''; display:block; width:5px; height:9px;
+  border: 2px solid #000; border-top: none; border-left: none;
+  transform: rotate(45deg) translate(-1px,-1px);
+}
+.run-date { font-family: var(--mono); font-size: 12px; color: var(--dim); min-width: 52px; flex-shrink: 0; }
+.run-day  { font-size: 11px; color: var(--muted); min-width: 28px; flex-shrink: 0; }
+.run-name { font-size: 13px; font-weight: 500; color: var(--text); flex: 1; }
+.run-dist { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--orange); min-width: 44px; text-align: right; flex-shrink: 0; }
+.run-pace { font-family: var(--mono); font-size: 11px; color: var(--muted); min-width: 72px; text-align: right; flex-shrink: 0; }
+.run-tag  { flex-shrink: 0; }
+
+/* km done progress on item */
+.km-logged {
+  display: none; flex-direction: column; gap: 6px;
+  border-top: 1px solid var(--border); margin-top: 10px; padding-top: 10px; width: 100%;
+}
+.km-logged.visible { display: flex; }
+.km-input-row { display: flex; align-items: center; gap: 8px; }
+.km-input-row label { font-size: 11px; color: var(--muted); }
+.km-input {
+  font-family: var(--mono); font-size: 13px; width: 70px;
+  background: var(--surface3); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 5px 8px; color: var(--text); outline: none;
+}
+.km-input:focus { border-color: var(--orange); }
+.km-save-btn {
+  font-size: 12px; font-family: var(--mono);
+  background: var(--orange-dim); border: 1px solid var(--orange-border);
+  color: var(--orange); padding: 5px 12px; border-radius: 6px;
+  cursor: pointer; transition: background .12s;
+}
+.km-save-btn:hover { background: rgba(255,107,53,.18); }
+.km-note { font-size: 11px; color: var(--muted); font-style: italic; }
+
+/* notes field */
+.notes-row { display: flex; gap: 8px; align-items: center; }
+.notes-input {
+  flex: 1; font-size: 12px; font-family: var(--font);
+  background: var(--surface3); border: 1px solid var(--border2);
+  border-radius: 6px; padding: 5px 10px; color: var(--text); outline: none;
+}
+.notes-input:focus { border-color: rgba(255,255,255,.2); }
+
+/* expand toggle */
+.expand-btn {
+  font-size: 11px; color: var(--muted); background: none; border: none;
+  cursor: pointer; padding: 0; font-family: var(--mono); flex-shrink: 0;
+}
+.expand-btn:hover { color: var(--dim); }
+
+/* total km progress bar inside run item */
+.km-bar-row { display: flex; align-items: center; gap: 8px; }
+.km-bar-track { flex: 1; height: 3px; background: rgba(255,255,255,.06); border-radius: 99px; overflow: hidden; }
+.km-bar-fill { height: 3px; border-radius: 99px; background: var(--orange); transition: width .3s; }
+.km-bar-lbl { font-family: var(--mono); font-size: 10px; color: var(--muted); min-width: 48px; text-align: right; }
+
+@media(max-width:600px){
+  .topbar-stats .ts:nth-child(2){ display:none; }
+  .sum-grid{ grid-template-columns: repeat(2,1fr); }
+  .run-day, .run-pace{ display:none; }
+  .race-card{ flex-direction:column; }
+  .race-countdown{ text-align:left; }
+}
+@media(prefers-reduced-motion:reduce){ .bar-fill,.km-bar-fill{ transition:none; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <span class="run-icon">🏃</span>
+    <span class="topbar-title">Half Marathon <span>21km</span> — 23/8/2026</span>
+  </div>
+  <div class="topbar-stats">
+    <div class="ts"><span class="v" id="tb-done">0</span><span class="l">/ <span id="tb-total">0</span> runs</span></div>
+    <div class="ts"><span class="v" id="tb-km">0</span><span class="l">km logged</span></div>
+    <div class="race-badge" id="tb-days">— ngày</div>
+  </div>
+</div>
+
+<div class="hero">
+  <p class="eyebrow">training plan · 2026</p>
+  <h1>Chạy <em>21km</em><br>Half Marathon</h1>
+  <p class="hero-sub">25 buổi tập · 8 tuần · Tick mỗi buổi sau khi chạy xong</p>
+</div>
+
+<div class="race-wrap">
+  <div class="race-card">
+    <div class="race-info">
+      <p class="lbl">Ngày đua</p>
+      <p class="val">23 / 08 / 2026 &nbsp;·&nbsp; 21.1 km</p>
+    </div>
+    <div class="race-countdown">
+      <p class="rc-num" id="rc-days">—</p>
+      <p class="rc-lbl">ngày còn lại</p>
+    </div>
+  </div>
+</div>
+
+<div class="summary">
+  <div class="sum-grid">
+    <div class="sum-card"><div class="num" id="st-runs-done">0</div><div class="lbl">buổi đã chạy</div></div>
+    <div class="sum-card"><div class="num" id="st-km-done">0</div><div class="lbl">km đã chạy</div></div>
+    <div class="sum-card"><div class="num">175</div><div class="lbl">tổng km kế hoạch</div></div>
+    <div class="sum-card"><div class="num" id="st-runs-left">25</div><div class="lbl">buổi còn lại</div></div>
+  </div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-box">
+    <div class="prog-top">
+      <span class="lbl">Tiến độ tổng thể</span>
+      <span class="pct" id="overall-pct">0%</span>
+    </div>
+    <div class="bar-track"><div class="bar-fill" id="overall-bar"></div></div>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="tag t-easy">Easy run</span>
+  <span class="tag t-race">Race pace</span>
+  <span class="tag t-long">Long run</span>
+  <span class="tag t-taper">Taper</span>
+  <span class="tag t-raceday">🏁 Race day</span>
+</div>
+
+<div id="runs-container"></div>
+
+<script>
+const STORAGE_KEY = 'hm_plan_v1';
+const TOTAL_PLAN_KM = 175;
+
+const RUNS = [
+  {id:1,  date:'Jun 30', day:'Tue', type:'Easy',      dist:5,  pace:'10:15/km', phase:'build'},
+  {id:2,  date:'Jul 2',  day:'Thu', type:'Race pace', dist:3,  pace:'9:00/km',  phase:'build'},
+  {id:3,  date:'Jul 4',  day:'Sat', type:'Long run',  dist:8,  pace:'10:15/km', phase:'build'},
+  {id:4,  date:'Jul 7',  day:'Tue', type:'Easy',      dist:5,  pace:'10:00/km', phase:'build'},
+  {id:5,  date:'Jul 9',  day:'Thu', type:'Race pace', dist:4,  pace:'9:00/km',  phase:'build'},
+  {id:6,  date:'Jul 11', day:'Sat', type:'Long run',  dist:10, pace:'10:00/km', phase:'build'},
+  {id:7,  date:'Jul 14', day:'Tue', type:'Easy',      dist:6,  pace:'10:00/km', phase:'build'},
+  {id:8,  date:'Jul 16', day:'Thu', type:'Race pace', dist:5,  pace:'8:50/km',  phase:'build'},
+  {id:9,  date:'Jul 18', day:'Sat', type:'Long run',  dist:12, pace:'10:00/km', phase:'build'},
+  {id:10, date:'Jul 21', day:'Tue', type:'Easy',      dist:5,  pace:'10:15/km', phase:'peak'},
+  {id:11, date:'Jul 23', day:'Thu', type:'Easy',      dist:4,  pace:'10:15/km', phase:'peak'},
+  {id:12, date:'Jul 25', day:'Sat', type:'Long run',  dist:10, pace:'10:15/km', phase:'peak'},
+  {id:13, date:'Jul 28', day:'Tue', type:'Easy',      dist:6,  pace:'10:00/km', phase:'peak'},
+  {id:14, date:'Jul 30', day:'Thu', type:'Race pace', dist:5,  pace:'8:45/km',  phase:'peak'},
+  {id:15, date:'Aug 1',  day:'Sat', type:'Long run',  dist:16, pace:'10:00/km', phase:'peak'},
+  {id:16, date:'Aug 2',  day:'Sun', type:'Easy',      dist:3,  pace:'10:30/km', phase:'peak'},
+  {id:17, date:'Aug 4',  day:'Tue', type:'Easy',      dist:5,  pace:'10:00/km', phase:'peak'},
+  {id:18, date:'Aug 6',  day:'Thu', type:'Race pace', dist:4,  pace:'9:00/km',  phase:'peak'},
+  {id:19, date:'Aug 8',  day:'Sat', type:'Long run',  dist:13, pace:'10:00/km', phase:'peak'},
+  {id:20, date:'Aug 11', day:'Tue', type:'Easy',      dist:4,  pace:'10:00/km', phase:'taper'},
+  {id:21, date:'Aug 13', day:'Thu', type:'Race pace', dist:3,  pace:'9:00/km',  phase:'taper'},
+  {id:22, date:'Aug 15', day:'Sat', type:'Long run',  dist:7,  pace:'10:00/km', phase:'taper'},
+  {id:23, date:'Aug 18', day:'Tue', type:'Easy',      dist:3,  pace:'11:00/km', phase:'taper'},
+  {id:24, date:'Aug 20', day:'Thu', type:'Easy',      dist:2,  pace:'11:00/km', phase:'taper'},
+  {id:25, date:'Aug 23', day:'Sat', type:'RACE',      dist:21, pace:'9:00/km',  phase:'race'},
+];
+
+const PHASES = {
+  build: { label:'Phase 1 — Build (Jun 30 – Jul 18)', runs:[1,2,3,4,5,6,7,8,9] },
+  peak:  { label:'Phase 2 — Peak (Jul 21 – Aug 8)',   runs:[10,11,12,13,14,15,16,17,18,19] },
+  taper: { label:'Phase 3 — Taper (Aug 11 – Aug 20)', runs:[20,21,22,23,24] },
+  race:  { label:'Race Day',                           runs:[25] },
+};
+
+function typeClass(type) {
+  if (type === 'Easy')      return 'easy';
+  if (type === 'Race pace') return 'race-pace';
+  if (type === 'Long run')  return 'long';
+  if (type === 'RACE')      return 'raceday';
+  return 'easy';
+}
+function typeTag(type) {
+  if (type === 'Easy')      return ['t-easy','Easy'];
+  if (type === 'Race pace') return ['t-race','Race pace'];
+  if (type === 'Long run')  return ['t-long','Long run'];
+  if (type === 'RACE')      return ['t-raceday','🏁 RACE'];
+  return ['t-taper','Taper'];
+}
+
+let data = {};
+try { data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){}
+function save() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e){} }
+
+function updateStats() {
+  let done = 0, kmDone = 0;
+  RUNS.forEach(r => {
+    if (data[r.id] && data[r.id].done) { done++; kmDone += (data[r.id].km || r.dist); }
+  });
+  const total = RUNS.length;
+  const pct = Math.round(done / total * 100);
+  document.getElementById('overall-pct').textContent = pct + '%';
+  document.getElementById('overall-bar').style.width = pct + '%';
+  document.getElementById('tb-done').textContent = done;
+  document.getElementById('tb-total').textContent = total;
+  document.getElementById('tb-km').textContent = Math.round(kmDone);
+  document.getElementById('st-runs-done').textContent = done;
+  document.getElementById('st-km-done').textContent = Math.round(kmDone);
+  document.getElementById('st-runs-left').textContent = total - done;
+}
+
+function updateCountdown() {
+  const target = new Date('2026-08-23T00:00:00');
+  const now = new Date();
+  const diff = Math.max(0, Math.ceil((target - now) / 86400000));
+  document.getElementById('rc-days').textContent = diff;
+  document.getElementById('tb-days').textContent = diff + ' ngày';
+}
+
+function buildUI() {
+  const container = document.getElementById('runs-container');
+  let lastPhase = null;
+
+  RUNS.forEach(r => {
+    if (r.phase !== lastPhase) {
+      lastPhase = r.phase;
+      const ph = document.createElement('div');
+      ph.className = 'phase-header';
+      ph.innerHTML = `<p class="phase-label">${PHASES[r.phase].label}</p>`;
+      container.appendChild(ph);
+
+      if (r.phase === 'build') {
+        const wr = document.createElement('div');
+        wr.className = 'runs'; wr.id = 'phase_build';
+        container.appendChild(wr);
+      } else if (r.phase === 'peak') {
+        const wr = document.createElement('div');
+        wr.className = 'runs'; wr.id = 'phase_peak';
+        container.appendChild(wr);
+      } else if (r.phase === 'taper') {
+        const wr = document.createElement('div');
+        wr.className = 'runs'; wr.id = 'phase_taper';
+        container.appendChild(wr);
+      } else {
+        const wr = document.createElement('div');
+        wr.className = 'runs'; wr.id = 'phase_race';
+        container.appendChild(wr);
+      }
+    }
+
+    const d = data[r.id] || {};
+    const isDone = !!d.done;
+    const isRace = r.type === 'RACE';
+    const tc = typeClass(r.type);
+    const [tagCls, tagLbl] = typeTag(r.type);
+
+    const wrap = document.createElement('div');
+    wrap.className = 'run-item type-' + tc + (isDone ? ' done' : '') + (isRace ? ' is-race' : '');
+    wrap.id = 'run_' + r.id;
+
+    const expandId = 'exp_' + r.id;
+    const inputId = 'kminput_' + r.id;
+    const notesId = 'notes_' + r.id;
+
+    wrap.innerHTML = `
+      <span class="run-num">${String(r.id).padStart(2,'0')}</span>
+      <div class="check-box${isDone ? ' checked' : ''}" data-id="${r.id}"></div>
+      <span class="run-date">${r.date}</span>
+      <span class="run-day">${r.day}</span>
+      <span class="run-name">${r.type}</span>
+      <span class="run-dist">${r.dist} km</span>
+      <span class="run-pace">${r.pace}</span>
+      <span class="tag ${tagCls} run-tag">${tagLbl}</span>
+      <button class="expand-btn" data-exp="${expandId}">+ log</button>
+      <div class="km-logged${d.expanded ? ' visible' : ''}" id="${expandId}">
+        <div class="km-bar-row">
+          <div class="km-bar-track"><div class="km-bar-fill" id="kbar_${r.id}" style="width:${Math.min(100,Math.round(((d.km||0)/r.dist)*100))}%"></div></div>
+          <span class="km-bar-lbl" id="klbl_${r.id}">${d.km||0} / ${r.dist} km</span>
+        </div>
+        <div class="km-input-row">
+          <label>Km thực tế:</label>
+          <input class="km-input" type="number" step="0.1" min="0" max="99" id="${inputId}" value="${d.km||r.dist}" data-id="${r.id}">
+          <button class="km-save-btn" data-save="${r.id}">Lưu</button>
+        </div>
+        <div class="notes-row">
+          <input class="notes-input" type="text" placeholder="Ghi chú (cảm giác, thời tiết...)" id="${notesId}" value="${d.notes||''}" data-id="${r.id}">
+        </div>
+      </div>
+    `;
+
+    const phaseId = 'phase_' + r.phase;
+    document.getElementById(phaseId).appendChild(wrap);
+
+    // check-box click
+    wrap.querySelector('.check-box').addEventListener('click', e => {
+      e.stopPropagation();
+      const id = parseInt(e.currentTarget.dataset.id);
+      if (!data[id]) data[id] = { km: RUNS[id-1].dist };
+      data[id].done = !data[id].done;
+      save();
+      const item = document.getElementById('run_' + id);
+      const box = item.querySelector('.check-box');
+      item.classList.toggle('done', data[id].done);
+      item.querySelector('.run-name').style.textDecoration = data[id].done ? 'line-through' : '';
+      box.classList.toggle('checked', data[id].done);
+      updateStats();
+    });
+
+    // expand btn
+    wrap.querySelector('.expand-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      const expId = e.currentTarget.dataset.exp;
+      const rid = parseInt(expId.replace('exp_',''));
+      const panel = document.getElementById(expId);
+      const isVis = panel.classList.toggle('visible');
+      if (!data[rid]) data[rid] = {};
+      data[rid].expanded = isVis;
+      save();
+      e.currentTarget.textContent = isVis ? '− log' : '+ log';
+    });
+    if (d.expanded) {
+      const btn = wrap.querySelector('.expand-btn');
+      if (btn) btn.textContent = '− log';
+    }
+
+    // save km
+    wrap.querySelector('.km-save-btn').addEventListener('click', e => {
+      e.stopPropagation();
+      const id = parseInt(e.currentTarget.dataset.save);
+      const val = parseFloat(document.getElementById('kminput_' + id).value) || 0;
+      const notes = document.getElementById('notes_' + id).value;
+      if (!data[id]) data[id] = {};
+      data[id].km = val;
+      data[id].notes = notes;
+      save();
+      const bar = document.getElementById('kbar_' + id);
+      const lbl = document.getElementById('klbl_' + id);
+      const plan = RUNS[id-1].dist;
+      bar.style.width = Math.min(100, Math.round((val/plan)*100)) + '%';
+      lbl.textContent = val + ' / ' + plan + ' km';
+      updateStats();
+    });
+
+    // notes auto-save on blur
+    wrap.querySelector('.notes-input').addEventListener('blur', e => {
+      e.stopPropagation();
+      const id = parseInt(e.currentTarget.dataset.id);
+      if (!data[id]) data[id] = {};
+      data[id].notes = e.currentTarget.value;
+      save();
+    });
+  });
+
+  updateStats();
+  updateCountdown();
+}
+
+buildUI();
+setInterval(updateCountdown, 60000);
+</script>
+</body>
+</html>
