@@ -4,20 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Minh Dân · Lead at VinFast Virtual Assistant</title>
+    <title>Minh Dân · Links, tools & 2026 plan</title>
     <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/106602643?v=4">
     <meta name="description"
-        content="Minh Dân (Santiago) — Lead at VinFast Virtual Assistant. Software engineer, multilingual, builder. Open to business collaboration.">
+        content="Minh Dân — simple links, free tools, and a 2026 todo list for ongoing progress.">
     <meta name="keywords"
         content="Minh Dân, Nguyễn Minh Dân, VinFast, VSF, Virtual Assistant, software engineer, product builder, Vietnam">
     <meta name="author" content="Nguyễn Minh Dân">
     <meta rel="canonical" href="https://nmdan.com">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Minh Dân · Lead at VinFast Virtual Assistant">
-    <meta property="og:description"
-        content="Software engineer and product builder. Lead at VinFast Virtual Assistant. Let's connect.">
-    <meta property="og:url" content="https://nmdan.com">
+    <meta property="og:title" content="Minh Dân · Lead Engineer at Vingroup · Tech & Business & Growth">
     <meta property="og:type" content="website">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -474,152 +471,299 @@
                 padding: 24px 20px 20px;
             }
         }
+
+        .page-shell {
+            width: 100%;
+            max-width: 680px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .panel {
+            width: 100%;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: 0 8px 24px rgba(28, 26, 22, 0.04);
+        }
+
+        .section-heading {
+            margin-bottom: 16px;
+        }
+
+        .section-heading h2 {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            color: var(--ink);
+        }
+
+        .section-heading p {
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        .card-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .card-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--sand);
+            text-decoration: none;
+            color: var(--ink);
+            transition: transform 0.18s, border-color 0.18s;
+        }
+
+        .card-link:hover {
+            transform: translateY(-1px);
+            border-color: var(--accent);
+        }
+
+        .card-link .link-icon-wrap {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: var(--white);
+            box-shadow: inset 0 0 0 1px var(--border);
+        }
+
+        .card-link .link-label {
+            display: block;
+            font-weight: 600;
+        }
+
+        .card-link .link-desc {
+            display: block;
+            margin-top: 2px;
+        }
+
+        .todo-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--sand);
+        }
+
+        .todo-check {
+            margin-top: 2px;
+            color: var(--accent);
+            font-size: 16px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+
+        .todo-content {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .todo-title {
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        .todo-note {
+            font-size: 13px;
+            color: var(--ink-soft);
+        }
+
+        .todo-item.is-done {
+            opacity: 0.7;
+        }
+
+        .todo-item.is-done .todo-title {
+            text-decoration: line-through;
+            color: var(--ink-soft);
+        }
+
+        .panel-compact {
+            text-align: center;
+            padding: 22px 24px;
+        }
+
+        .panel-compact .cta-title {
+            margin-bottom: 10px;
+            font-family: var(--font-display);
+            font-size: 1.05rem;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- Hero -->
-    <div class="hero">
-        <div class="avatar-wrap">
-            <img class="avatar" src="images/avatar.png" alt="Minh Dân">
-        </div>
-
-        <h1 class="name">Minh Dân</h1>
-
-        <span class="role-badge">Lead · VinFast Virtual Assistant</span>
-
-        <p class="tagline">"When planning, think big — when making progress, start small."</p>
-
-        <p class="intro">
-            I build products and businesses at the intersection of software, language, and people. Based in Vietnam,
-            working globally. Open to meaningful collaborations.
-        </p>
-    </div>
-
-    <!-- Skill chips -->
-    <div class="chips">
-        <span class="chip"><span class="chip-icon">⚙️</span> Software Engineering</span>
-        <span class="chip"><span class="chip-icon">🤖</span> AI &amp; Virtual Assistant</span>
-        <span class="chip"><span class="chip-icon">🚗</span> Automotive Tech</span>
-        <span class="chip"><span class="chip-icon">🇬🇧</span> English</span>
-        <span class="chip"><span class="chip-icon">🇯🇵</span> Japanese</span>
-        <span class="chip"><span class="chip-icon">🇻🇳</span> Vietnamese</span>
-
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- Link list -->
-    <div class="links" role="navigation" aria-label="External links">
-
-        <a class="link-item" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener">
-            <div class="link-icon-wrap">
-                <img src="images/icons/linkedin.png" alt="">
+    <main class="page-shell">
+        <section class="hero">
+            <div class="avatar-wrap">
+                <img class="avatar" src="images/avatar.png" alt="Minh Dân">
             </div>
-            <div class="link-text">
-                <span class="link-label">LinkedIn</span>
-                <span class="link-desc">Professional background &amp; experience</span>
-            </div>
-            <span class="link-arrow">→</span>
-        </a>
 
-        <a class="link-item" href="https://x.com/MinhDan1998" target="_blank" rel="noopener">
-            <div class="link-icon-wrap">
-                <img src="images/icons/x.png" alt="">
-            </div>
-            <div class="link-text">
-                <span class="link-label">X (Twitter)</span>
-                <span class="link-desc">Thoughts, updates &amp; observations</span>
-            </div>
-            <span class="link-arrow">→</span>
-        </a>
+            <h1 class="name">Minh Dân</h1>
 
-        <!-- <a class="link-item" href="#" target="_blank" rel="noopener">
-            <div class="link-icon-wrap">
-                <img src="images/icons/resume.svg" alt="">
-            </div>
-            <div class="link-text">
-                <span class="link-label">Resume</span>
-                <span class="link-desc">Full experience &amp; skills overview</span>
-            </div>
-            <span class="link-arrow">→</span>
-        </a> -->
+            <span class="role-badge">Lead Engineer at Vingroup · Tech & Business & Growth</span>
 
-        <!-- <a class="link-item" href="https://tatcaminephi.com" target="_blank" rel="noopener">
-            <div class="link-icon-wrap">
-                <img src="images/icons/generic-website.svg" alt="">
-            </div>
-            <div class="link-text">
-                <span class="link-label">Tatcamienphi</span>
-                <span class="link-desc">Sharing freely — tools &amp; resources</span>
-            </div>
-            <span class="link-arrow">→</span>
-        </a> -->
+            <p class="tagline">"When planning, think big — when making progress, start small."</p>
+        </section>
 
-        <a class="link-item" href="https://www.adidaphat.live/" target="_blank" rel="noopener">
-            <div class="link-icon-wrap">
-                <img src="images/icons/adidaphat.png" alt="">
+        <section class="panel">
+            <div class="section-heading">
+                <h2>Social</h2>
+                <p>Two simple places to connect.</p>
             </div>
-            <div class="link-text">
-                <span class="link-label">Adidaphat</span>
-                <span class="link-desc">Buddhist resources platform</span>
-            </div>
-            <span class="link-arrow">→</span>
-        </a>
+            <div class="card-list" role="navigation" aria-label="Social links">
+                <a class="card-link" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener">
+                    <div class="link-icon-wrap">
+                        <img src="images/icons/linkedin.png" alt="">
+                    </div>
+                    <div class="link-text">
+                        <span class="link-label">LinkedIn</span>
+                        <span class="link-desc">Professional background &amp; experience</span>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
 
-        <a class="link-item" href="2026/23_8_2026.html" target="_blank" rel="noopener">
-            <div class="link-icon-wrap">
-                <img src="images/icons/strong.png" alt="">
+                <a class="card-link" href="https://x.com/MinhDan1998" target="_blank" rel="noopener">
+                    <div class="link-icon-wrap">
+                        <img src="images/icons/x.svg" alt="">
+                    </div>
+                    <div class="link-text">
+                        <span class="link-label">X</span>
+                        <span class="link-desc">Updates, thoughts &amp; notes</span>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
             </div>
-            <div class="link-text">
-                <span class="link-label">21 Km 23/8/2026</span>
-                <span class="link-desc">Half Marathon Finish - Discipline</span>
-            </div>
-            <span class="link-arrow">→</span>
-        </a>
+        </section>
 
-        <a class="link-item" href="2026/31_7_2026.html" target="_blank" rel="noopener">
-            <div class="link-icon-wrap">
-                <img src="images/icons/strong.png" alt="">
+        <section class="panel">
+            <div class="section-heading">
+                <h2>Free tools</h2>
+                <p>Two useful resources I keep close by.</p>
             </div>
-            <div class="link-text">
-                <span class="link-label">MongoDB Developer Associate Certificate</span>
-                <span class="link-desc">Log of daily learnings and insights - Discipline</span>
-            </div>
-            <span class="link-arrow">→</span>
-        </a>
+            <div class="card-list">
+                <a class="card-link" href="https://www.adidaphat.live/" target="_blank" rel="noopener">
+                    <div class="link-icon-wrap">
+                        <img src="images/icons/adidaphat.png" alt="">
+                    </div>
+                    <div class="link-text">
+                        <span class="link-label">Adidaphat</span>
+                        <span class="link-desc">A calm place for Buddhist resources</span>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
 
-        <a class="link-item" href="cad/beauty_json.html" target="_blank" rel="noopener">
-            <div class="link-icon-wrap">
-                <img src="images/icons/dev-to.svg" alt="">
+                <a class="card-link" href="cad/beauty_json.html" target="_blank" rel="noopener">
+                    <div class="link-icon-wrap">
+                        <img src="images/icons/youtube.svg" alt="">
+                    </div>
+                    <div class="link-text">
+                        <span class="link-label">JSON Tools</span>
+                        <span class="link-desc">Handy utilities for developers</span>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
+                <a class="card-link" href="mongodb-associate-developer-exam/index.html" target="_blank" rel="noopener">
+                    <div class="link-icon-wrap">
+                        <img src="images/icons/telegram.svg" alt="">
+                    </div>
+                    <div class="link-text">
+                        <span class="link-label">MongoDB Associate Developer Exam</span>
+                        <span class="link-desc">Everything you need to pass the exam</span>
+                    </div>
+                    <span class="link-arrow">→</span>
+                </a>
             </div>
-            <div class="link-text">
-                <span class="link-label">JSON Tools</span>
-                <span class="link-desc">Handy developer utilities</span>
+        </section>
+
+        <section class="panel">
+            <div class="section-heading">
+                <h2>2026 TODO LIST</h2>
+                <p>Tick each action when it is done.</p>
             </div>
-            <span class="link-arrow">→</span>
-        </a>
+            <div class="todo-list">
+                <div class="todo-item is-done">
+                    <span class="todo-check">✓</span>
+                    <span class="todo-content">
+                        <span class="todo-title">MongoDB Certification</span>
+                        <span class="todo-note"> 26/7/2026 - MongoDB Associate Developer Certification <a href="https://www.credly.com/badges/9621e791-d6e4-4985-be57-be1c540b8744/public_url " target="_blank" rel="noopener">HERE</a></span>
+                    </span>
+                </div>
+                <div class="todo-item">
+                    <span class="todo-check">○</span>
+                    <span class="todo-content">
+                        <span class="todo-title">First half marathon 21 km in my life</span>
+                        <span class="todo-note">23/8/2026 - Viet Nam Toi Do</span>
+                    </span>
+                </div>
+                <div class="todo-item">
+                    <span class="todo-check">○</span>
+                    <span class="todo-content">
+                        <span class="todo-title">900+ Toeic Exam</span>
+                        <span class="todo-note">....</span>
+                    </span>
+                </div>
+                <div class="todo-item">
+                    <span class="todo-check">○</span>
+                    <span class="todo-content">
+                        <span class="todo-title">Second half marathon 21 km in my life</span>
+                        <span class="todo-note">VP Bank Hanoi</span>
+                    </span>
+                </div>
+                <div class="todo-item">
+                    <span class="todo-check">○</span>
+                    <span class="todo-content">
+                        <span class="todo-title">AWS GenAI Professional Certification</span>
+                        <span class="todo-note">...</span>
+                    </span>
+                </div>
+                <div class="todo-item">
+                    <span class="todo-check">○</span>
+                    <span class="todo-content">
+                        <span class="todo-title">AWS Solutions Architect Associate</span>
+                        <span class="todo-note">...</span>
+                    </span>
+                </div>
+                <div class="todo-item">
+                    <span class="todo-check">○</span>
+                    <span class="todo-content">
+                        <span class="todo-title">First marathon 42 km in my life</span>
+                        <span class="todo-note">...</span>
+                    </span>
+                </div>
+            </div>
+        </section>
 
-    </div>
-
-    <!-- CTA block -->
-    <div class="cta-block">
-        <p class="cta-title">Let's build something together</p>
-        <p class="cta-text">
-            Whether it's a product idea, a technical challenge, or a business opportunity —
-            I'd love to hear from you.
-        </p>
-        <a class="cta-btn" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener">
-            Connect on LinkedIn →
-        </a>
-    </div>
+        <section class="panel panel-compact">
+            <p class="cta-title">Let's build something useful together</p>
+            <a class="cta-btn" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener">
+                Connect on LinkedIn →
+            </a>
+        </section>
+    </main>
 
     <footer>
         <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
         Built with <a href="https://littlelink.io" target="_blank" rel="noopener">LittleLink</a>
-        &nbsp;·&nbsp; © 2025 Nguyễn Minh Dân
+        &nbsp;·&nbsp; © 2026 Nguyễn Minh Dân
     </footer>
+
 
 </body>
 

@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MongoDB Associate Developer Certification Guide</title>
+  <style>
+    :root {
+      --mdb-green: #00684A;
+      --mdb-bright: #00ED64;
+      --mdb-dark: #001E2B;
+      --mdb-slate: #3D4F58;
+      --bg: #F9FBFA;
+      --card: #FFFFFF;
+      --border: #E3E9E5;
+      --code-bg: #0A2C25;
+      --code-text: #B6F3D6;
+      --accent2: #1C6C4A;
+      --warn: #B45309;
+      --radius: 10px;
+      --maxw: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: #1A2E29;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--mdb-green);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 0.88em;
+      background: #EEF6F1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #0A4A32;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 16px 18px;
+      border-radius: var(--radius);
+      overflow-x: auto;
+      font-size: 0.85em;
+      line-height: 1.55;
+      margin: 12px 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+    }
+
+    /* Header */
+    header.hero {
+      background: linear-gradient(135deg, var(--mdb-dark) 0%, #00382A 55%, var(--mdb-green) 100%);
+      color: #fff;
+      padding: 56px 24px 44px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header.hero .badge {
+      display: inline-block;
+      background: rgba(0, 237, 100, 0.15);
+      border: 1px solid var(--mdb-bright);
+      color: var(--mdb-bright);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    header.hero h1 {
+      font-size: 2.4rem;
+      margin: 0 0 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    header.hero p.sub {
+      max-width: 680px;
+      margin: 0 auto;
+      color: #CFE8DC;
+      font-size: 1.08rem;
+    }
+
+    header.hero .congrats {
+      margin-top: 22px;
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    /* Layout */
+    .layout {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 36px;
+      padding: 36px 24px 80px;
+    }
+
+    nav.toc {
+      position: sticky;
+      top: 20px;
+      align-self: start;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    nav.toc h4 {
+      margin: 0 0 10px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--mdb-slate);
+    }
+
+    nav.toc ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: sec;
+    }
+
+    nav.toc ol>li {
+      counter-increment: sec;
+      margin-bottom: 2px;
+    }
+
+    nav.toc a {
+      display: block;
+      padding: 7px 8px;
+      border-radius: 6px;
+      color: #2B4A40;
+      font-size: 0.88rem;
+    }
+
+    nav.toc a:hover {
+      background: #EEF6F1;
+      text-decoration: none;
+    }
+
+    nav.toc a.pattern-link {
+      font-size: 0.82rem;
+      padding-left: 20px;
+      color: var(--mdb-slate);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section {
+      margin-bottom: 52px;
+      scroll-margin-top: 16px;
+    }
+
+    section h2 {
+      font-size: 1.65rem;
+      color: var(--mdb-dark);
+      border-bottom: 3px solid var(--mdb-bright);
+      display: inline-block;
+      padding-bottom: 6px;
+      margin-bottom: 18px;
+    }
+
+    section h3 {
+      font-size: 1.2rem;
+      color: var(--accent2);
+      margin-top: 28px;
+      margin-bottom: 8px;
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: var(--mdb-slate);
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin-bottom: 18px;
+    }
+
+    .grid2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width:900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      nav.toc {
+        position: relative;
+        top: 0;
+        max-height: none;
+      }
+
+      .grid2,
+      .grid3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 14px 0;
+      font-size: 0.92rem;
+    }
+
+    th,
+    td {
+      border: 1px solid var(--border);
+      padding: 9px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #F0F7F3;
+      color: var(--mdb-dark);
+    }
+
+    tr:nth-child(even) {
+      background: #FAFCFB;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #E7F7EE;
+      color: var(--mdb-green);
+      border: 1px solid #BFE8D2;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 9px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-right: 6px;
+      margin-bottom: 8px;
+    }
+
+    .pattern {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--mdb-green);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 22px;
+      scroll-margin-top: 16px;
+    }
+
+    .pattern h3 {
+      margin-top: 0;
+      color: var(--mdb-dark);
+      font-size: 1.25rem;
+    }
+
+    .pattern .meta {
+      color: var(--mdb-slate);
+      font-size: 0.92rem;
+      margin-bottom: 10px;
+    }
+
+    .pattern .label {
+      font-weight: 700;
+      color: var(--accent2);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-top: 14px;
+      margin-bottom: 4px;
+    }
+
+    .callout {
+      background: #FFF8EC;
+      border: 1px solid #F1D9A8;
+      border-left: 5px solid var(--warn);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 0.94rem;
+    }
+
+    .callout strong {
+      color: var(--warn);
+    }
+
+    .tip {
+      background: #EAF7F0;
+      border: 1px solid #BEE7D3;
+      border-left: 5px solid var(--mdb-green);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 0.94rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px 50px;
+      color: var(--mdb-slate);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--mdb-green);
+    }
+
+    .back-top {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--mdb-slate);
+    }
+
+    ul.clean {
+      padding-left: 20px;
+    }
+
+    ul.clean li {
+      margin-bottom: 6px;
+    }
+
+    .exam-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 26px;
+    }
+
+    .exam-stats div {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 14px 22px;
+      min-width: 130px;
+    }
+
+    .exam-stats .num {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--mdb-bright);
+    }
+
+    .exam-stats .lbl {
+      font-size: 0.78rem;
+      color: #CFE8DC;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    /* Top-level tabs */
+    .tabbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--mdb-dark);
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .tabbar button {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #B7C9C1;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .tabbar button:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+    }
+
+    .tabbar button.active {
+      background: var(--mdb-bright);
+      color: var(--mdb-dark);
+    }
+
+    .tabpanel {
+      display: none;
+    }
+
+    .tabpanel.active {
+      display: block;
+    }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 36px 24px 80px;
+    }
+
+    /* Practice quiz */
+    .quiz-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .quiz-toolbar button {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--mdb-dark);
+      font-weight: 600;
+      font-size: 0.88rem;
+      padding: 9px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .quiz-toolbar button.active {
+      background: var(--mdb-green);
+      color: #fff;
+      border-color: var(--mdb-green);
+    }
+
+    .quiz-toolbar button:hover:not(.active) {
+      background: #EEF6F1;
+    }
+
+    .quiz-progress {
+      margin-left: auto;
+      font-size: 0.88rem;
+      color: var(--mdb-slate);
+      font-weight: 600;
+    }
+
+    .quiz-cat {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--mdb-green);
+      font-weight: 700;
+      margin: 26px 0 6px;
+    }
+
+    .quiz-q {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 14px;
+    }
+
+    .quiz-q .qtext {
+      font-weight: 600;
+      color: var(--mdb-dark);
+      margin-bottom: 12px;
+    }
+
+    .quiz-opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #FAFCFB;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: #1A2E29;
+    }
+
+    .quiz-opt:hover:not(.locked) {
+      background: #EEF6F1;
+    }
+
+    .quiz-opt.correct {
+      background: #E3F6EA;
+      border-color: var(--mdb-green);
+      color: #0A4A32;
+      font-weight: 600;
+    }
+
+    .quiz-opt.incorrect {
+      background: #FCE9E7;
+      border-color: #D9534F;
+      color: #8B2E28;
+      font-weight: 600;
+    }
+
+    .quiz-exp {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: #F0F7F3;
+      border-left: 4px solid var(--mdb-green);
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #2B4A40;
+      display: none;
+    }
+
+    .quiz-exp.shown {
+      display: block;
+    }
+
+    /* Downloads / code tab */
+    .dl-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin: 18px 0 28px;
+    }
+
+    .dl-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      text-align: left;
+    }
+
+    .dl-card .fname {
+      font-weight: 700;
+      color: var(--mdb-dark);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+      word-break: break-all;
+    }
+
+    .dl-card .fdesc {
+      color: var(--mdb-slate);
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .dl-card a.dlbtn {
+      display: inline-block;
+      background: var(--mdb-green);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      border-radius: 6px;
+    }
+
+    .dl-card a.dlbtn:hover {
+      background: #00543C;
+      text-decoration: none;
+    }
+
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 38px;
+      margin-bottom: 16px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: var(--mdb-green);
+      color: #fff;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="hero">
+    <div class="badge">🍃 Certification Study Guide</div>
+    <h1>MongoDB Associate Developer</h1>
+    <p class="sub">A complete, community-made guide to everything covered on the MongoDB Associate Developer exam — data
+      modeling, CRUD, aggregation, indexing, and every schema design pattern with a worked example.</p>
+    <div class="congrats">Written after passing the exam — sharing what actually mattered for study, so the next person
+      has an easier path.</div>
+    <div class="exam-stats">
+      <div>
+        <div class="num">53</div>
+        <div class="lbl">Questions</div>
+      </div>
+      <div>
+        <div class="num">75</div>
+        <div class="lbl">Minutes</div>
+      </div>
+      <div>
+        <div class="num">150$</div>
+        <div class="lbl">To Register</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabbar">
+    <button class="tab-btn active" data-tab="study" onclick="showTab('study')">📘 Study Guide</button>
+    <button class="tab-btn" data-tab="practice" onclick="showTab('practice')">📝 Practice Quiz</button>
+    <button class="tab-btn" data-tab="code" onclick="showTab('code')">💻 Code &amp; Data</button>
+  </div>
+
+  <div id="tab-study" class="tabpanel active">
+    <div class="layout">
+      <nav class="toc">
+        <h4>Contents</h4>
+        <ol>
+          <li><a href="#overview">Exam Overview</a></li>
+          <li><a href="#fundamentals">MongoDB Fundamentals</a></li>
+          <li><a href="#crud">CRUD Operations</a></li>
+          <li><a href="#indexes">Indexes</a></li>
+          <li>
+            <a href="#datamodeling">Data Modeling &amp; Schema Design</a>
+            <div>
+              <a class="pattern-link" href="#p-embedding">Embedding vs Referencing</a>
+              <a class="pattern-link" href="#p-attribute">Attribute Pattern</a>
+              <a class="pattern-link" href="#p-bucket">Bucket Pattern</a>
+              <a class="pattern-link" href="#p-outlier">Outlier Pattern</a>
+              <a class="pattern-link" href="#p-computed">Computed Pattern</a>
+              <a class="pattern-link" href="#p-subset">Subset Pattern</a>
+              <a class="pattern-link" href="#p-extref">Extended Reference</a>
+              <a class="pattern-link" href="#p-approx">Approximation Pattern</a>
+              <a class="pattern-link" href="#p-tree">Tree Pattern</a>
+              <a class="pattern-link" href="#p-prealloc">Preallocation Pattern</a>
+              <a class="pattern-link" href="#p-polymorphic">Polymorphic Pattern</a>
+              <a class="pattern-link" href="#p-versioning">Schema Versioning</a>
+              <a class="pattern-link" href="#p-singlecoll">Single Collection Pattern</a>
+              <a class="pattern-link" href="#p-archive">Archive Pattern</a>
+            </div>
+          </li>
+          <li><a href="#aggregation">Aggregation Framework</a></li>
+          <li><a href="#transactions">Transactions</a></li>
+          <li><a href="#replication">Replication</a></li>
+          <li><a href="#sharding">Sharding</a></li>
+          <li><a href="#security">Security</a></li>
+          <li><a href="#drivers">Drivers &amp; Atlas</a></li>
+          <li><a href="#tips">Study Tips</a></li>
+          <li><a href="#resources">Resources</a></li>
+        </ol>
+      </nav>
+
+      <main>
+
+        <section id="overview">
+          <h2>1. Exam Overview</h2>
+          <p class="lead">The MongoDB Associate Developer exam (exam code C100DEV) validates practical, hands-on
+            knowledge of building applications with MongoDB. It's multiple-choice and scenario-based — expect questions
+            that show you a document or query and ask what happens, rather than pure definitions.</p>
+          <div class="tip"><strong>Good news:</strong> nearly every topic on the exam has a matching free course on
+            MongoDB University (learn.mongodb.com). Working through those labs plus this guide covers the syllabus well.
+          </div>
+        </section>
+
+        <section id="fundamentals">
+          <h2>2. MongoDB Fundamentals</h2>
+          <p class="lead">MongoDB is a document database. Instead of rows in tables, data is stored as
+            <strong>BSON</strong> documents (a binary superset of JSON) grouped into <strong>collections</strong>,
+            inside a <strong>database</strong>.</p>
+
+          <h3>Core Terminology</h3>
+          <table>
+            <tr>
+              <th>SQL</th>
+              <th>MongoDB</th>
+            </tr>
+            <tr>
+              <td>Database</td>
+              <td>Database</td>
+            </tr>
+            <tr>
+              <td>Table</td>
+              <td>Collection</td>
+            </tr>
+            <tr>
+              <td>Row</td>
+              <td>Document</td>
+            </tr>
+            <tr>
+              <td>Column</td>
+              <td>Field</td>
+            </tr>
+            <tr>
+              <td>Primary Key</td>
+              <td><code>_id</code> field</td>
+            </tr>
+            <tr>
+              <td>Join</td>
+              <td>Embedding or <code>$lookup</code></td>
+            </tr>
+          </table>
+
+          <h3>Sample Document</h3>
+          <pre><code>{
+  _id: ObjectId("64f1a2b3c4d5e6f7a8b9c0d1"),
+  name: "Ada Lovelace",
+  age: 28,
+  active: true,
+  skills: ["math", "programming"],
+  address: { city: "London", country: "UK" },
+  joined: ISODate("2024-01-15T00:00:00Z")
+}</code></pre>
+
+          <h3>Common BSON Types</h3>
+          <p>Know these for the exam — questions often ask which type a field should be:</p>
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>Example</th>
+            </tr>
+            <tr>
+              <td>Double / Int32 / Int64 / Decimal128</td>
+              <td><code>3.14</code>, <code>NumberLong(10)</code></td>
+            </tr>
+            <tr>
+              <td>String</td>
+              <td><code>"hello"</code></td>
+            </tr>
+            <tr>
+              <td>Object</td>
+              <td><code>{ a: 1 }</code></td>
+            </tr>
+            <tr>
+              <td>Array</td>
+              <td><code>[1, 2, 3]</code></td>
+            </tr>
+            <tr>
+              <td>ObjectId</td>
+              <td><code>ObjectId()</code> — 12-byte unique id, default <code>_id</code></td>
+            </tr>
+            <tr>
+              <td>Boolean</td>
+              <td><code>true</code> / <code>false</code></td>
+            </tr>
+            <tr>
+              <td>Date</td>
+              <td><code>ISODate()</code> — stored as ms since epoch</td>
+            </tr>
+            <tr>
+              <td>Null</td>
+              <td><code>null</code></td>
+            </tr>
+          </table>
+          <div class="callout"><strong>Exam detail:</strong> the <code>_id</code> field is immutable, indexed
+            automatically, and unique per collection. If you don't supply one on insert, the driver auto-generates an
+            <code>ObjectId</code>.</div>
+        </section>
+
+        <section id="crud">
+          <h2>3. CRUD Operations</h2>
+
+          <h3>Create</h3>
+          <pre><code>db.users.insertOne({ name: "Ada", age: 28 })
+db.users.insertMany([{ name: "Ada" }, { name: "Alan" }])</code></pre>
+
+          <h3>Read</h3>
+          <pre><code>db.users.find({ age: { $gte: 18 } })
+db.users.findOne({ name: "Ada" })
+db.users.find({ skills: "math" }).sort({ age: -1 }).limit(5)</code></pre>
+
+          <h3>Common Query Operators</h3>
+          <table>
+            <tr>
+              <th>Operator</th>
+              <th>Meaning</th>
+            </tr>
+            <tr>
+              <td><code>$eq</code>, <code>$ne</code></td>
+              <td>equal / not equal</td>
+            </tr>
+            <tr>
+              <td><code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code></td>
+              <td>comparison</td>
+            </tr>
+            <tr>
+              <td><code>$in</code>, <code>$nin</code></td>
+              <td>value in / not in array</td>
+            </tr>
+            <tr>
+              <td><code>$and</code>, <code>$or</code>, <code>$not</code>, <code>$nor</code></td>
+              <td>logical</td>
+            </tr>
+            <tr>
+              <td><code>$exists</code></td>
+              <td>field is present</td>
+            </tr>
+            <tr>
+              <td><code>$regex</code></td>
+              <td>pattern match</td>
+            </tr>
+            <tr>
+              <td><code>$elemMatch</code></td>
+              <td>array element matches multiple conditions</td>
+            </tr>
+          </table>
+
+          <h3>Querying Arrays</h3>
+          <p>Array queries are a heavily tested corner of CRUD, because the matching rules are less obvious than scalar
+            fields. Given <code>{ tags: ["red", "blue", "green"] }</code>:</p>
+          <table>
+            <tr>
+              <th>Query</th>
+              <th>Meaning</th>
+            </tr>
+            <tr>
+              <td><code>{ tags: "blue" }</code></td>
+              <td>Matches if <strong>any</strong> element of the array equals <code>"blue"</code> — no special operator
+                needed.</td>
+            </tr>
+            <tr>
+              <td><code>{ tags: ["red", "blue", "green"] }</code></td>
+              <td>Matches only if the array is <strong>exactly</strong> this array, in this order.</td>
+            </tr>
+            <tr>
+              <td><code>{ tags: { $all: ["red", "blue"] } }</code></td>
+              <td>Array must contain <strong>all</strong> of these values, any order, extras allowed.</td>
+            </tr>
+            <tr>
+              <td><code>{ tags: { $size: 3 } }</code></td>
+              <td>Array has exactly 3 elements (cannot combine with range operators; no index can satisfy
+                <code>$size</code> directly).</td>
+            </tr>
+            <tr>
+              <td><code>{ "tags.0": "red" }</code></td>
+              <td>Matches the element at a specific index.</td>
+            </tr>
+            <tr>
+              <td><code>{ scores: { $elemMatch: { $gt: 80, $lt: 90 } } }</code></td>
+              <td>A <strong>single</strong> element satisfies all the conditions together (without
+                <code>$elemMatch</code>, MongoDB would allow different elements to satisfy each condition
+                independently).</td>
+            </tr>
+          </table>
+          <pre><code>// Array of embedded documents
+db.students.find({
+  grades: { $elemMatch: { subject: "Math", score: { $gte: 90 } } }
+})
+// Without $elemMatch this could wrongly match a doc where
+// one grade element has subject "Math" and a DIFFERENT element has score >= 90</code></pre>
+          <div class="callout"><strong>Exam trap:</strong>
+            <code>{ "grades.score": { $gte: 90 }, "grades.subject": "Math" }</code> (two separate conditions) can match
+            a document even if no single array element satisfies both — because MongoDB checks each condition against
+            the array independently. <code>$elemMatch</code> is what forces "same element."</div>
+
+          <h3>Array Projection</h3>
+          <pre><code>// Return only the first 2 elements of an array field
+db.students.find({}, { grades: { $slice: 2 } })
+// Return only the array element(s) that matched the query
+db.students.find(
+  { grades: { $elemMatch: { subject: "Math" } } },
+  { "grades.$": 1 }
+)</code></pre>
+
+          <h3>Update</h3>
+          <pre><code>db.users.updateOne({ name: "Ada" }, { $set: { age: 29 } })
+db.users.updateMany({ active: false }, { $set: { archived: true } })
+db.users.updateOne({ name: "Ada" }, { $inc: { loginCount: 1 } })
+db.users.updateOne({ name: "Ada" }, { $push: { skills: "AI" } })</code></pre>
+          <div class="callout"><strong>Watch for:</strong> <code>replaceOne()</code> replaces the whole document (except
+            <code>_id</code>), while <code>updateOne()</code> with <code>$set</code> only modifies named fields. The
+            exam likes to test this distinction.</div>
+
+          <h3>Updating Arrays</h3>
+          <p>The exam tests these array update operators specifically — know what each does to duplicates and ordering:
+          </p>
+          <table>
+            <tr>
+              <th>Operator</th>
+              <th>Behavior</th>
+            </tr>
+            <tr>
+              <td><code>$push</code></td>
+              <td>Appends a value (allows duplicates). Combine with <code>$each</code> to push multiple values at once.
+              </td>
+            </tr>
+            <tr>
+              <td><code>$addToSet</code></td>
+              <td>Appends a value only if it doesn't already exist (no duplicates). Also supports <code>$each</code>.
+              </td>
+            </tr>
+            <tr>
+              <td><code>$pull</code></td>
+              <td>Removes all array elements matching a condition.</td>
+            </tr>
+            <tr>
+              <td><code>$pullAll</code></td>
+              <td>Removes all instances of the exact listed values.</td>
+            </tr>
+            <tr>
+              <td><code>$pop</code></td>
+              <td>Removes the first (<code>-1</code>) or last (<code>1</code>) element.</td>
+            </tr>
+          </table>
+          <pre><code>// Push multiple values, keep sorted, cap at 5 (a leaderboard-style update)
+db.users.updateOne(
+  { _id: 1 },
+  { $push: { scores: { $each: [95, 88], $sort: -1, $slice: 5 } } }
+)
+
+// Add without duplicating
+db.users.updateOne({ _id: 1 }, { $addToSet: { skills: "MongoDB" } })
+
+// Remove all elements matching a condition
+db.users.updateOne({ _id: 1 }, { $pull: { scores: { $lt: 50 } } })
+
+// Remove the last element
+db.users.updateOne({ _id: 1 }, { $pop: { scores: 1 } })</code></pre>
+
+          <h3>Positional Operators — Updating Specific Array Elements</h3>
+          <table>
+            <tr>
+              <th>Operator</th>
+              <th>Updates</th>
+            </tr>
+            <tr>
+              <td><code>$</code> (positional)</td>
+              <td>The <strong>first</strong> array element that matched the query filter.</td>
+            </tr>
+            <tr>
+              <td><code>$[]</code> (all positional)</td>
+              <td><strong>Every</strong> element in the array.</td>
+            </tr>
+            <tr>
+              <td><code>$[&lt;identifier&gt;]</code> (filtered positional)</td>
+              <td>Only elements matching a condition in <code>arrayFilters</code>.</td>
+            </tr>
+          </table>
+          <pre><code>// $ — update the one grade element that matched
+db.students.updateOne(
+  { _id: 1, "grades.subject": "Math" },
+  { $set: { "grades.$.score": 95 } }
+)
+
+// $[] — give every element a 10% bonus
+db.students.updateOne(
+  { _id: 1 },
+  { $mul: { "grades.$[].score": 1.1 } }
+)
+
+// $[<identifier>] — only bump grades below 60, using arrayFilters
+db.students.updateOne(
+  { _id: 1 },
+  { $set: { "grades.$[elem].score": 60 } },
+  { arrayFilters: [{ "elem.score": { $lt: 60 } }] }
+)</code></pre>
+
+          <h3>Delete</h3>
+          <pre><code>db.users.deleteOne({ name: "Ada" })
+db.users.deleteMany({ active: false })</code></pre>
+
+          <h3>Upsert</h3>
+          <pre><code>db.users.updateOne(
+  { name: "Grace" },
+  { $set: { age: 40 } },
+  { upsert: true } // inserts if no match found
+)</code></pre>
+        </section>
+
+        <section id="indexes">
+          <h2>4. Indexes</h2>
+          <p class="lead">Indexes let MongoDB scan a smaller structure instead of every document (a
+            <strong>COLLSCAN</strong>). Every collection has a default index on <code>_id</code>.</p>
+
+          <h3>How Indexes Work: B-Trees</h3>
+          <p>MongoDB's default storage engine (WiredTiger) implements every index as a <strong>B-tree</strong>
+            (technically a B+tree variant). Understanding the shape of that structure explains almost every indexing
+            rule the exam tests.</p>
+          <ul class="clean">
+            <li>A B-tree keeps keys <strong>sorted</strong> across a balanced tree of nodes, so it can find a value, a
+              range, or "the next value in order" in <code>O(log n)</code> disk/memory reads instead of scanning every
+              document.</li>
+            <li>Each entry in the tree stores the indexed field's value plus a pointer to the document's location on
+              disk — so the database reads the small, sorted tree first, then jumps straight to matching documents
+              instead of touching every document.</li>
+            <li>Because the tree is sorted, it naturally satisfies <strong>equality</strong> (jump straight to the
+              value), <strong>range</strong> (walk the tree between two bounds), and <strong>sort</strong> (read the
+              tree in order — no separate in-memory sort needed) — but only when the query lines up with how the tree is
+              built.</li>
+            <li>A <strong>compound index</strong> is one B-tree built on concatenated field values, sorted by the first
+              field, then the second within each first-field value, and so on. This is exactly why field
+              <strong>order</strong> in a compound index changes what it can efficiently support.</li>
+          </ul>
+
+          <h3>Types of Indexes</h3>
+          <table>
+            <tr>
+              <th>Type</th>
+              <th>Use case</th>
+              <th>Example</th>
+            </tr>
+            <tr>
+              <td>Single field</td>
+              <td>Query on one field</td>
+              <td><code>db.users.createIndex({ age: 1 })</code></td>
+            </tr>
+            <tr>
+              <td>Compound</td>
+              <td>Query on multiple fields together</td>
+              <td><code>db.orders.createIndex({ status: 1, createdAt: -1 })</code></td>
+            </tr>
+            <tr>
+              <td>Multikey</td>
+              <td>Indexing array fields</td>
+              <td><code>db.users.createIndex({ skills: 1 })</code></td>
+            </tr>
+            <tr>
+              <td>Text</td>
+              <td>Full-text search</td>
+              <td><code>db.articles.createIndex({ body: "text" })</code></td>
+            </tr>
+            <tr>
+              <td>Wildcard</td>
+              <td>Unknown/dynamic field names</td>
+              <td><code>db.logs.createIndex({ "$**": 1 })</code></td>
+            </tr>
+            <tr>
+              <td>Unique</td>
+              <td>Enforce uniqueness</td>
+              <td><code>db.users.createIndex({ email: 1 }, { unique: true })</code></td>
+            </tr>
+            <tr>
+              <td>TTL</td>
+              <td>Auto-expire documents</td>
+              <td><code>db.sessions.createIndex({ createdAt: 1 }, { expireAfterSeconds: 3600 })</code></td>
+            </tr>
+          </table>
+
+          <h3>The ESR Rule (Equality, Sort, Range) — and Why It Works</h3>
+          <p>For compound indexes, order fields as: fields used for <strong>Equality</strong> matches first, then fields
+            used to <strong>Sort</strong>, then fields used for <strong>Range</strong> filters. This is one of the most
+            heavily tested performance concepts on the exam — and it falls directly out of how the B-tree is built:</p>
+          <ol style="padding-left:20px;">
+            <li><strong>Equality first:</strong> an equality match (<code>status: "shipped"</code>) lets the engine jump
+              straight to one narrow slice of the tree — everything after that field is now sorted <em>within</em> that
+              slice, essentially "for free."</li>
+            <li><strong>Sort second:</strong> because the tree is already sorted by the next field within that slice,
+              MongoDB can read entries in that order directly off the index — no separate, memory-hungry in-memory sort
+              stage required.</li>
+            <li><strong>Range last:</strong> a range condition (<code>price: {$gt:10,$lt:100}</code>) has to scan a
+              contiguous span of the tree rather than jump to one point. Doing this <em>last</em> means the equality and
+              sort benefits above still apply before the scan narrows further. Put a range field earlier and it breaks
+              the sorted order the later fields depend on, forcing extra work.</li>
+          </ol>
+          <pre><code>// Query: status == "shipped", sort by createdAt, price between 10 and 100
+db.orders.find({ status: "shipped", price: { $gt: 10, $lt: 100 } }).sort({ createdAt: -1 })
+
+// Correct index order (Equality, Sort, Range):
+db.orders.createIndex({ status: 1, createdAt: -1, price: 1 })
+
+// A "wrong order" index still works, but is slower — e.g. range before sort:
+db.orders.createIndex({ status: 1, price: 1, createdAt: -1 })
+// forces MongoDB to sort createdAt in memory instead of reading it off the index</code></pre>
+
+          <h3>Indexing Arrays (Multikey Indexes)</h3>
+          <p>When you index a field that holds an array, MongoDB automatically creates a <strong>multikey index</strong>
+            — it adds one B-tree entry <em>per array element</em>, all pointing back to the same document.</p>
+          <pre><code>// Document
+{ _id: 1, name: "Ada", skills: ["math", "programming", "writing"] }
+
+// Index
+db.users.createIndex({ skills: 1 })
+// Under the hood, the B-tree gets 3 entries, one per element:
+// "math" -> doc 1
+// "programming" -> doc 1
+// "writing" -> doc 1
+
+db.users.find({ skills: "programming" }) // uses the index, IXSCAN</code></pre>
+          <div class="callout"><strong>Key rule the exam loves:</strong> a compound index can have <strong>at most
+              one</strong> array (multikey) field. <code>db.users.createIndex({ skills: 1, hobbies: 1 })</code> throws
+            an error if both <code>skills</code> and <code>hobbies</code> are arrays — MongoDB would otherwise need one
+            tree entry per <em>combination</em> of elements across both arrays, which it disallows.</div>
+          <p>Other array-index details worth knowing:</p>
+          <ul class="clean">
+            <li>Indexing an array of embedded documents (e.g. <code>grades: [{subject, score}]</code>) creates multikey
+              entries over the whole subdocument, or over specific subfields if you index <code>"grades.score"</code>
+              directly.</li>
+            <li><code>$size</code> queries <strong>cannot</strong> use a multikey index (there's no single "array
+              length" value stored per entry) — they always trigger a collection scan unless combined with other indexed
+              conditions.</li>
+            <li>Multikey indexes support equality, range, and <code>$elemMatch</code> queries on the array efficiently,
+              but each additional array element indexed adds index storage and slows writes to that document.</li>
+          </ul>
+
+          <h3>Explain Plans</h3>
+          <pre><code>db.orders.find({ status: "shipped" }).explain("executionStats")
+// Look for: IXSCAN (index used) vs COLLSCAN (full scan, usually bad)
+// executionStats.totalKeysExamined vs totalDocsExamined — big gaps between
+// them (docs >> keys) are a sign the index isn't selective enough</code></pre>
+        </section>
+
+        <section id="datamodeling">
+          <h2>5. Data Modeling &amp; Schema Design</h2>
+          <p class="lead">This is the heart of the MongoDB exam and the part people most often underestimate. MongoDB's
+            flexible schema means the "right" model depends entirely on your <strong>application's access
+              patterns</strong> — not on normalization rules from relational databases. Design around how data is
+            <em>read and written</em>, not just how it's structured.</p>
+
+          <h3>Embedding vs. Referencing</h3>
+          <div class="card" id="p-embedding">
+            <p><strong>Embedding</strong> nests related data inside a single document. Best when data is read together
+              and doesn't grow unbounded.</p>
+            <pre><code>// Embedded one-to-few (a user with a few addresses)
+{
+  _id: 1,
+  name: "Ada",
+  addresses: [
+    { city: "London", zip: "E1 6AN" },
+    { city: "Paris", zip: "75001" }
+  ]
+}</code></pre>
+            <p><strong>Referencing</strong> stores an <code>_id</code> pointer to a document in another collection. Best
+              for one-to-many/many-to-many, large or independently-growing data, or data reused across many parents.</p>
+            <pre><code>// Referenced one-to-many (a user with many orders)
+// users collection
+{ _id: 1, name: "Ada" }
+
+// orders collection
+{ _id: 101, userId: 1, total: 49.99 }
+{ _id: 102, userId: 1, total: 12.50 }</code></pre>
+            <table>
+              <tr>
+                <th>Use Embedding when...</th>
+                <th>Use Referencing when...</th>
+              </tr>
+              <tr>
+                <td>Data is always accessed together</td>
+                <td>Data is accessed independently</td>
+              </tr>
+              <tr>
+                <td>"Contains" / one-to-few relationship</td>
+                <td>One-to-many or many-to-many at scale</td>
+              </tr>
+              <tr>
+                <td>Child data doesn't grow unbounded</td>
+                <td>Child data grows continuously (e.g. logs)</td>
+              </tr>
+              <tr>
+                <td>You want atomic single-document writes</td>
+                <td>Related data needs independent updates</td>
+              </tr>
+            </table>
+            <div class="callout"><strong>16MB limit:</strong> a single BSON document cannot exceed 16MB. Unbounded
+              arrays that embed growing child data are a classic anti-pattern (the "Massive Arrays" anti-pattern) — this
+              is exam-relevant.</div>
+          </div>
+
+          <p>Beyond the basic embed/reference decision, MongoDB documents a set of named <strong>schema design
+              patterns</strong> for recurring modeling problems. The exam expects you to recognize each pattern from a
+            scenario description. Below is each pattern with a concrete example.</p>
+
+          <div class="pattern" id="p-attribute">
+            <span class="tag">Pattern</span>
+            <h3>Attribute Pattern</h3>
+            <p class="meta">Problem: documents have many similar fields, but only a subset applies to each document, or
+              you need to search/sort across fields whose names vary.</p>
+            <div class="label">Solution</div>
+            <p>Move the variable fields into a key/value array. This lets you index the array once instead of indexing
+              every possible field name.</p>
+            <div class="label">Example — product specs</div>
+            <pre><code>// Before: hard to index every possible spec, many are null per product
+{ name: "Camera X100", resolution: "24MP", waterproof: true, batteryLife: null }
+
+// After: Attribute Pattern
+{
+  name: "Camera X100",
+  specs: [
+    { k: "resolution", v: "24MP" },
+    { k: "waterproof", v: true }
+  ]
+}
+// One index covers all specs:
+db.products.createIndex({ "specs.k": 1, "specs.v": 1 })</code></pre>
+          </div>
+
+          <div class="pattern" id="p-bucket">
+            <span class="tag">Pattern</span>
+            <h3>Bucket Pattern (Group Data)</h3>
+            <p class="meta">Problem: high-volume time-series or event data (IoT sensors, stock ticks, logs) would create
+              one document per reading — too many small documents.</p>
+            <div class="label">Solution</div>
+            <p>Group readings into "buckets" covering a fixed time window, with the individual readings as an embedded
+              array plus precomputed summary fields.</p>
+            <div class="label">Example — hourly sensor bucket</div>
+            <pre><code>{
+  sensorId: "sensor-42",
+  hour: ISODate("2026-07-26T09:00:00Z"),
+  readings: [
+    { minute: 0, temp: 21.4 },
+    { minute: 1, temp: 21.5 }
+    // ... up to 60 readings
+  ],
+  count: 60,
+  avgTemp: 21.6,
+  minTemp: 20.9,
+  maxTemp: 22.3
+}</code></pre>
+            <p>Modern MongoDB also offers native <code>timeseries</code> collections that implement this pattern
+              automatically — worth knowing the built-in feature exists alongside the manual pattern.</p>
+          </div>
+
+          <div class="pattern" id="p-outlier">
+            <span class="tag">Pattern</span>
+            <h3>Outlier Pattern</h3>
+            <p class="meta">Problem: the vast majority of documents are small, but a rare "outlier" (a viral tweet, a
+              bestselling product) would otherwise need an enormous embedded array.</p>
+            <div class="label">Solution</div>
+            <p>Embed as normal for the common case, but add a flag once a document becomes an outlier, and overflow the
+              extra data into a separate collection.</p>
+            <div class="label">Example — a book's reviews</div>
+            <pre><code>// Typical book: reviews embedded directly
+{ _id: 1, title: "Normal Book", reviews: [ /* a handful of reviews */ ] }
+
+// Bestseller: flagged, extra reviews live elsewhere
+{
+  _id: 2,
+  title: "Bestseller",
+  reviews: [ /* first ~100 reviews */ ],
+  hasExtraReviews: true
+}
+// book_reviews_overflow collection
+{ bookId: 2, review: "..." }</code></pre>
+          </div>
+
+          <div class="pattern" id="p-computed">
+            <span class="tag">Pattern</span>
+            <h3>Computed Pattern</h3>
+            <p class="meta">Problem: recalculating an expensive value (totals, averages, view counts) on every read
+              wastes CPU, especially when reads vastly outnumber writes.</p>
+            <div class="label">Solution</div>
+            <p>Compute the value once — on write, or on a schedule — and store the result on the document so reads are a
+              simple field lookup.</p>
+            <div class="label">Example — movie view count</div>
+            <pre><code>// Instead of counting views on every page load:
+db.movies.updateOne(
+  { _id: movieId },
+  { $inc: { viewCount: 1 } }
+)
+// Reads just do:
+db.movies.findOne({ _id: movieId }, { viewCount: 1 })</code></pre>
+          </div>
+
+          <div class="pattern" id="p-subset">
+            <span class="tag">Pattern</span>
+            <h3>Subset Pattern</h3>
+            <p class="meta">Problem: a document embeds a large array (e.g. thousands of reviews) but the application
+              usually only needs the first few — loading all of it wastes memory (the "working set").</p>
+            <div class="label">Solution</div>
+            <p>Embed only a small, frequently-accessed subset, and keep the full set in a separate collection queried on
+              demand.</p>
+            <div class="label">Example — product page reviews</div>
+            <pre><code>// products collection: only the 10 most helpful reviews embedded
+{
+  _id: 1,
+  name: "Wireless Mouse",
+  topReviews: [ /* 10 most recent/helpful reviews */ ],
+  totalReviews: 4381
+}
+
+// reviews collection: full history, paginated on demand
+{ productId: 1, rating: 5, text: "..." }</code></pre>
+          </div>
+
+          <div class="pattern" id="p-extref">
+            <span class="tag">Pattern</span>
+            <h3>Extended Reference Pattern</h3>
+            <p class="meta">Problem: pure referencing means every read needs a <code>$lookup</code> join just to show a
+              few frequently-needed fields (like a customer's name on an order).</p>
+            <div class="label">Solution</div>
+            <p>Duplicate only the handful of fields you display often directly into the referencing document, alongside
+              the reference id — avoiding a join for common reads while keeping the source of truth elsewhere.</p>
+            <div class="label">Example — order with embedded customer summary</div>
+            <pre><code>{
+  _id: 501,
+  customerId: 77,          // reference to the full customer doc
+  customer: {               // extended reference: just what the order needs
+    name: "Ada Lovelace",
+    shippingCity: "London"
+  },
+  items: [ { sku: "A1", qty: 2 } ],
+  total: 59.98
+}</code></pre>
+            <div class="callout"><strong>Trade-off:</strong> duplicated fields can go stale if the source changes. Only
+              extend fields that rarely change (name, not phone number) or that you're fine denormalizing.</div>
+          </div>
+
+
+
+
+
+
+
+          <div class="pattern" id="p-singlecoll">
+            <span class="tag">Pattern</span>
+            <h3>Single Collection Pattern</h3>
+            <p class="meta">Problem: an application has many related but differently-shaped entity types (e.g. a social
+              app with users, posts, and comments) that are frequently queried together, and separate collections would
+              require multiple round trips or <code>$lookup</code>s.</p>
+            <div class="label">Solution</div>
+            <p>Combine the polymorphic and extended reference ideas: store all related entity types in one collection
+              with a <code>type</code> discriminator plus reference fields, so one query can retrieve a mixed result set
+              sorted or filtered together.</p>
+            <div class="label">Example — social feed</div>
+            <pre><code>{ _id: 1, type: "post", authorId: 9, text: "Hello world", createdAt: ISODate() }
+{ _id: 2, type: "comment", postId: 1, authorId: 12, text: "Nice!", createdAt: ISODate() }
+{ _id: 3, type: "like", postId: 1, authorId: 4, createdAt: ISODate() }
+
+// Single query returns everything related to a post, sorted by time
+db.feed.find({ $or: [{ _id: 1 }, { postId: 1 }] }).sort({ createdAt: 1 })</code></pre>
+          </div>
+
+          <div class="pattern" id="p-archive">
+            <span class="tag">Pattern</span>
+            <h3>Archive Pattern</h3>
+            <p class="meta">Problem: a collection accumulates data that is rarely accessed after a certain age (old
+              orders, closed tickets), but it still consumes RAM/working-set and slows down queries on the active data.
+            </p>
+            <div class="label">Solution</div>
+            <p>Periodically move old/cold documents to a separate "archive" collection (often on cheaper storage or a
+              different cluster tier), keeping the primary collection lean and fast for current data.</p>
+            <div class="label">Example</div>
+            <pre><code>// Move orders older than 2 years to an archive collection
+const cutoff = new Date(); cutoff.setFullYear(cutoff.getFullYear() - 2);
+const old = db.orders.find({ createdAt: { $lt: cutoff } }).toArray();
+db.orders_archive.insertMany(old);
+db.orders.deleteMany({ createdAt: { $lt: cutoff } });</code></pre>
+          </div>
+
+          <h3>Modeling Relationships — Quick Reference</h3>
+          <table>
+            <tr>
+              <th>Relationship</th>
+              <th>Typical approach</th>
+            </tr>
+            <tr>
+              <td>One-to-One</td>
+              <td>Embed (or reference if the child is large/optional)</td>
+            </tr>
+            <tr>
+              <td>One-to-Few</td>
+              <td>Embed as an array</td>
+            </tr>
+            <tr>
+              <td>One-to-Many</td>
+              <td>Reference (child references parent's <code>_id</code>)</td>
+            </tr>
+            <tr>
+              <td>One-to-Squillions</td>
+              <td>Parent reference on the child; never embed unboundedly</td>
+            </tr>
+            <tr>
+              <td>Many-to-Many</td>
+              <td>Reference both ways, or an array of ids on one side</td>
+            </tr>
+          </table>
+
+          <h3>Schema Design Anti-Patterns to Recognize</h3>
+          <ul class="clean">
+            <li><strong>Massive arrays</strong> — arrays that grow without bound (risking the 16MB limit and slow
+              updates).</li>
+            <li><strong>Massive number of collections</strong> — thousands of collections (e.g. one per customer) adds
+              overhead and hits storage engine limits.</li>
+            <li><strong>Unnecessary indexes</strong> — every index has a write-performance and storage cost; unused
+              indexes should be removed.</li>
+            <li><strong>Bloated documents</strong> — storing rarely-used data inline instead of applying the Subset or
+              Outlier pattern.</li>
+            <li><strong>Separating data accessed together</strong> — over-normalizing to the point every read needs
+              multiple <code>$lookup</code>s.</li>
+            <li><strong>Case-insensitive queries without a matching index</strong> — causes collection scans.</li>
+          </ul>
+        </section>
+
+        <section id="aggregation">
+          <h2>6. Aggregation Framework</h2>
+          <p class="lead">The aggregation pipeline processes documents through a sequence of stages, each transforming
+            the data for the next. Think of it as a data-processing pipe.</p>
+
+          <h3>Common Stages</h3>
+          <table>
+            <tr>
+              <th>Stage</th>
+              <th>Purpose</th>
+            </tr>
+            <tr>
+              <td><code>$match</code></td>
+              <td>Filter documents (like <code>find()</code>)</td>
+            </tr>
+            <tr>
+              <td><code>$group</code></td>
+              <td>Group by a key and compute aggregates</td>
+            </tr>
+            <tr>
+              <td><code>$project</code></td>
+              <td>Reshape documents, include/exclude/compute fields</td>
+            </tr>
+            <tr>
+              <td><code>$sort</code></td>
+              <td>Order results</td>
+            </tr>
+            <tr>
+              <td><code>$limit</code> / <code>$skip</code></td>
+              <td>Pagination</td>
+            </tr>
+            <tr>
+              <td><code>$lookup</code></td>
+              <td>Left outer join to another collection</td>
+            </tr>
+            <tr>
+              <td><code>$unwind</code></td>
+              <td>Flatten an array into one document per element</td>
+            </tr>
+            <tr>
+              <td><code>$addFields</code></td>
+              <td>Add or overwrite fields without removing others</td>
+            </tr>
+            <tr>
+              <td><code>$count</code></td>
+              <td>Count documents at that pipeline stage</td>
+            </tr>
+            <tr>
+              <td><code>$set</code> / <code>$unset</code></td>
+              <td>Alias for <code>$addFields</code> / remove fields</td>
+            </tr>
+            <tr>
+              <td><code>$bucket</code> / <code>$bucketAuto</code></td>
+              <td>Group documents into ranges ("buckets")</td>
+            </tr>
+            <tr>
+              <td><code>$facet</code></td>
+              <td>Run multiple sub-pipelines in parallel, in one pass</td>
+            </tr>
+            <tr>
+              <td><code>$replaceRoot</code></td>
+              <td>Promote an embedded document to become the top-level document</td>
+            </tr>
+          </table>
+
+          <h3>Example — revenue per customer</h3>
+          <pre><code>db.orders.aggregate([
+  { $match: { status: "completed" } },
+  { $group: { _id: "$customerId", totalSpent: { $sum: "$total" }, orders: { $sum: 1 } } },
+  { $sort: { totalSpent: -1 } },
+  { $limit: 10 }
+])</code></pre>
+
+          <h3>Example — $lookup join</h3>
+          <pre><code>db.orders.aggregate([
+  {
+    $lookup: {
+      from: "customers",
+      localField: "customerId",
+      foreignField: "_id",
+      as: "customer"
+    }
+  },
+  { $unwind: "$customer" }
+])</code></pre>
+
+          <h3>$unwind — flattening arrays</h3>
+          <p><code>$unwind</code> takes a document with an array field and outputs <strong>one document per array
+              element</strong>, copying every other field. It's what makes it possible to <code>$group</code>,
+            <code>$match</code>, or <code>$sort</code> on individual array elements instead of the whole array.</p>
+          <pre><code>// Before $unwind — one order document, 3 items
+{ _id: 1, customerId: 7, items: [
+  { sku: "A1", qty: 2, price: 10 },
+  { sku: "B2", qty: 1, price: 25 },
+  { sku: "C3", qty: 4, price: 5 }
+]}
+
+db.orders.aggregate([
+  { $unwind: "$items" }
+])
+
+// After $unwind — three separate documents, one per item
+{ _id: 1, customerId: 7, items: { sku: "A1", qty: 2, price: 10 } }
+{ _id: 1, customerId: 7, items: { sku: "B2", qty: 1, price: 25 } }
+{ _id: 1, customerId: 7, items: { sku: "C3", qty: 4, price: 5 } }
+
+// Common pairing: unwind, then group to get per-SKU totals across all orders
+db.orders.aggregate([
+  { $unwind: "$items" },
+  { $group: { _id: "$items.sku", totalQty: { $sum: "$items.qty" } } }
+])</code></pre>
+          <div class="callout"><strong>Exam detail:</strong> by default, <code>$unwind</code> drops any document whose
+            array field is missing, <code>null</code>, or an empty array. Pass
+            <code>{ path: "$items", preserveNullAndEmptyArrays: true }</code> instead of the plain string form to keep
+            those documents (with <code>items</code> set to <code>null</code>).</div>
+
+          <h3>$addFields / $set — computing new fields</h3>
+          <p><code>$addFields</code> (and its alias <code>$set</code>) adds new fields or overwrites existing ones,
+            while passing every other field through unchanged — unlike <code>$project</code>, you don't have to re-list
+            fields you want to keep.</p>
+          <pre><code>db.orders.aggregate([
+  {
+    $addFields: {
+      lineTotal: { $multiply: ["$qty", "$price"] },
+      isBulkOrder: { $gte: ["$qty", 100] }
+    }
+  }
+])
+// Every original field (customerId, items, ...) is still present,
+// plus the two new computed fields.
+
+// $unset removes fields you no longer need after computing them
+db.orders.aggregate([
+  { $addFields: { lineTotal: { $multiply: ["$qty", "$price"] } } },
+  { $unset: ["internalNotes", "tempFlag"] }
+])</code></pre>
+
+          <h3>$bucket — grouping into ranges</h3>
+          <pre><code>db.orders.aggregate([
+  {
+    $bucket: {
+      groupBy: "$total",
+      boundaries: [0, 50, 100, 500, 1000],
+      default: "1000+",
+      output: { count: { $sum: 1 }, orders: { $push: "$_id" } }
+    }
+  }
+])
+// Produces one document per range: 0-50, 50-100, 100-500, 500-1000, "1000+"</code></pre>
+
+          <h3>$facet — multiple pipelines in one query</h3>
+          <pre><code>db.orders.aggregate([
+  {
+    $facet: {
+      byStatus: [{ $group: { _id: "$status", count: { $sum: 1 } } }],
+      topSpenders: [
+        { $group: { _id: "$customerId", total: { $sum: "$total" } } },
+        { $sort: { total: -1 } },
+        { $limit: 5 }
+      ]
+    }
+  }
+])
+// Returns one document with two arrays: "byStatus" and "topSpenders"
+// — useful for building a dashboard in a single round trip</code></pre>
+
+          <div class="callout"><strong>Exam detail:</strong> pipeline stages execute in order, and each stage's output
+            becomes the next stage's input. Put <code>$match</code> as early as possible to shrink the working set
+            before expensive stages like <code>$lookup</code>, <code>$unwind</code>, or <code>$group</code>.</div>
+        </section>
+
+        <section id="transactions">
+          <h2>7. Transactions</h2>
+          <p class="lead">MongoDB supports multi-document ACID transactions across replica sets and sharded clusters.
+            Most schema designs (thanks to embedding) avoid needing them, but they matter when multiple
+            documents/collections must change atomically.</p>
+          <pre><code>const session = client.startSession();
+session.startTransaction();
+try {
+  await accounts.updateOne({ _id: "A" }, { $inc: { balance: -100 } }, { session });
+  await accounts.updateOne({ _id: "B" }, { $inc: { balance: 100 } }, { session });
+  await session.commitTransaction();
+} catch (e) {
+  await session.abortTransaction();
+  throw e;
+} finally {
+  session.endSession();
+}</code></pre>
+          <div class="tip"><strong>Design tip tested on the exam:</strong> a well-embedded document gets atomic
+            single-document writes for free — no transaction needed. Reach for transactions only when the data genuinely
+            spans multiple documents/collections.</div>
+        </section>
+
+        <section id="replication">
+          <h2>8. Replication</h2>
+          <p class="lead">A <strong>replica set</strong> is a group of mongod processes maintaining the same data set,
+            providing redundancy and high availability.</p>
+          <ul class="clean">
+            <li><strong>Primary</strong> — receives all writes.</li>
+            <li><strong>Secondaries</strong> — replicate the primary's oplog; can serve reads if configured.</li>
+            <li><strong>Election</strong> — if the primary becomes unavailable, an eligible secondary is elected
+              automatically.</li>
+            <li><strong>Write Concern</strong> — how many replica set members must acknowledge a write (e.g.
+              <code>{ w: "majority" }</code>).</li>
+            <li><strong>Read Preference</strong> — controls whether reads go to the primary, secondaries, or nearest
+              node (e.g. <code>primary</code>, <code>secondaryPreferred</code>, <code>nearest</code>).</li>
+          </ul>
+          <p>Minimum recommended replica set size is 3 members (odd number, to avoid tied elections).</p>
+        </section>
+
+        <section id="sharding">
+          <h2>9. Sharding</h2>
+          <p class="lead">Sharding horizontally partitions data across multiple machines ("shards") when a data set is
+            too large or has too much throughput for one server.</p>
+          <ul class="clean">
+            <li><strong>Shard key</strong> — the field(s) used to distribute documents; choosing a good one (high
+              cardinality, even distribution, matches query patterns) is critical and heavily tested.</li>
+            <li><strong>mongos</strong> — the query router applications connect to; routes operations to the correct
+              shard(s).</li>
+            <li><strong>Config servers</strong> — store cluster metadata (which ranges of the shard key live on which
+              shard).</li>
+            <li><strong>Chunks</strong> — ranges of shard-key values MongoDB migrates between shards to balance load.
+            </li>
+          </ul>
+          <div class="callout"><strong>Poor shard key example:</strong> a monotonically increasing field (like a
+            timestamp or auto-incrementing counter) causes all new writes to land on a single shard — a common "hot
+            shard" exam scenario.</div>
+        </section>
+
+        <section id="security">
+          <h2>10. Security</h2>
+          <ul class="clean">
+            <li><strong>Authentication</strong> — verifying identity (SCRAM, x.509 certs, LDAP, Kerberos on Enterprise).
+            </li>
+            <li><strong>Authorization (RBAC)</strong> — role-based access control; built-in roles like
+              <code>read</code>, <code>readWrite</code>, <code>dbAdmin</code>, <code>clusterAdmin</code>.</li>
+            <li><strong>Encryption in transit</strong> — TLS/SSL between clients and the cluster.</li>
+            <li><strong>Encryption at rest</strong> — the WiredTiger storage engine can encrypt data files.</li>
+            <li><strong>Field-level encryption</strong> — client-side encryption for specific sensitive fields, so even
+              MongoDB never sees plaintext.</li>
+            <li><strong>Auditing</strong> — logging of access and administrative actions (Enterprise/Atlas).</li>
+          </ul>
+          <pre><code>// Create a user scoped to one database with a built-in role
+db.createUser({
+  user: "appUser",
+  pwd: "securePassword",
+  roles: [{ role: "readWrite", db: "shopDB" }]
+})</code></pre>
+        </section>
+
+        <section id="drivers">
+          <h2>11. Drivers &amp; Atlas</h2>
+          <p class="lead">MongoDB provides official drivers for most languages (Node.js, Python, Java, C#, Go, etc.),
+            all implementing the same core CRUD/aggregation API against the wire protocol.</p>
+          <ul class="clean">
+            <li><strong>Connection string</strong> — <code>mongodb+srv://user:pass@cluster.mongodb.net/dbname</code> for
+              Atlas SRV connections.</li>
+            <li><strong>Atlas</strong> — MongoDB's fully managed cloud database service; the exam expects familiarity
+              with basic Atlas concepts (clusters, network access lists, database users).</li>
+            <li><strong>Compass</strong> — the official GUI for exploring data, building queries, and analyzing
+              schema/index usage visually.</li>
+            <li><strong>mongosh</strong> — the modern MongoDB shell (replaces the legacy <code>mongo</code> shell).</li>
+          </ul>
+        </section>
+
+        <section id="tips">
+          <h2>12. Study Tips</h2>
+          <div class="grid2">
+            <div class="card">
+              <h3 style="margin-top:0;">What actually helped</h3>
+              <ul class="clean">
+                <li>Do the free MongoDB University learning path end-to-end, including the labs — not just videos.</li>
+                <li>Practice reading <code>explain()</code> output until COLLSCAN vs IXSCAN is instant to spot.</li>
+                <li>Memorize each schema design pattern by its <em>problem</em>, not just its name — the exam describes
+                  scenarios, not pattern names.</li>
+                <li>Get comfortable with aggregation stage order and what each stage's output looks like.</li>
+                <li>Know the difference between <code>update</code> operators (<code>$set</code>, <code>$inc</code>,
+                  <code>$push</code>, <code>$addToSet</code>, <code>$pull</code>) cold.</li>
+              </ul>
+            </div>
+            <div class="card">
+              <h3 style="margin-top:0;">Common traps</h3>
+              <ul class="clean">
+                <li>Confusing <code>updateOne</code> vs <code>replaceOne</code> behavior.</li>
+                <li>Picking a shard key without thinking about write distribution.</li>
+                <li>Assuming normalization (SQL instincts) is always "correct" — MongoDB rewards designing for access
+                  patterns.</li>
+                <li>Forgetting the 16MB document size limit when justifying embedding choices.</li>
+                <li>Mixing up read preference modes and when each is safe to use.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="resources">
+          <h2>13. Resources</h2>
+          <ul class="clean">
+            <li><a href="https://learn.mongodb.com/" target="_blank" rel="noopener">MongoDB University</a> — free
+              official courses and the Associate Developer learning path.</li>
+            <li><a href="https://www.mongodb.com/docs/manual/data-modeling/design-patterns/" target="_blank"
+                rel="noopener">MongoDB Manual: Schema Design Patterns</a> — official reference for the patterns in this
+              guide.</li>
+            <li><a href="https://www.mongodb.com/docs/manual/data-modeling/design-antipatterns/" target="_blank"
+                rel="noopener">MongoDB Manual: Schema Design Anti-Patterns</a></li>
+            <li><a href="https://www.mongodb.com/docs/manual/" target="_blank" rel="noopener">MongoDB Manual</a> — full
+              reference documentation.</li>
+            <li><a href="https://www.mongodb.com/docs/manual/aggregation/" target="_blank" rel="noopener">Aggregation
+                Pipeline Reference</a></li>
+          </ul>
+          <p class="lead" style="margin-top:20px;">Good luck — the exam rewards understanding <em>why</em> a pattern
+            fits a scenario, not memorizing syntax. Work through real examples like the ones above and you'll recognize
+            them instantly on test day.</p>
+        </section>
+
+      </main>
+    </div>
+  </div><!-- /tab-study -->
+
+  <div id="tab-practice" class="tabpanel">
+    <div class="wrap" style="max-width:820px;">
+      <h2
+        style="font-size:1.65rem;color:var(--mdb-dark);border-bottom:3px solid var(--mdb-bright);display:inline-block;padding-bottom:6px;margin-bottom:10px;">
+        Practice Quiz</h2>
+      <p class="lead" style="margin-bottom:20px;">60 scenario-style questions across two sets, mirroring the real exam's
+        mix of topics. Click an answer to check it instantly — the explanation appears either way. Original PDFs (with
+        the full answer key) are available in the Code &amp; Data tab.</p>
+      <div class="quiz-toolbar">
+        <button class="quiz-set-btn active" data-set="1" onclick="loadQuizSet(1)">Set 1 — 30 Questions</button>
+        <button class="quiz-set-btn" data-set="2" onclick="loadQuizSet(2)">Set 2 — 30 Questions</button>
+        <button onclick="resetQuiz()">↺ Reset</button>
+        <span class="quiz-progress" id="quizProgress">Score: 0 / 0</span>
+      </div>
+      <div id="quizContainer"></div>
+    </div>
+  </div><!-- /tab-practice -->
+
+  <div id="tab-code" class="tabpanel">
+    <div class="wrap" style="max-width:900px;">
+      <h2
+        style="font-size:1.65rem;color:var(--mdb-dark);border-bottom:3px solid var(--mdb-bright);display:inline-block;padding-bottom:6px;margin-bottom:10px;">
+        Code &amp; Sample Data</h2>
+      <p class="lead" style="margin-bottom:10px;">A ready-to-run local MongoDB environment with a seeded sample dataset,
+        so you can try every query and pattern from the Study Guide against real documents instead of copy-pasting.</p>
+
+      <h3 style="color:var(--accent2);margin-top:26px;">Downloads</h3>
+      <div class="dl-grid">
+        <div class="dl-card">
+          <div class="fname">docker-compose.yml</div>
+          <div class="fdesc">Spins up a local MongoDB container (with auth) in one command.</div>
+          <a class="dlbtn" href="downloads/docker-compose.yml" download>Download</a>
+        </div>
+        <div class="dl-card">
+          <div class="fname">seed.js</div>
+          <div class="fdesc">mongosh script that creates the sample dataset used throughout this site.</div>
+          <a class="dlbtn" href="downloads/seed.js" download>Download</a>
+        </div>
+        <div class="dl-card">
+          <div class="fname">Practice_Quiz_Set1.pdf</div>
+          <div class="fdesc">Printable version of quiz Set 1, with full answer key.</div>
+          <a class="dlbtn" href="downloads/MongoDB_Associate_Practice_Quiz.pdf" download>Download</a>
+        </div>
+        <div class="dl-card">
+          <div class="fname">Practice_Quiz_Set2.pdf</div>
+          <div class="fdesc">Printable version of quiz Set 2, with full answer key.</div>
+          <a class="dlbtn" href="downloads/MongoDB_Associate_Practice_Quiz_v2.pdf" download>Download</a>
+        </div>
+      </div>
+
+      <h3 style="color:var(--accent2);">Getting Started</h3>
+      <ol class="steps">
+        <li><strong>Install Docker Desktop</strong> if you don't already have it, then download
+          <code>docker-compose.yml</code> above into an empty folder.</li>
+        <li><strong>Start MongoDB:</strong>
+          <pre><code>docker compose up -d</code></pre>
+          This runs MongoDB on <code>localhost:27017</code> with username <code>admin</code> / password
+          <code>password</code>.
+        </li>
+        <li><strong>Download <code>seed.js</code></strong> into the same folder, then load the sample data:
+          <pre><code>mongosh "mongodb://admin:password@localhost:27017/mongodb_learning?authSource=admin" seed.js</code></pre>
+        </li>
+        <li><strong>Explore</strong> with <code>mongosh</code> or MongoDB Compass, using the same connection string.
+          Five collections are seeded: <code>categories</code>, <code>products</code>, <code>customers</code>,
+          <code>orders</code>, and <code>sensor_readings</code> — each one built to demonstrate a pattern from the Study
+          Guide.</li>
+      </ol>
+
+      <h3 style="color:var(--accent2);">docker-compose.yml</h3>
+      <pre><code>version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-dev-cert
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    restart: unless-stopped</code></pre>
+      <div class="callout"><strong>Note:</strong> this bind-mounts <code>./data</code> for storage, so your data
+        survives container restarts. Delete that local <code>data</code> folder if you want to start from a clean
+        database.</div>
+
+      <h3 style="color:var(--accent2);">Sample Dataset — What's in seed.js</h3>
+      <p>The seed script isn't random test data — every collection was built to match a specific concept from the Study
+        Guide, so you can query it and see the pattern in action:</p>
+      <table>
+        <tr>
+          <th>Collection</th>
+          <th>Demonstrates</th>
+        </tr>
+        <tr>
+          <td><code>categories</code></td>
+          <td>Tree Pattern — array-of-ancestors hierarchy (electronics → computers → laptops)</td>
+        </tr>
+        <tr>
+          <td><code>products</code></td>
+          <td>Attribute Pattern (<code>specs: [{k,v}]</code>) + Subset Pattern (<code>topReviews</code>) + multikey
+            <code>tags</code> index</td>
+        </tr>
+        <tr>
+          <td><code>customers</code></td>
+          <td>Simple referenced collection with a unique index on <code>email</code></td>
+        </tr>
+        <tr>
+          <td><code>orders</code></td>
+          <td>Extended Reference Pattern (embeds a customer summary) + an ESR-ordered compound index</td>
+        </tr>
+        <tr>
+          <td><code>sensor_readings</code></td>
+          <td>Bucket Pattern — hourly buckets with precomputed min/max/avg</td>
+        </tr>
+      </table>
+      <pre><code>// Try these once seed.js has run:
+db.orders.find({ status: "shipped" }).sort({ createdAt: -1 })
+db.products.find({ "specs.k": "ramGB", "specs.v": { $gte: 16 } })
+db.orders.aggregate([
+  { $unwind: "$items" },
+  { $group: { _id: "$items.name", totalQty: { $sum: "$items.qty" } } }
+])
+db.orders.find({ status: "shipped" }).explain("executionStats") // check IXSCAN vs COLLSCAN</code></pre>
+    </div>
+  </div><!-- /tab-code -->
+
+  <footer>
+    Built as a study resource for the MongoDB Associate Developer certification. Not an official MongoDB publication.
+  </footer>
+
+  <script>
+    function showTab(name) {
+      document.querySelectorAll('.tabpanel').forEach(function (p) { p.classList.remove('active'); });
+      document.getElementById('tab-' + name).classList.add('active');
+      document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.tab === name); });
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    // ---------------------------------------------------------------------------
+    // Practice quiz data — 2 sets x 30 questions, matching the downloadable PDFs
+    // ---------------------------------------------------------------------------
+    const QUIZ_SETS = {
+      1: [
+        { cat: "MongoDB Basics & BSON", q: "What is the size of an ObjectId in bytes?", opts: ["8", "12", "16", "24"], a: 1, exp: "ObjectId = 4-byte timestamp + 5-byte random value + 3-byte counter = 12 bytes total." },
+        { cat: "MongoDB Basics & BSON", q: "Which BSON type should you use for a monetary field like $19.99 that needs exact decimal precision (no floating-point rounding)?", opts: ["Double", "Int32", "Decimal128", "String"], a: 2, exp: "Decimal128 avoids the rounding errors of binary floating point (Double), making it correct for currency." },
+        { cat: "MongoDB Basics & BSON", q: "Which statement about MongoDB collections is true?", opts: ["A single collection can contain documents with different sets of fields, since MongoDB is schema-flexible by default", "All documents in a collection must have identical fields", "Schema flexibility only applies to arrays", "A collection can only ever hold one schema, enforced automatically"], a: 0, exp: "MongoDB collections are schema-flexible by default; documents can vary in structure unless schema validation rules are added." },
+        { cat: "CRUD Operations", q: "Which method updates only specific fields of a single matching document without replacing the whole document?", opts: ["replaceOne()", "updateOne()", "findOneAndDelete()", "insertOne()"], a: 1, exp: "updateOne() applies update operators (like $set) to modify specific fields; replaceOne() swaps the entire document." },
+        { cat: "CRUD Operations", q: "What happens if you call updateOne() with a plain document that contains no update operators (no $set, $inc, etc.)?", opts: ["It silently replaces the whole document", "It throws an error", "It merges fields automatically", "It inserts a new document"], a: 1, exp: "updateOne() requires update operators; passing a plain replacement-style document raises an error." },
+        { cat: "CRUD Operations", q: "What does the projection {name: 1, _id: 0} return in a find() query?", opts: ["Only the name field, with _id excluded", "All fields except name", "Only the _id field", "This is always an invalid projection"], a: 0, exp: "Inclusion (1) and exclusion (0) can't normally be mixed, except _id, which can always be explicitly excluded alongside inclusion projections." },
+        { cat: "CRUD Operations", q: "Which update operator adds a value to an array only if it does not already exist in that array?", opts: ["$push", "$addToSet", "$set", "$pull"], a: 1, exp: "$addToSet prevents duplicate values; $push always appends, even if the value is already present." },
+        { cat: "Aggregation Framework", q: "Which pipeline stage should generally be placed as early as possible to improve performance?", opts: ["$project", "$match", "$sort", "$limit"], a: 1, exp: "Placing $match early reduces the number of documents flowing through the rest of the pipeline." },
+        { cat: "Aggregation Framework", q: "What does the _id field represent inside a $group stage?", opts: ["An auto-generated identifier for the output document", "The grouping key expression", "The first document's _id in each group", "It is always null"], a: 1, exp: "_id in $group defines what you're grouping by — it can be a field, an expression, or an embedded document combining multiple fields." },
+        { cat: "Aggregation Framework", q: 'Given { scores: [80, 90, 100] }, what does $unwind: "$scores" produce?', opts: ["A single averaged number", "One output document per array element", "The array field removed entirely", "The array sorted in place"], a: 1, exp: "$unwind deconstructs the array, emitting one document per element while copying the rest of the document's fields." },
+        { cat: "Aggregation Framework", q: "By default, what happens to a document during $unwind if its array field is missing, null, or empty ([])?", opts: ["It's kept with a null value", "It throws an error", "It is dropped from the output", "It converts the field to an empty string"], a: 2, exp: "Without preserveNullAndEmptyArrays: true, $unwind silently drops documents whose array field is empty/missing/null." },
+        { cat: "Aggregation Framework", q: "What is the key difference between $project and $addFields when reshaping documents?", opts: ["$project can only exclude fields; $addFields can only include", "$addFields keeps all existing fields and adds new ones; $project (inclusion mode) drops any field not explicitly listed", "They are functionally identical", "$addFields requires a preceding $group stage"], a: 1, exp: "$addFields (alias $set) is additive and preserves the rest of the document; $project in inclusion mode reshapes the document down to only the listed fields." },
+        { cat: "Indexes", q: "What index exists on every MongoDB collection by default?", opts: ["A text index on all string fields", "A unique index on _id", "A compound index across all fields", "No index exists by default"], a: 1, exp: "MongoDB automatically creates a unique index on _id for every collection." },
+        { cat: "Indexes", q: "What does the ESR rule recommend for ordering fields in a compound index?", opts: ["Equality, Sort, Range", "Exclusion, Sort, Range", "Equality, Selectivity, Range", "Exclusion, Selectivity, Reference"], a: 0, exp: "ESR = Equality fields first, then Sort fields, then Range fields, for the most efficient compound index usage." },
+        { cat: "Indexes", q: "Given a compound index {status: 1, date: -1}, which query uses it most efficiently?", opts: ["db.col.find({date: {$gte: ISODate(...)}})", 'db.col.find({status: "active"}).sort({date: -1})', "db.col.find({}).sort({date: -1})", 'db.col.find({randomField: "x"})'], a: 1, exp: "This matches the ESR pattern exactly: equality on status, then sort on date, both covered by the compound index's field order." },
+        { cat: "Indexes", q: "What does explain() showing COLLSCAN indicate?", opts: ["The query used an index efficiently", "The query performed a full collection scan without using an index", "The query failed to execute", "The query used a covered index"], a: 1, exp: "COLLSCAN means MongoDB scanned every document in the collection; IXSCAN would indicate index usage instead." },
+        { cat: "Data Modeling", q: "For a one-to-few relationship where child data is always accessed together with the parent and won't grow unbounded, what's generally recommended?", opts: ["Reference the children in a separate collection", "Embed the child data directly in the parent document", "Use a separate join/junction collection", "Store the children in a different database"], a: 1, exp: "Embedding is ideal when data is small, bounded, and typically read together with the parent." },
+        { cat: "Data Modeling", q: "For a relationship where children could grow to thousands of records (e.g., comments on a popular post) and need independent access, what's recommended?", opts: ["Embed all children in an array inside the parent", "Reference: store the parent's _id on each child document", "Duplicate the parent's data into every child document instead of referencing", "Store all children as one large concatenated string field"], a: 1, exp: "Unbounded, independently-accessed children should be referenced (child holds parent's _id), avoiding unbounded array growth and write contention on the parent." },
+        { cat: "Data Modeling", q: "What is the hard limit on the size of a single BSON document in MongoDB?", opts: ["4MB", "8MB", "16MB", "No limit"], a: 2, exp: "A single BSON document cannot exceed 16MB, which is one of the key reasons to avoid unbounded embedded arrays." },
+        { cat: "Replication", q: "Why does MongoDB recommend an odd number of voting members in a replica set?", opts: ["To reduce network latency", "To avoid tie votes and ensure a majority can be reached during elections", "Odd numbers use less disk space", "It's a storage engine requirement"], a: 1, exp: "An odd number of voters prevents a 50/50 tie, guaranteeing a majority can always be established during a primary election." },
+        { cat: "Replication", q: "What happens to write operations during the window when a replica set temporarily has no primary (mid-election)?", opts: ["Writes succeed but are queued for later", "Writes fail until a new primary is elected", "Writes are automatically redirected to a secondary", "Writes succeed with eventual consistency"], a: 1, exp: "Only the primary accepts writes; with no primary present, all write operations fail until the election completes." },
+        { cat: "Replication", q: "By default, which replica set member(s) can accept write operations?", opts: ["Any secondary", "Only the primary", "All members simultaneously", "Only the member with the most storage"], a: 1, exp: "Writes go to the primary only by default; secondaries are read-only replicas unless configured otherwise for reads." },
+        { cat: "Sharding", q: "What is the main risk of using a monotonically increasing field (e.g., a timestamp or default ObjectId) alone as a shard key with range-based sharding?", opts: ["Data becomes unreadable", "It creates a write hotspot on a single shard", "It causes permanent data loss", "It disables replication"], a: 1, exp: "New writes with ever-increasing values all land in the same chunk/shard, creating a hotspot while other shards sit idle." },
+        { cat: "Sharding", q: "Which sharding strategy distributes writes evenly across shards by hashing the shard key value, at the cost of inefficient range queries?", opts: ["Range-based sharding", "Hashed sharding", "Zone sharding", "Manual sharding"], a: 1, exp: "Hashed sharding scatters values evenly (avoiding hotspots) but scatters related range values across many shards, hurting range query performance." },
+        { cat: "Sharding", q: "What component do client applications connect to in a sharded cluster to route queries to the correct shard(s)?", opts: ["Config server", "mongos", "The primary shard directly", "Arbiter"], a: 1, exp: "mongos is the query router that clients connect to; it consults the config servers to route operations to the correct shard(s)." },
+        { cat: "Security", q: "Which built-in role provides full read and write access to data (including deletes), but not user/role administration?", opts: ["dbAdmin", "readWrite", "userAdmin", "clusterAdmin"], a: 1, exp: "readWrite covers read, insert, update, and delete (remove) operations on data; it does not grant user or role management." },
+        { cat: "Security", q: "Which role combines readWriteAnyDatabase + dbAdminAnyDatabase + userAdminAnyDatabase + clusterAdmin into one superuser role?", opts: ["dbOwner", "root", "clusterManager", "backup"], a: 1, exp: "root is the cluster-wide superuser role, granting full control over all data, all admin tasks, all users, and cluster operations." },
+        { cat: 'Security', q: 'A user\'s credentials live in the "admin" database, but they\'re granted a role scoped to the "sales" database. Is this valid?', opts: ["No, users can only be granted roles in their home database", "Yes, a user's roles array can include roles scoped to other databases", "Only if the user is a root user", "Only during replica set elections"], a: 1, exp: "A user's home database only determines where their credentials are stored; their roles array can reference roles on any database." },
+        { cat: "Drivers & Tooling (pymongo)", q: 'In pymongo, calling collection.find_one({"_id": "507f1f77bcf86cd799439011"}) with a plain string instead of ObjectId(...) will:', opts: ["Successfully find the document, since MongoDB auto-converts strings", "Return None / no match, because BSON String and BSON ObjectId are different types", "Raise a TypeError immediately", "Permanently convert the field to a string"], a: 1, exp: "_id is stored as BSON ObjectId; a Python string of the same characters is BSON type String, so it won't match without wrapping in ObjectId(...)." },
+        { cat: "Drivers & Tooling (pymongo)", q: "What does collection.find() return in pymongo, and how should a large result set be consumed?", opts: ["A single dictionary; access fields directly", "A cursor; iterate lazily (e.g. with a for loop) instead of loading everything into memory at once", "A JSON string; parse with json.loads()", "A pandas DataFrame automatically"], a: 1, exp: "find() returns a cursor that fetches matching documents from the server lazily in batches as you iterate, which scales to large result sets." }
+      ],
+      2: [
+        { cat: "MongoDB Basics & BSON", q: "Which of these is NOT a valid BSON data type?", opts: ["Decimal128", "ObjectId", "Timestamp", "Set"], a: 3, exp: "MongoDB has no native \"Set\" BSON type. Decimal128, ObjectId, and (internal) Timestamp are all real BSON types." },
+        { cat: "MongoDB Basics & BSON", q: "What does BSON stand for, and why does MongoDB use it instead of plain JSON internally?", opts: ["Binary JSON; it supports additional data types (e.g. Date, ObjectId, binary data) and is efficient to traverse", "Basic JSON; it's simpler to parse than JSON", "Byte-Stream Object Notation; used only for network transport, never storage", "Big Structured Object Notation; supports only numbers and strings"], a: 0, exp: "BSON = Binary JSON. It adds types JSON lacks (Date, ObjectId, Binary, Decimal128, etc.) and is designed for fast encode/decode and traversal." },
+        { cat: "MongoDB Basics & BSON", q: 'A field is defined as { createdAt: ISODate("2026-07-25T10:00:00Z") }. What BSON type is this?', opts: ["String", "Date", "Timestamp", "Int64"], a: 1, exp: "This is BSON type Date. BSON Timestamp is a distinct internal type mainly used for the oplog, not for application-level date fields." },
+        { cat: "CRUD Operations", q: "What does db.collection.deleteMany({}) do?", opts: ["Deletes the entire collection, including its indexes", "Deletes all documents in the collection but keeps the collection and its indexes", "Does nothing, since the filter is empty", "Throws an error requiring a non-empty filter"], a: 1, exp: "An empty filter {} matches every document, so deleteMany({}) removes all documents while the collection and its index definitions remain." },
+        { cat: "CRUD Operations", q: "Which option, when set to true on updateOne(), inserts a new document if no document matches the filter?", opts: ["multi", "upsert", "insertIfMissing", "create"], a: 1, exp: "upsert: true tells MongoDB to insert a new document (built from the filter + update) if no document matches." },
+        { cat: "CRUD Operations", q: "What happens when you use $inc on a field that doesn't yet exist on the target document?", opts: ["It throws an error since the field must already exist", "It creates the field and sets it to the increment value", "It silently ignores the update", "It sets the field to null"], a: 1, exp: "$inc creates the field if missing, initializing it to the increment amount (e.g. $inc: {count: 1} on a missing field sets count to 1)." },
+        { cat: "CRUD Operations", q: "Which method atomically finds a matching document and applies an update in one operation, useful for implementing things like counters or queues?", opts: ["updateOne()", "findOneAndUpdate()", "find() followed by a separate updateOne()", "bulkWrite()"], a: 1, exp: "findOneAndUpdate() performs the find-and-modify as a single atomic server-side operation, avoiding race conditions between a separate read and write." },
+        { cat: "Aggregation Framework", q: "Which stage caps the number of documents passed to the rest of the pipeline, e.g. returning only the top 10 after a sort?", opts: ["$skip", "$limit", "$sample", "$facet"], a: 1, exp: "$limit restricts the pipeline to a maximum number of documents, commonly used right after $sort for a top-N query." },
+        { cat: "Aggregation Framework", q: "What does the $lookup stage do in an aggregation pipeline?", opts: ["Performs a left outer join against another collection", "Deletes documents matching a condition", "Groups documents by a computed key", "Validates schema before insertion"], a: 0, exp: "$lookup joins documents from another collection into the current pipeline, similar to a SQL LEFT OUTER JOIN, based on matching field values." },
+        { cat: "Aggregation Framework", q: 'Given { $group: { _id: null, total: { $sum: "$amount" } } }, what does _id: null achieve?', opts: ["It causes an error, since _id can't be null", "It groups all input documents into a single group, producing one aggregate result", "It groups documents by their own null-valued fields", "It excludes documents where amount is null"], a: 1, exp: "Using _id: null collapses every document into one group, useful for computing an overall total/count/average across the whole collection (or preceding pipeline stage)." },
+        { cat: "Aggregation Framework", q: 'In a $project stage, what does { total: { $multiply: ["$price", "$qty"] } } do?', opts: ["Creates a new computed field \"total\" equal to price multiplied by qty", "Filters out documents where price times qty exceeds a threshold", "Renames the price field to total", "Throws an error, since $project can't compute new fields"], a: 0, exp: "$project (and $addFields) can include computed expressions, not just field selection — here it multiplies two existing fields into a new one." },
+        { cat: "Aggregation Framework", q: "Which stage lets you run multiple aggregation sub-pipelines against the same input documents and return their results together, e.g. a count plus a paginated list in one query?", opts: ["$facet", "$bucket", "$merge", "$out"], a: 0, exp: "$facet processes the same set of input documents through several independent sub-pipelines and returns all results in a single document." },
+        { cat: "Indexes", q: "What type of index does MongoDB automatically create when you index a field that holds array values?", opts: ["Sparse index", "Multikey index", "Partial index", "Wildcard index"], a: 1, exp: "Indexing an array field automatically produces a multikey index, with one index entry per array element." },
+        { cat: "Indexes", q: "What does a unique index enforce?", opts: ["That the field must always be a string", "That no two documents can share the same value for the indexed field(s)", "That the field must be indexed in ascending order only", "That the field can never be null"], a: 1, exp: "A unique index rejects inserts/updates that would create a duplicate value for the indexed field(s)." },
+        { cat: "Indexes", q: 'What is a "covered query"?', opts: ["A query that uses a text index", "A query where every field it needs is present in the index itself, so MongoDB never has to fetch the full document", "A query wrapped inside a transaction", "A query that scans the entire collection"], a: 1, exp: "A covered query is answered entirely from the index (including the projection), avoiding a fetch of the underlying document — this is faster than a normal index scan." },
+        { cat: "Indexes", q: "Which index type automatically removes documents after a set amount of time, useful for things like session data or logs?", opts: ["TTL index", "Text index", "Hashed index", "Geospatial index"], a: 0, exp: "A TTL (time-to-live) index expires and deletes documents automatically once a date field passes a configured age threshold." },
+        { cat: "Data Modeling", q: 'What is the "extended reference" (or "subset") pattern used for?', opts: ["Duplicating a small subset of frequently-needed fields from a referenced document into the referencing document, to avoid extra lookups", "Storing the entire referenced document twice for redundancy", "Creating a second database purely for backups", "Referencing documents across separate MongoDB clusters"], a: 0, exp: "This pattern copies a few commonly-needed fields (e.g. a product's name and price) into the referencing document so common reads don't require a $lookup, at the cost of needing to keep the duplicated fields in sync." },
+        { cat: "Data Modeling", q: "In a many-to-many relationship (e.g. students and courses), what's a common modeling approach?", opts: ["Embed every course inside every student document and vice versa", "Maintain reference arrays on both sides, or use a separate junction/mapping collection", "Store all students and courses in a single giant document", "MongoDB does not support many-to-many relationships"], a: 1, exp: "Many-to-many relationships are typically modeled with reference arrays on each side, or a dedicated junction collection tracking the pairings, similar to a relational join table." },
+        { cat: "Data Modeling", q: "Why might you deliberately duplicate (denormalize) some data across documents, despite the risk of inconsistency?", opts: ["It's required by MongoDB's storage engine", "To optimize read performance and avoid frequent joins ($lookup) for data that's accessed together often", "Duplication is never recommended in MongoDB", "It reduces the maximum allowed document size"], a: 1, exp: "Denormalization trades some write complexity (keeping duplicated data in sync) for significantly faster, simpler reads — a common and accepted MongoDB modeling tradeoff." },
+        { cat: "Replication", q: "What is the role of an arbiter in a replica set?", opts: ["It holds a full copy of the data and can become primary", "It votes in elections but holds no data and can never become primary", "It exists only to run backups", "It replaces the need for secondaries"], a: 1, exp: "An arbiter participates in elections to help reach a majority vote but stores no data itself and is never eligible to become primary." },
+        { cat: "Replication", q: 'What does "read preference" control in a MongoDB driver?', opts: ["Which replica set member(s) reads are routed to (e.g. primary, secondary, nearest)", "How much data is cached client-side", "Whether documents are returned as JSON or BSON", "The write concern level"], a: 0, exp: "Read preference (primary, primaryPreferred, secondary, secondaryPreferred, nearest) determines which replica set member(s) a read operation can be served from." },
+        { cat: "Replication", q: 'If a write is acknowledged with write concern { w: "majority" }, what does that guarantee?', opts: ["The write only reached the primary and hasn't replicated yet", "The write has been propagated to and acknowledged by a majority of voting replica set members", "The write is guaranteed to eventually reach all members, with no timing guarantee", "Write concern has no effect on durability"], a: 1, exp: 'w: "majority" waits for acknowledgment from a majority of voting members before confirming the write as successful, providing stronger durability.' },
+        { cat: "Sharding", q: "What is stored on config servers in a sharded cluster?", opts: ["The actual application data", "Metadata about the cluster, including chunk ranges and shard locations", "Only user authentication credentials", "Backup copies of every shard"], a: 1, exp: "Config servers store the cluster's metadata — which chunks (ranges of shard key values) live on which shards — used by mongos to route operations." },
+        { cat: "Sharding", q: 'What is a "chunk" in the context of MongoDB sharding?', opts: ["A physical server in the cluster", "A contiguous range of shard key values, used as the unit of data distribution/migration between shards", "A single document", "A backup snapshot"], a: 1, exp: "A chunk is a range of shard key values; MongoDB balances the cluster by migrating chunks between shards to keep data distribution even." },
+        { cat: "Sharding", q: "When would sharding generally NOT be necessary?", opts: ["When your dataset and working set comfortably fit on a single server and you don't need horizontal write scaling", "When you have more than 1GB of data", "Whenever you're using a replica set", "Sharding is always required in production"], a: 0, exp: "Sharding solves horizontal scale problems; if a single server (or replica set) handles the load fine, sharding just adds operational complexity without benefit." },
+        { cat: "Security", q: "What authentication mechanism does MongoDB use by default for username/password authentication?", opts: ["SCRAM (Salted Challenge Response Authentication Mechanism)", "Basic HTTP auth", "OAuth2", "Kerberos only"], a: 0, exp: "SCRAM is MongoDB's default challenge-response authentication mechanism for username/password logins." },
+        { cat: "Security", q: 'What is the "principle of least privilege" as applied to MongoDB roles?', opts: ["Granting every user the root role for simplicity", "Granting users only the specific roles/permissions they need to do their job, nothing more", "Disabling authentication for internal users", "Giving all users readWriteAnyDatabase by default"], a: 1, exp: "Least privilege means scoping each user's roles as narrowly as possible to reduce security risk, rather than defaulting to broad admin/superuser roles." },
+        { cat: "Security", q: "Which statement is true about network-level security for a MongoDB Atlas cluster?", opts: ["By default, Atlas clusters accept connections from any IP address with no restriction", "IP access lists (allowlists) restrict which IP addresses are allowed to connect to the cluster", "Network security isn't configurable on Atlas", "TLS is optional and disabled by default on Atlas"], a: 1, exp: "Atlas requires you to configure an IP access list before any client can connect — nothing connects by default, and TLS is enforced, not optional." },
+        { cat: "Drivers & Tooling (pymongo)", q: 'In pymongo, what is client.admin.command("ping") typically used for?', opts: ["Deleting the admin database", "Verifying that the connection to the server is alive", "Creating a new admin user", "Listing all databases"], a: 1, exp: 'Running the "ping" command against the admin database is the standard lightweight way to confirm connectivity to a MongoDB deployment.' },
+        { cat: "Drivers & Tooling (pymongo)", q: "Which pymongo exception is commonly raised when inserting a document whose _id (or a uniquely-indexed field) already exists?", opts: ["pymongo.errors.ConnectionFailure", "pymongo.errors.DuplicateKeyError", "pymongo.errors.OperationFailure only", "ValueError"], a: 1, exp: "DuplicateKeyError is raised specifically when an insert/update would violate a unique index (including the default unique index on _id)." }
+      ]
+    };
+
+    let currentSet = 1;
+    let answered = 0;
+    let scoreCorrect = 0;
+
+    function loadQuizSet(n) {
+      currentSet = n;
+      document.querySelectorAll('.quiz-set-btn').forEach(function (b) {
+        b.classList.toggle('active', parseInt(b.dataset.set) === n);
+      });
+      renderQuiz();
+    }
+
+    function resetQuiz() { renderQuiz(); }
+
+    function updateProgress() {
+      document.getElementById('quizProgress').textContent = 'Score: ' + scoreCorrect + ' / ' + answered;
+    }
+
+    function renderQuiz() {
+      answered = 0; scoreCorrect = 0;
+      updateProgress();
+      const container = document.getElementById('quizContainer');
+      container.innerHTML = '';
+      let lastCat = '';
+      QUIZ_SETS[currentSet].forEach(function (item, idx) {
+        if (item.cat !== lastCat) {
+          const catEl = document.createElement('div');
+          catEl.className = 'quiz-cat';
+          catEl.textContent = item.cat;
+          container.appendChild(catEl);
+          lastCat = item.cat;
+        }
+        const qEl = document.createElement('div');
+        qEl.className = 'quiz-q';
+        const qText = document.createElement('div');
+        qText.className = 'qtext';
+        qText.textContent = (idx + 1) + '. ' + item.q;
+        qEl.appendChild(qText);
+
+        item.opts.forEach(function (optText, optIdx) {
+          const btn = document.createElement('button');
+          btn.className = 'quiz-opt';
+          btn.textContent = String.fromCharCode(65 + optIdx) + ') ' + optText;
+          btn.onclick = function () {
+            if (btn.classList.contains('locked')) return;
+            const allOpts = qEl.querySelectorAll('.quiz-opt');
+            allOpts.forEach(function (o) { o.classList.add('locked'); });
+            allOpts[item.a].classList.add('correct');
+            if (optIdx !== item.a) { btn.classList.add('incorrect'); }
+            qEl.querySelector('.quiz-exp').classList.add('shown');
+            answered++;
+            if (optIdx === item.a) scoreCorrect++;
+            updateProgress();
+          };
+          qEl.appendChild(btn);
+        });
+
+        const expEl = document.createElement('div');
+        expEl.className = 'quiz-exp';
+        expEl.textContent = item.exp;
+        qEl.appendChild(expEl);
+
+        container.appendChild(qEl);
+      });
+    }
+
+    renderQuiz();
+  </script>
+
+</body>
+
+</html>
