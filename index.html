@@ -4,18 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Minh Dân · Links, tools & 2026 plan</title>
+    <title>Minh Dân · Lead Engineer @ Vingroup · Active builder & innovator</title>
     <link rel="icon" type="image/x-icon" href="https://avatars.githubusercontent.com/u/106602643?v=4">
     <meta name="description"
-        content="Minh Dân — simple links, free tools, and a 2026 todo list for ongoing progress.">
+        content="Minh Dân — Lead Engineer at Vingroup. Building products at the intersection of software, language, and growth. Actively pursuing AWS & certifications, running half-marathons, and open to business collaboration.">
     <meta name="keywords"
-        content="Minh Dân, Nguyễn Minh Dân, VinFast, VSF, Virtual Assistant, software engineer, product builder, Vietnam">
+        content="Minh Dân, Nguyễn Minh Dân, VinFast, Lead Engineer, software engineer, product builder, Vietnam, AWS, MongoDB">
     <meta name="author" content="Nguyễn Minh Dân">
-    <meta rel="canonical" href="https://nmdan.com">
+    <link rel="canonical" href="https://nmdan.com">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Minh Dân · Lead Engineer at Vingroup · Tech & Business & Growth">
+    <meta property="og:title" content="Minh Dân · Lead Engineer @ Vingroup">
+    <meta property="og:description"
+        content="Active builder. Passionate about technology, growth, and continuous improvement.">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/106602643?v=4">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,33 +39,37 @@
         }
 
         :root {
-            --sand: #F5F0E8;
-            --sand-mid: #EDE6D8;
-            --ink: #1C1A16;
-            --ink-mid: #3D3A33;
-            --ink-soft: #6B6760;
-            --accent: #C0553A;
-            --accent-light: #E8D4CE;
-            --accent-glow: rgba(192, 85, 58, 0.12);
-            --white: #FFFFFF;
-            --border: rgba(28, 26, 22, 0.1);
-            --radius: 16px;
+            --sand: #f8f5f0;
+            --sand-mid: #f0ebe3;
+            --ink: #0f0e0a;
+            --ink-mid: #4a473f;
+            --ink-soft: #7a7168;
+            --accent: #0066cc;
+            --accent-light: rgba(0, 102, 204, 0.08);
+            --accent-glow: rgba(0, 102, 204, 0.12);
+            --white: #ffffff;
+            --border: rgba(15, 14, 10, 0.08);
+            --radius: 12px;
+            --radius-lg: 20px;
             --font-body: 'DM Sans', sans-serif;
             --font-display: 'Lora', serif;
+            --shadow-sm: 0 2px 8px rgba(15, 14, 10, 0.06);
+            --shadow-md: 0 8px 24px rgba(15, 14, 10, 0.1);
+            --shadow-lg: 0 16px 40px rgba(15, 14, 10, 0.12);
         }
 
         @media (prefers-color-scheme: dark) {
             :root {
-                --sand: #1A1814;
-                --sand-mid: #242118;
-                --ink: #F0EBE0;
-                --ink-mid: #C8C2B4;
-                --ink-soft: #8C8880;
-                --accent: #E07055;
-                --accent-light: rgba(224, 112, 85, 0.15);
-                --accent-glow: rgba(224, 112, 85, 0.08);
-                --white: #201E1A;
-                --border: rgba(240, 235, 224, 0.08);
+                --sand: #131210;
+                --sand-mid: #1d1a15;
+                --ink: #fffbf3;
+                --ink-mid: #d4cfc3;
+                --ink-soft: #9e9890;
+                --accent: #4fa3ff;
+                --accent-light: rgba(79, 163, 255, 0.12);
+                --accent-glow: rgba(79, 163, 255, 0.14);
+                --white: #1f1c17;
+                --border: rgba(255, 251, 243, 0.1);
             }
         }
 
@@ -72,43 +79,66 @@
 
         body {
             font-family: var(--font-body);
-            background: var(--sand);
+            background: linear-gradient(135deg, var(--sand) 0%, var(--sand-mid) 100%);
             color: var(--ink);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 0 20px 60px;
-            font-size: 15px;
-            line-height: 1.65;
+            padding: 28px 16px 48px;
+            font-size: 16px;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ── Hero ── */
+        .page-shell {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ─── Hero Section ─── */
         .hero {
             width: 100%;
-            max-width: 600px;
-            padding-top: 72px;
+            padding: 40px 28px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
         }
 
         .avatar-wrap {
             position: relative;
-            width: 104px;
-            height: 104px;
-            margin-bottom: 28px;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 20px;
         }
 
         .avatar-wrap::before {
             content: '';
             position: absolute;
-            inset: -5px;
+            inset: -8px;
             border-radius: 50%;
-            border: 1.5px solid var(--accent);
-            opacity: 0.5;
+            border: 2px solid var(--accent);
+            opacity: 0.3;
             animation: pulse-ring 3s ease-in-out infinite;
         }
 
@@ -117,57 +147,53 @@
             0%,
             100% {
                 transform: scale(1);
-                opacity: 0.5;
+                opacity: 0.3;
             }
 
             50% {
-                transform: scale(1.06);
-                opacity: 0.2;
+                transform: scale(1.08);
+                opacity: 0.08;
             }
         }
 
         .avatar {
-            width: 104px;
-            height: 104px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             object-fit: cover;
             display: block;
             border: 3px solid var(--white);
-            box-shadow: 0 4px 24px rgba(28, 26, 22, 0.14);
+            box-shadow: var(--shadow-lg);
         }
 
         .name {
             font-family: var(--font-display);
-            font-size: 2.2rem;
+            font-size: clamp(1.8rem, 5vw, 2.4rem);
             font-weight: 500;
             color: var(--ink);
             letter-spacing: -0.01em;
             line-height: 1.2;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .role-badge {
             display: inline-flex;
             align-items: center;
-            gap: 7px;
+            gap: 8px;
             background: var(--accent-light);
             color: var(--accent);
-            font-size: 12.5px;
-            font-weight: 500;
-            letter-spacing: 0.04em;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 5px 14px;
+            padding: 8px 16px;
             border-radius: 100px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            border: 1px solid rgba(0, 102, 204, 0.2);
         }
 
         .role-badge::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent);
-            flex-shrink: 0;
+            content: '●';
             animation: blink 2.4s ease-in-out infinite;
         }
 
@@ -179,7 +205,7 @@
             }
 
             50% {
-                opacity: 0.3;
+                opacity: 0.4;
             }
         }
 
@@ -188,192 +214,264 @@
             font-style: italic;
             font-size: 1.05rem;
             color: var(--ink-soft);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             line-height: 1.5;
+            max-width: 320px;
         }
 
         .intro {
             font-size: 15px;
             color: var(--ink-mid);
-            max-width: 460px;
-            margin: 0 auto 36px;
             line-height: 1.7;
+            margin: 0;
         }
 
-        .intro strong {
-            color: var(--ink);
-            font-weight: 500;
+        .intro em {
+            color: var(--accent);
+            font-style: normal;
+            font-weight: 600;
         }
 
-        /* ── Skills chips ── */
-        .chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-bottom: 44px;
-        }
-
-        .chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 100px;
-            border: 1px solid var(--border);
-            background: var(--white);
-            font-size: 13px;
-            color: var(--ink-mid);
-            font-weight: 400;
-        }
-
-        .chip-icon {
-            font-size: 14px;
-            line-height: 1;
-        }
-
-        /* ── Divider ── */
-        .divider {
-            width: 40px;
-            height: 1px;
-            background: var(--accent);
-            opacity: 0.35;
-            margin: 0 auto 44px;
-        }
-
-        /* ── Links ── */
-        .links {
+        /* ─── Panels ─── */
+        .panel {
             width: 100%;
-            max-width: 600px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 52px;
-        }
-
-        .link-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 18px 22px;
             background: var(--white);
             border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .panel:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent);
+        }
+
+        .section-heading {
+            margin-bottom: 20px;
+        }
+
+        .section-heading h2 {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--ink);
+            letter-spacing: -0.01em;
+        }
+
+        .section-heading p {
+            font-size: 14px;
+            color: var(--ink-soft);
+            margin: 0;
+        }
+
+        /* ─── Card List ─── */
+        .card-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .card-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 16px;
             border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background: var(--sand);
             text-decoration: none;
             color: var(--ink);
-            transition: border-color 0.2s, box-shadow 0.2s, transform 0.18s;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: relative;
-            overflow: hidden;
         }
 
-        .link-item::after {
+        .card-link::after {
             content: '';
             position: absolute;
             inset: 0;
+            border-radius: var(--radius);
             background: var(--accent-glow);
             opacity: 0;
             transition: opacity 0.2s;
         }
 
-        .link-item:hover {
-            border-color: var(--accent);
-            box-shadow: 0 4px 20px rgba(192, 85, 58, 0.1);
+        .card-link:hover {
             transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-sm);
+            background: var(--white);
         }
 
-        .link-item:hover::after {
+        .card-link:hover::after {
             opacity: 1;
         }
 
-        .link-icon-wrap {
-            width: 40px;
-            height: 40px;
+        .card-link .link-icon-wrap {
+            width: 46px;
+            height: 46px;
             border-radius: 10px;
-            background: var(--sand-mid);
+            background: var(--accent-light);
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
             z-index: 1;
+            border: 1px solid var(--accent-light);
         }
 
-        .link-icon-wrap img {
-            width: 20px;
-            height: 20px;
+        .card-link .link-icon-wrap img {
+            width: 24px;
+            height: 24px;
             object-fit: contain;
         }
 
-        .link-text {
+        .card-link .link-text {
             flex: 1;
             z-index: 1;
         }
 
-        .link-label {
-            font-weight: 500;
-            font-size: 15px;
-            color: var(--ink);
+        .card-link .link-label {
             display: block;
-            line-height: 1.3;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
         }
 
-        .link-desc {
+        .card-link .link-desc {
+            display: block;
             font-size: 13px;
             color: var(--ink-soft);
-            display: block;
-            margin-top: 2px;
         }
 
-        .link-arrow {
-            color: var(--ink-soft);
+        .card-link .link-arrow {
+            color: var(--accent);
             font-size: 18px;
             z-index: 1;
-            transition: transform 0.2s, color 0.2s;
+            transition: transform 0.2s;
             flex-shrink: 0;
+            font-weight: 600;
         }
 
-        .link-item:hover .link-arrow {
-            transform: translateX(3px);
-            color: var(--accent);
+        .card-link:hover .link-arrow {
+            transform: translateX(4px);
         }
 
-        /* ── CTA Block ── */
-        .cta-block {
-            width: 100%;
-            max-width: 600px;
-            background: var(--white);
+        /* ─── Todo List ─── */
+        .todo-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 14px;
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 32px 32px 28px;
+            background: linear-gradient(135deg, var(--sand) 0%, var(--sand-mid) 100%);
+            transition: all 0.2s;
+        }
+
+        .todo-item:hover {
+            border-color: var(--accent);
+            background: var(--white);
+        }
+
+        .todo-check {
+            margin-top: 2px;
+            color: var(--accent);
+            font-size: 18px;
+            line-height: 1;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .todo-content {
+            flex: 1;
+        }
+
+        .todo-title {
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .todo-note {
+            font-size: 13px;
+            color: var(--ink-soft);
+            line-height: 1.5;
+        }
+
+        .todo-note a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .todo-note a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .todo-item.is-done {
+            opacity: 0.6;
+        }
+
+        .todo-item.is-done .todo-title {
+            text-decoration: line-through;
+            color: var(--ink-soft);
+        }
+
+        .todo-progress {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--sand);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #0099ff);
+            width: 14.2%;
+            /* 1 out of 7 */
+        }
+
+        .progress-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-soft);
+            white-space: nowrap;
+        }
+
+        /* ─── CTA Box ─── */
+        .panel-compact {
             text-align: center;
-            margin-bottom: 44px;
-            position: relative;
+            padding: 32px 28px;
+            background: linear-gradient(135deg, var(--accent-light), rgba(0, 102, 204, 0.05));
+            border: 2px solid var(--accent);
         }
 
-        .cta-block::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 2px;
-            background: var(--accent);
-            border-radius: 0 0 4px 4px;
-        }
-
-        .cta-title {
+        .panel-compact .cta-title {
             font-family: var(--font-display);
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 500;
             color: var(--ink);
-            margin-bottom: 10px;
-        }
-
-        .cta-text {
-            font-size: 14px;
-            color: var(--ink-soft);
-            margin-bottom: 20px;
-            line-height: 1.65;
+            margin-bottom: 16px;
         }
 
         .cta-btn {
@@ -384,43 +482,54 @@
             color: #fff;
             font-family: var(--font-body);
             font-size: 14px;
-            font-weight: 500;
-            padding: 11px 24px;
+            font-weight: 600;
+            padding: 12px 28px;
             border-radius: 100px;
             text-decoration: none;
-            transition: opacity 0.2s, transform 0.18s;
+            transition: all 0.2s;
             letter-spacing: 0.01em;
+            border: none;
+            cursor: pointer;
         }
 
         .cta-btn:hover {
-            opacity: 0.88;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 102, 204, 0.3);
         }
 
-        /* ── Footer ── */
+        .cta-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ─── Footer ─── */
         footer {
             text-align: center;
-            font-size: 12.5px;
+            font-size: 12px;
             color: var(--ink-soft);
             line-height: 1.8;
+            margin-top: 20px;
         }
 
         footer a {
             color: var(--ink-soft);
             text-decoration: none;
-            border-bottom: 1px solid var(--border);
             transition: color 0.2s;
+            font-weight: 500;
         }
 
         footer a:hover {
             color: var(--accent);
         }
 
-        /* ── Fade-in animation ── */
-        @keyframes fade-up {
+        footer a+span {
+            margin: 0 6px;
+        }
+
+        /* ─── Animations ─── */
+        @keyframes fade-in-up {
             from {
                 opacity: 0;
-                transform: translateY(16px);
+                transform: translateY(20px);
             }
 
             to {
@@ -430,179 +539,69 @@
         }
 
         .hero,
-        .chips,
-        .divider,
-        .links,
-        .cta-block,
-        footer {
-            animation: fade-up 0.6s ease both;
+        .panel {
+            animation: fade-in-up 0.6s ease-out both;
         }
 
         .hero {
             animation-delay: 0s;
         }
 
-        .chips {
+        .panel:nth-of-type(2) {
             animation-delay: 0.1s;
         }
 
-        .divider {
+        .panel:nth-of-type(3) {
             animation-delay: 0.15s;
         }
 
-        .links {
+        .panel:nth-of-type(4) {
             animation-delay: 0.2s;
         }
 
-        .cta-block {
-            animation-delay: 0.28s;
+        .panel:nth-of-type(5) {
+            animation-delay: 0.25s;
         }
 
         footer {
-            animation-delay: 0.34s;
+            animation-delay: 0.3s;
         }
 
-        @media (max-width: 480px) {
+        /* ─── Responsive ─── */
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 14px 40px;
+            }
+
+            .page-shell {
+                gap: 16px;
+            }
+
+            .hero {
+                padding: 32px 22px;
+            }
+
+            .panel {
+                padding: 22px 20px;
+            }
+
             .name {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
 
-            .cta-block {
-                padding: 24px 20px 20px;
+            .section-heading h2 {
+                font-size: 1rem;
             }
         }
 
-        .page-shell {
-            width: 100%;
-            max-width: 680px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
+        @media (min-width: 768px) {
+            body {
+                padding: 40px 20px 60px;
+            }
 
-        .panel {
-            width: 100%;
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: 0 8px 24px rgba(28, 26, 22, 0.04);
-        }
-
-        .section-heading {
-            margin-bottom: 16px;
-        }
-
-        .section-heading h2 {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            margin-bottom: 4px;
-            color: var(--ink);
-        }
-
-        .section-heading p {
-            font-size: 13px;
-            color: var(--ink-soft);
-        }
-
-        .card-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .card-link {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 16px;
-            border-radius: 14px;
-            border: 1px solid var(--border);
-            background: var(--sand);
-            text-decoration: none;
-            color: var(--ink);
-            transition: transform 0.18s, border-color 0.18s;
-        }
-
-        .card-link:hover {
-            transform: translateY(-1px);
-            border-color: var(--accent);
-        }
-
-        .card-link .link-icon-wrap {
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            background: var(--white);
-            box-shadow: inset 0 0 0 1px var(--border);
-        }
-
-        .card-link .link-label {
-            display: block;
-            font-weight: 600;
-        }
-
-        .card-link .link-desc {
-            display: block;
-            margin-top: 2px;
-        }
-
-        .todo-list {
-            display: grid;
-            gap: 10px;
-        }
-
-        .todo-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 12px 14px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            background: var(--sand);
-        }
-
-        .todo-check {
-            margin-top: 2px;
-            color: var(--accent);
-            font-size: 16px;
-            line-height: 1;
-            flex-shrink: 0;
-        }
-
-        .todo-content {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .todo-title {
-            font-weight: 600;
-            color: var(--ink);
-        }
-
-        .todo-note {
-            font-size: 13px;
-            color: var(--ink-soft);
-        }
-
-        .todo-item.is-done {
-            opacity: 0.7;
-        }
-
-        .todo-item.is-done .todo-title {
-            text-decoration: line-through;
-            color: var(--ink-soft);
-        }
-
-        .panel-compact {
-            text-align: center;
-            padding: 22px 24px;
-        }
-
-        .panel-compact .cta-title {
-            margin-bottom: 10px;
-            font-family: var(--font-display);
-            font-size: 1.05rem;
+            .page-shell {
+                gap: 24px;
+            }
         }
     </style>
 </head>
@@ -619,13 +618,16 @@
 
             <span class="role-badge">Lead Engineer at Vingroup · Tech & Business & Growth</span>
 
-            <p class="tagline">"When planning, think big — when making progress, start small."</p>
+            <p class="tagline">"When planning, think big — when making progress, start small !"</p>
+            <p class="intro">Lead Engineer @ Vingroup, Vietnam. Building production AI products, real-time
+                orchestration, and infrastructure at scale. Proficient in English and Japanese.
+            </p>
         </section>
 
         <section class="panel">
             <div class="section-heading">
-                <h2>Social</h2>
-                <p>Two simple places to connect.</p>
+                <h2>Connect & Follow</h2>
+                <p>Where I'm active and share insights.</p>
             </div>
             <div class="card-list" role="navigation" aria-label="Social links">
                 <a class="card-link" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener">
@@ -644,8 +646,8 @@
                         <img src="images/icons/adidaphat.png" alt="">
                     </div>
                     <div class="link-text">
-                        <span class="link-label">X</span>
-                        <span class="link-desc">Actively sharing, discussing, thoughts &amp; notes</span>
+                        <span class="link-label">X / Twitter</span>
+                        <span class="link-desc">Daily thoughts on tech, growth & building</span>
                     </div>
                     <span class="link-arrow">→</span>
                 </a>
@@ -654,8 +656,8 @@
 
         <section class="panel">
             <div class="section-heading">
-                <h2>Free tools</h2>
-                <p>Two useful resources I keep close by.</p>
+                <h2>Projects & Resources</h2>
+                <p>Tools and platforms I've built and maintain.</p>
             </div>
             <div class="card-list">
                 <a class="card-link" href="https://www.adidaphat.live/" target="_blank" rel="noopener">
@@ -694,15 +696,17 @@
 
         <section class="panel">
             <div class="section-heading">
-                <h2>2026 TODO LIST</h2>
-                <p>Tick each action when it is done.</p>
+                <h2>2026 Goals</h2>
+                <p>Active progress on personal & professional milestones.</p>
             </div>
             <div class="todo-list">
                 <div class="todo-item is-done">
                     <span class="todo-check">✓</span>
                     <span class="todo-content">
                         <span class="todo-title">MongoDB Certification</span>
-                        <span class="todo-note"> 26/7/2026 - MongoDB Associate Developer Certification <a href="https://www.credly.com/badges/9621e791-d6e4-4985-be57-be1c540b8744/public_url " target="_blank" rel="noopener">HERE</a></span>
+                        <span class="todo-note"> 26/7/2026 - MongoDB Associate Developer Certification <a
+                                href="https://www.credly.com/badges/9621e791-d6e4-4985-be57-be1c540b8744/public_url "
+                                target="_blank" rel="noopener">HERE</a></span>
                     </span>
                 </div>
                 <div class="todo-item">
@@ -748,12 +752,20 @@
                     </span>
                 </div>
             </div>
+            <div class="todo-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <span class="progress-text">1 / 7 completed</span>
+            </div>
         </section>
 
         <section class="panel panel-compact">
-            <p class="cta-title">Let's build something useful together</p>
+            <p class="cta-title">Let's build something impactful</p>
+            <p style="font-size: 14px; color: var(--ink-mid); margin-bottom: 18px; line-height: 1.5;">Have a project,
+                idea, or opportunity? I'm actively looking to collaborate.</p>
             <a class="cta-btn" href="https://www.linkedin.com/in/nmdan/" target="_blank" rel="noopener">
-                Connect on LinkedIn →
+                Contact me on LinkedIn →
             </a>
         </section>
     </main>
