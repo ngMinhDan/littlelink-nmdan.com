@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>100 Day MVE Tracker</title>
+<style>
+  :root{
+    --bg:#0f1410;
+    --panel:#161d18;
+    --line:#2a352c;
+    --ink:#e8ece7;
+    --sub:#8fa392;
+    --accent:#7fd858;
+    --accent-dim:#3d5c33;
+    --warn:#e8b45c;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Courier New', ui-monospace, monospace;
+    padding:24px 16px 60px;
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+  header{
+    border-bottom:1px solid var(--line);
+    padding-bottom:16px;
+    margin-bottom:20px;
+  }
+  h1{
+    font-size:20px;
+    letter-spacing:0.5px;
+    margin:0 0 6px;
+    text-transform:uppercase;
+  }
+  .sub{color:var(--sub); font-size:13px;}
+  .stats{
+    display:flex;
+    gap:12px;
+    margin:18px 0 22px;
+    flex-wrap:wrap;
+  }
+  .stat{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:10px 14px;
+    flex:1;
+    min-width:110px;
+  }
+  .stat .n{font-size:22px; color:var(--accent); font-weight:bold;}
+  .stat .l{font-size:11px; color:var(--sub); text-transform:uppercase; letter-spacing:0.5px;}
+  .legend{
+    font-size:12px; color:var(--sub);
+    margin-bottom:14px;
+    display:flex; gap:16px; flex-wrap:wrap;
+  }
+  .legend span{display:inline-flex; align-items:center; gap:5px;}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block;}
+  .day{
+    background:var(--panel);
+    border:1px solid var(--line);
+    padding:10px 10px;
+    margin-bottom:6px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .day.today{border-color:var(--accent);}
+  .day.full{border-left:3px solid var(--accent);}
+  .dnum{width:30px; color:var(--sub); font-size:11px;}
+  .ddate{width:78px; font-size:11px; color:var(--ink);}
+  .boxes{display:flex; gap:5px; flex:1; min-width:220px;}
+  .box{
+    flex:1;
+    text-align:center;
+    padding:6px 2px;
+    border:1px solid var(--line);
+    cursor:pointer;
+    font-size:10px;
+    color:var(--sub);
+    user-select:none;
+    background:transparent;
+    transition:all .12s ease;
+    white-space:nowrap;
+  }
+  .box:hover{border-color:var(--accent-dim);}
+  .box.on{
+    background:var(--accent-dim);
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+  .streak-badge{
+    font-size:11px;
+    color:var(--warn);
+    width:44px;
+    text-align:right;
+  }
+  #status{font-size:12px; color:var(--sub); margin-top:20px;}
+  .reset{
+    margin-top:24px;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--sub);
+    padding:8px 14px;
+    font-family:inherit;
+    font-size:12px;
+    cursor:pointer;
+  }
+  .reset:hover{border-color:var(--warn); color:var(--warn);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>100 Day / Minimum Viable Effort</h1>
+    <div class="sub">Aug 1, 2026 &rarr; Nov 8, 2026 &middot; Read 15min / Listen 15min / 1 Easy Problem</div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="streakN">0</div><div class="l">current streak</div></div>
+    <div class="stat"><div class="n" id="bestN">0</div><div class="l">best streak</div></div>
+    <div class="stat"><div class="n" id="doneN">0</div><div class="l">days completed</div></div>
+    <div class="stat"><div class="n" id="pctN">0%</div><div class="l">100 days done</div></div>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot" style="background:var(--accent)"></span>tap a box to check it off</span>
+    <span>left green bar = full MVE day</span>
+  </div>
+
+  <div id="days"></div>
+
+  <button class="reset" id="resetBtn">reset all data</button>
+  <div id="status">loading…</div>
+</div>
+
+<script>
+const START = new Date(2026, 7, 1); // Aug 1 2026
+const TOTAL_DAYS = 100;
+const TASKS = ['Read', 'Listen', 'Code', 'Run', 'Rest'];
+
+let state = {}; // { "0": [true,false,true], ... }
+
+function dateForIndex(i){
+  const d = new Date(START);
+  d.setDate(d.getDate() + i);
+  return d;
+}
+function fmt(d){
+  return (d.getMonth()+1) + '/' + d.getDate();
+}
+function todayIndex(){
+  const now = new Date();
+  const t = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const diff = Math.round((t - START) / 86400000);
+  return diff;
+}
+
+async function load(){
+  try{
+    const res = await window.storage.get('mve-state');
+    if(res && res.value){
+      state = JSON.parse(res.value);
+    }
+  }catch(e){
+    state = {};
+  }
+  render();
+  setStatus('saved locally to your account');
+}
+
+async function save(){
+  try{
+    await window.storage.set('mve-state', JSON.stringify(state));
+    setStatus('saved ✓');
+  }catch(e){
+    setStatus('save failed — will retry on next tap');
+  }
+}
+
+function setStatus(msg){
+  document.getElementById('status').textContent = msg;
+}
+
+function toggle(dayIdx, taskIdx){
+  if(!state[dayIdx]) state[dayIdx] = [false,false,false,false,false];
+  state[dayIdx][taskIdx] = !state[dayIdx][taskIdx];
+  save();
+  render();
+}
+
+function computeStats(){
+  let done = 0;
+  let best = 0, cur = 0, run = 0;
+  const tIdx = todayIndex();
+  for(let i=0;i<TOTAL_DAYS;i++){
+    const arr = state[i];
+    const full = arr && arr.every(Boolean);
+    if(full){ done++; run++; best = Math.max(best, run); }
+    else { run = 0; }
+    if(i === tIdx || (i < tIdx)) {
+      // compute current streak up to today, counted from today backwards
+    }
+  }
+  // current streak: consecutive full days ending at most recent completed day (today or before)
+  cur = 0;
+  for(let i = Math.min(tIdx, TOTAL_DAYS-1); i>=0; i--){
+    const arr = state[i];
+    if(arr && arr.every(Boolean)) cur++;
+    else break;
+  }
+  return {done, best, cur};
+}
+
+function render(){
+  const container = document.getElementById('days');
+  container.innerHTML = '';
+  const tIdx = todayIndex();
+
+  for(let i=0;i<TOTAL_DAYS;i++){
+    const d = dateForIndex(i);
+    const arr = state[i] || [false,false,false,false,false];
+    const full = arr.every(Boolean);
+
+    const row = document.createElement('div');
+    row.className = 'day' + (i===tIdx ? ' today' : '') + (full ? ' full' : '');
+
+    const num = document.createElement('div');
+    num.className = 'dnum';
+    num.textContent = '#' + (i+1);
+
+    const date = document.createElement('div');
+    date.className = 'ddate';
+    date.textContent = fmt(d);
+
+    const boxes = document.createElement('div');
+    boxes.className = 'boxes';
+    TASKS.forEach((label, tIdx2)=>{
+      const b = document.createElement('div');
+      b.className = 'box' + (arr[tIdx2] ? ' on' : '');
+      b.textContent = label;
+      b.onclick = () => toggle(i, tIdx2);
+      boxes.appendChild(b);
+    });
+
+    row.appendChild(num);
+    row.appendChild(date);
+    row.appendChild(boxes);
+    container.appendChild(row);
+  }
+
+  const {done, best, cur} = computeStats();
+  document.getElementById('doneN').textContent = done;
+  document.getElementById('bestN').textContent = best;
+  document.getElementById('streakN').textContent = cur;
+  document.getElementById('pctN').textContent = Math.round(done/TOTAL_DAYS*100) + '%';
+
+  // scroll to today on first render
+  const todayEl = container.querySelector('.today');
+  if(todayEl && !window.__scrolled){
+    window.__scrolled = true;
+    setTimeout(()=> todayEl.scrollIntoView({block:'center'}), 50);
+  }
+}
+
+document.getElementById('resetBtn').onclick = async () => {
+  if(confirm('Clear all 100 days of progress? This cannot be undone.')){
+    state = {};
+    await save();
+    render();
+  }
+};
+
+load();
+</script>
+</body>
+</html>
