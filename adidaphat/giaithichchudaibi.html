@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🙏 Giải Thích Chú Đại Bi</title>
+  <meta name="description" content="Giải thích Chú Đại Bi với bố cục dễ đọc trên điện thoại và máy tính." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="4ca892d2-b134-439a-a3c5-067687c52a9b"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            'sans': ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Noto Sans', 'Helvetica', 'Arial', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+          },
+          colors: {
+            'custom-bg': 'var(--bg)',
+            'custom-fg': 'var(--fg)',
+            'custom-muted': 'var(--muted)',
+            'custom-accent': 'var(--accent)',
+            'custom-card': 'var(--card)',
+          }
+        }
+      },
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #111111;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --card: #f8fafc;
+      --font-scale: 1;
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0b0f14;
+      --fg: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #60a5fa;
+      --card: #0f172a;
+    }
+
+    html {
+      font-size: calc(16px * var(--font-scale));
+    }
+
+    @media (min-width: 480px) {
+      html {
+        font-size: calc(17px * var(--font-scale));
+      }
+    }
+
+    @media (min-width: 768px) {
+      html {
+        font-size: calc(18px * var(--font-scale));
+      }
+    }
+
+    @media (min-width: 1024px) {
+      html {
+        font-size: calc(19px * var(--font-scale));
+      }
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+    }
+  </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GCH3GGZ6E0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'G-GCH3GGZ6E0');
+</script>
+
+
+<body class="font-sans leading-relaxed md:leading-loose antialiased">
+  <header class="sticky top-0 z-10 backdrop-blur-md border-b border-opacity-10"
+    style="background: color-mix(in srgb, var(--bg) 92%, transparent); border-color: color-mix(in srgb, var(--fg) 10%, transparent);">
+    <div class="w-full max-w-none md:max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex items-center justify-between py-3 md:py-4 min-h-[60px] md:min-h-[70px]">
+        <a href="index.html" class="no-underline">
+          <h1 class="text-lg md:text-xl font-semibold m-0" style="color: var(--fg);">🙏 A Di Đà Phật</h1>
+        </a>
+        <nav class="flex gap-1 sm:gap-2 md:gap-2 items-center flex-wrap" aria-label="Công cụ hiển thị">
+          <button id="decrease-font"
+            class="appearance-none border rounded-lg px-3 py-2 md:px-2 md:py-1 font-inherit cursor-pointer text-sm md:text-base min-h-[44px] md:min-h-auto flex items-center justify-center hover:border-opacity-60 transition-colors"
+            style="border-color: color-mix(in srgb, var(--fg) 20%, transparent); background: color-mix(in srgb, var(--bg) 96%, transparent); color: var(--fg);"
+            aria-label="Giảm cỡ chữ" title="Giảm cỡ chữ">Giảm cỡ chữ</button>
+          <button id="increase-font"
+            class="appearance-none border rounded-lg px-3 py-2 md:px-2 md:py-1 font-inherit cursor-pointer text-sm md:text-base min-h-[44px] md:min-h-auto flex items-center justify-center hover:border-opacity-60 transition-colors"
+            style="border-color: color-mix(in srgb, var(--fg) 20%, transparent); background: color-mix(in srgb, var(--bg) 96%, transparent); color: var(--fg);"
+            aria-label="Tăng cỡ chữ" title="Tăng cỡ chữ">Tăng cỡ chữ</button>
+          <button id="toggle-theme"
+            class="appearance-none border rounded-lg px-3 py-2 md:px-2 md:py-1 font-inherit cursor-pointer text-sm md:text-base min-h-[44px] md:min-h-auto flex items-center justify-center hover:border-opacity-60 transition-colors"
+            style="border-color: color-mix(in srgb, var(--fg) 20%, transparent); background: color-mix(in srgb, var(--bg) 96%, transparent); color: var(--fg);"
+            aria-label="Chuyển chế độ sáng/tối" title="Chuyển chế độ">Bật/Tắt đèn</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="py-4 md:py-8 lg:py-14" role="main">
+    <div class="w-full max-w-none md:max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
+
+      <!-- Statistics Component with Border -->
+      <div class="mb-6 md:mb-8 flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <div class="flex-1 md:rounded-lg border md:border-opacity-8 md:shadow-sm md:p-4 p-3"
+          style="background: var(--card); border-color: color-mix(in srgb, var(--fg) 8%, transparent);">
+          <p class="text-xs md:text-sm font-semibold mb-3" style="color: var(--muted);">📊 Thống kê</p>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="flex flex-col items-center gap-2">
+              <p class="text-xs" style="color: var(--muted);">Hôm nay</p>
+              <p class="text-2xl md:text-3xl font-bold" id="today-count" style="color: var(--fg);">0</p>
+              <div class="flex gap-1">
+                <button id="decrease-today-btn"
+                  class="appearance-none border rounded px-2 py-1 font-inherit cursor-pointer text-xs font-semibold transition-colors hover:opacity-70"
+                  style="border-color: color-mix(in srgb, var(--fg) 20%, transparent); background: transparent; color: var(--fg);">
+                  −
+                </button>
+                <button id="increase-today-btn"
+                  class="appearance-none border rounded px-2 py-1 font-inherit cursor-pointer text-xs font-semibold transition-colors hover:opacity-70"
+                  style="border-color: color-mix(in srgb, var(--accent) 40%, transparent); background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent);">
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div class="flex flex-col items-center gap-2">
+              <p class="text-xs" style="color: var(--muted);">Toàn bộ</p>
+              <p class="text-2xl md:text-3xl font-bold" id="total-count" style="color: var(--fg);">0</p>
+              <button id="reset-count-btn"
+                class="appearance-none border rounded px-2 py-1 font-inherit cursor-pointer text-xs font-semibold transition-colors hover:opacity-70"
+                style="border-color: color-mix(in srgb, var(--fg) 20%, transparent); background: transparent; color: var(--muted);">
+                🔄
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="flex-1 md:rounded-lg border md:border-opacity-8 md:shadow-sm md:p-4 p-3 flex flex-col items-center justify-center"
+          style="background: var(--card); border-color: color-mix(in srgb, var(--fg) 8%, transparent);">
+          <button id="play-audio-btn"
+            class="appearance-none border rounded-lg px-4 py-2 font-inherit cursor-pointer text-sm md:text-base font-semibold transition-colors hover:opacity-80 w-full"
+            style="border-color: color-mix(in srgb, var(--accent) 40%, transparent); background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent);">
+            🔊 Phát âm thanh
+          </button>
+          <p class="text-xs mt-2" style="color: var(--muted);">Sắp có mặt</p>
+        </div>
+      </div>
+
+      <article class="md:rounded-xl md:border md:border-opacity-8 md:shadow-sm md:p-6 lg:p-10"
+        style="background: var(--card); border-color: color-mix(in srgb, var(--fg) 8%, transparent);">
+
+        <h4 class="text-1xl md:text-1xl lg:text-1xl font-bold text-center mb-4 md:mb-8 m-0"
+          style="color: var(--accent);">Chú Đại Bi là thần chú quảng đại viên mãn, thần chú vô ngại đại bi, thần chú cứu
+          khổ. Trì chú này thì diệt vô lượng tội,
+
+          được vô lượng phước</h4>
+
+        <h4>1. Nam Mô Hắt Ra Đát Na Đa Ra Dạ Da: Bổn thân Quán-Âm Bồ-Tát hóa hiện tướng hành giả cầm chuỗi lễ tụng cầu
+          Bồ-Tát cảm ứng.</h4>
+        <h4>2. Nam Mô A Rị Da: Quán -Âm hóa hiện tướng tay bưng Như-Ý Pháp-Luân. Hành giả y giáo phụng hành. </h4>
+
+        <h4>3. Bà Lô Yết Đế Thước Bát Ra Da: Quán Âm hóa hiện tướng Quán-Tự-Tại trì bát. Hành giả quán tưởng khiến chúng
+          sanh được trường thọ.</h4>
+
+        <h4>4. Bồ Đề Tát Đỏa Bà Da: Quán Âm hiện thân Bất Không Quyên Sách Bồ Tát tự giác giác tha, phổ độ chúng sanh.
+        </h4>
+
+        <h4>5. Ma Ha Tát Đỏa Bà Da: Quán Âm hiện tướng tụng chú, theo pháp tu trì, được thiện giải thoát.</h4>
+
+        <h4>6. Ma Ha Ca Lô Ni Ca Da: Quán Âm hóa hiện tướng Mã-Minh Bồ Tát tự giác giác tha, tự đô tự tha.</h4>
+
+        <h4>7. Án: Quán Âm hóa hiện tướng các Thần Quỷ Vương chắp tay tụng chú. Chư Phật quán tưởng chữ Án thành chánh
+          giác.</h4>
+
+        <h4>8. Tát Bàn Ra Phạt Duệ: Quán Âm hóa hiện tướng Tứ Đại Thiên Vương dùng lục độ hoá độ chúng ma.</h4>
+
+        <h4>9. Số Đát Na Đát Tỏa: Quán Âm hóa hiện tướng Bộ-Lạc Tứ Đại Thiên Vương khiến cải ác theo thiện.</h4>
+
+        <h4>10. Nam Mô Tất Cát Lật Đỏa Y Mông A Rị Da: Quán Âm hiện tướng Long Thọ Bồ Tát hộ trì người tu hành, hàng
+          phục tất cả ma oán.</h4>
+
+        <h4>11. Bà Lô Kiết Đế: Quán Âm hiện tướng Phật Viên Mãn báo Thân Lô Xá Na rộng độ vô lượng chúng sanh.</h4>
+
+        <h4>12. Nam Mô Na Ra Cẩn Trì: Quán Âm hiện tướng Phật Thanh Tịnh Pháp Thân Tỳ Lô Giá Na gia hộ chúng sanh an
+          lạc.</h4>
+
+        <h4>13. Hê Rị Ma Ha Bàn Đa Sa Mế: Quán Âm hiện tướng Dương Đầu Thần Vương hộ trì hành giả xa lìa loài ác thú.
+        </h4>
+
+
+        <h4>14. Tát Bà A Tha Đậu Du Bằng: Quán Âm hiện tướng Bồ Tát Cam Lộ Vương tay cầm cành dương, tay cầm bình ngọc
+          cam lộ độ chúng sanh.</h4>
+
+        <h4>15. A Thệ Dựng: Quán Âm hiện tướng Phi Đằng Dạ Xoa Thiên Vương tuần sát bốn phương khuyến thiện ngừng ác.
+        </h4>
+
+        <h4>16. Tát Bà Tát Đa Na Ma Bà Tát Đa Na Ma Bà Già: Quán Âm hiện tướng Thần Vương Bà Già Bà Đế độ chúng sanh có
+          duyên.</h4>
+
+        <h4>17. Ma Phạt Đạt Đậu: Quán Âm hiện tướng Quân Tra Lợi Bồ Tát mặt có ba con mắt cảm hóa ác nhơn hướng thiện.
+        </h4>
+
+        <h4>18. Đát Điệt Tha: Quán Âm hiện tướng A La Hán thuyết pháp độ chúng sanh.</h4>
+
+        <h4>19. Án A Bà Lô Hê: Quán Âm hiện tướng Quan Âm Bồ Tát từ bi vô lượng cứu khổ ban vui.</h4>
+
+        <h4>20. Lô Ca Đế: Quán Âm hiện tướng Đại Phạm Thiên Vương ở trong mười phương thế giới độ thoát chúng sanh.</h4>
+
+        <h4>21. Ca Ra Đế: Quán Âm hiện tướng Đế Thần ở trong mười phương thế giới thường cứu chúng sanh.</h4>
+
+        <h4>22. Di Hê Rị: Quán Âm hóa hiện tướng Thiên Thần Ma Hê Đầu La thống lãnh thiên binh độ chúng sanh.</h4>
+
+        <h4>23. Ma Ha Bồ Đề Tát Đỏa: Quán Âm dùng tâm nguyện thanh tịnh, từ bi vô ngã cảm ứng độ người chân thật tu
+          hành.</h4>
+
+        <h4>24. Tát Bà Tát Bà: Quán Âm hiện thân Bồ Tát Hương Tích điều phục năm phương chúng quỷ theo hầu cứu giúp
+          chúng sanh.</h4>
+
+        <h4>25. Ma Ra Ma Ra: Quán Âm hiện Bạch Y Bồ Tát tay mặt cầm Như Ý, tay trái dắt đồng tử khiến chúng sanh được
+          trường thọ.</h4>
+
+        <h4>26. Ma Hê Ma Hê Rị Đà Dựng: Quán Âm hiện tướng Phật A Di Đà khiến chúng sanh khi hết thân nầy đồng sanh Cực
+          Lạc quốc.</h4>
+
+        <h4>27. Cu Lô Cu Lô Yết Mông: Quán Âm hiện tướng Bồ Tát Không Thân hàng phục vạn ức thiên binh, hóa độ vô lượng
+          chúng sanh.</h4>
+
+        <h4>28. Độ Lô Độ Lô Phạt Xà Da Đế: Quán Âm hóa thân Bồ Tát Nghiêm Tuấn áp lãnh man binh Khổng Tước Vương hàng
+          phục các ma oán.</h4>
+
+        <h4>29. Ma Ha Phạt Xà Da Đế: Quán Âm hóa hiện Đại Lực Thiên Tướng tay cầm Bảo Xử hộ trì chúng sanh, tinh tấn tu
+          hành.</h4>
+
+        <h4>30. Đà La Đà La: Quán Âm hiện tướng trượng phu tu khổ hạnh khiến chúng sanh phá trừ ngã chấp pháp chấp.</h4>
+
+        <h4>31. Địa Rị Ni: Quán Âm hiện tướng Sư Tử Vương xét nghiệm người tụng chú khiến chúng sanh tiêu trừ tai họa.
+        </h4>
+
+        <h4>32. Thất Phật Ra Da: Quán Âm hiện tướng Bồ Tát Thích Lịch tay cầm Kim Xử hàng phục các ma và quyến thuộc của
+          chúng.</h4>
+
+        <h4>33. Giá Ra Giá Ra: Quán Âm hiện thân Bồ tát Tồi Toái tay cầm Kim Luân hóa độ oán ma điều phục tùng.</h4>
+
+        <h4>34. Mạ Mạ Phạt Ma Ra: Quán Âm hiện thân Đại Hàng Ma Kim Cang tay cầm Kim Luân hộ trì chúng sanh đắt đại cát
+          tường.</h4>
+
+        <h4>35. Mục Đế Lệ: Quán Âm hiện tướng chư Phật, Bồ Tát chắp tay lắng lòng nghe tụng thần chú, hành giả phụng trì
+          chứng đắt Phật quả.</h4>
+
+        <h4>36. Y Hê Y Hê: Quán Âm hiện thân Ma Hê Thủ La Thiên Vương cảm triệu nhơn thiên thuận tùng.</h4>
+
+        <h4>37. Thất Na Thất Na: Quán Âm hiện thân Ca Na Ma Tướng Thiên Vương, hóa lợi chư Thiên, không gây tai hại nhân
+          gian.</h4>
+
+        <h4>38. A Ra Sâm Phật Ra Xá Lợi: Quán Âm hiện tướng tay cầm khiên, tay cầm cung tên kính tụng thần chú đắc pháp
+          tự tại.</h4>
+
+        <h4>39. Phạt Xa Phạt Xâm: Quán Âm hiện thân Kim Khôi Đại Tướng cầm linh thuận thời giáo hóa độ chúng sanh.</h4>
+
+        <h4>40. Phật Ra Xá Da: Quán Âm hiện tướng Phật A Di Đà, chúng sanh tưởng niệm thì hiện tiền tương lai sẽ thấy
+          Phật.</h4>
+
+        <h4>41. Hô Lô Hô Lô Ma Ra: Quán Âm Hiện Tướng Bát Bộ Thần Vương chắp tay niệm từ bi hàng phục chúng ma.</h4>
+
+        <h4>42. Hô Lô Hô Lô Hê Rị: Quán Âm hiện tướng Tứ Tý Tôn Thiên tay bưng Nhật Nguyệt chiếu sáng hóa độ nhơn thiên.
+        </h4>
+
+        <h4>43. Ta Ra Ta Ra: Quán Âm hóa độ Phổ Đà Sơn hiển linh bất khả tư nghì, có ý nghĩa Ta-Bà khổ như núi non hiểm
+          trở.</h4>
+
+        <h4>44. Tất Rị Tất Rị: Quán Âm hiện tướng mạo từ bi tay cầm cành dương, tay cầm tịnh bình rưới nước cam lồ cứu
+          khổ độ sanh.</h4>
+
+        <h4>45. Tô Rô Tô Rô: Quán Âm hóa tướng lá cây rụng, chúng sanh nghe tiếng được bốn lợi ích: quán đảnh, mát thân,
+          tâm vui, đầy đủ.</h4>
+
+        <h4>46. Bồ Đề Dạ Bồ Đề Dạ: Quán Âm hiện tướng diện mạo từ bi thân cận trẻ con giáo hóa lợi ích chúng sanh.</h4>
+
+        <h4>47. Bồ Đà Dạ Bồ Đà Dạ: Quán Âm hiện tướng A Nan tôn giả tay cầm bình bát hóa độ chúng sanh.</h4>
+
+        <h4>48. Di Đế Rị Dạ: Quán Âm hiện tướng Di Lặc Bồ Tát chỉ dạy chúng sanh tu hạnh đại bi, được chơn giác ngộ an
+          lạc.</h4>
+
+        <h4>49. Na Ra Cẩn Trì: Quán Âm hiện tướng Địa Tạng Bồ Tát khai ngộ chúng sanh tỉnh giác mê chấp, được thoát khổ
+          ác đạo.</h4>
+
+        <h4>50. Địa Rị Sắc Ni Na: Quán Âm hiện tướng Bồ Tát Bảo Tràng tay kiết ấn, tay cầm Kim Xoa làm lợi ích chúng
+          sanh.</h4>
+
+        <h4>51. Ba Dạ Ma Na: Quán Âm hiện tướng Bảo Kim Quang Tràng Bồ Tát cầm Bạt Chiết La Xử lợi ích độ sanh.</h4>
+
+        <h4>52. Ta Bà Ha: Quán Âm hiện tướng ba đầu Viên-Tịch Thắng-Nghĩa lợi ích độ sanh.</h4>
+
+        <h4>53. Tất Đà Dạ: Quán Âm hiện tướng tôn giả Xá Lợi Phất tay kiết ấn Liêm Thủ thông đạt tất cả pháp.</h4>
+
+        <h4>54. Ta Bà Ha: Quán Âm hiện tướng Bồ Tát Hằng Hà Sa đứng trên đầu rồng, dùng tâm cát tường hóa độ chúng sanh.
+        </h4>
+
+        <h4>55. Ma Ha Tất Đà Dạ: Quán Âm hiện tướng Bồ Tát Phóng-Quang tay cầm tràng phan báu lợi ích độ sanh.</h4>
+
+        <h4>56. Ta Bà Ha: Quán Âm hiện tướng tôn giả Mục Kiền Liên tay cầm tích trượng, bình bát dứt trừ tai ương, cứu
+          độ chúng sanh.</h4>
+
+        <h4>57. Tất Đà Du Nghệ: Quán Âm hiện Tây Phương Cực Lạc, tất cả chư Thiên, Bồ Tát vân tập thính thọ pháp hỷ, hóa
+          độ thập phương nhơn thiên.</h4>
+
+        <h4>58. Thất Bàn Ra Dạ: Quán Âm hiện tướng Thiên Nữ Tự Tại Viên Mãn</h4>
+
+        <h4>59. Ta Bà Ha: Quán Âm hiện tướng tôn giả A-Xà-Na hoan hỷ bưng cao bình bát tăng trưởng tâm lợi ích độ sanh.
+        </h4>
+
+        <h4>60. Na Ra Cẩn Trì: Quán Âm hiện tướng Bồ Tát Sơn Hải Huệ tay cầm kiếm vàng hóa độ thánh-giả Tiểu-thừa.</h4>
+
+        <h4>61. Ta Bà Ha: Quán Âm hiện tướng tôn giả Chiên Đà La quảy nón lá vô trụ thắng nghĩa độ hóa chúng sanh.</h4>
+
+        <h4>62. Ma Ra Na Ra: Quán Âm hiện tướng Bồ Tát Bảo Ấn Vương tay cầm búa vàng Như Ý kiểm nghiệm tâm hạnh chúng
+          sanh.</h4>
+
+        <h4>63. Ta Bà Ha: Quán Âm hiện tướng tôn giả Câu Hy La mang giầy cỏ đạp trên sóng nước phát sanh tiếng hải triều
+          cảnh giác tâm chúng sanh.</h4>
+
+        <h4>64. Tất Ra Tăng A Mục Khê Da: Quán Âm hiện tướng Bồ Tát Dược Vương tay cầm dược thảo trừ bịnh khổ chúng
+          sanh.</h4>
+
+        <h4>65. Ta Bà Ha: Quán Âm hiện tướng Viên Mãn Bồ Tát thân mặc y đỏ chấp tay tâm viên mãn an lạc chúng sanh.</h4>
+
+        <h4>66. Ta Bà Ma Ha A Tất Đà Dạ: Quán Âm hiện tướng Dược Thượng Bồ Tát tay cầm bình ngọc giải trừ tật khổ chúng
+          sanh.</h4>
+
+        <h4>67. Ta Bà Ha: Quán Âm hiện tướng tôn giả Xá Lợi Phất tay cầm chơn kinh cứu cánh thắng nghĩa hóa đạo chúng
+          sanh quy Tịnh Độ.</h4>
+
+        <h4>68. Giả Kiết Ra A Tất Đà Dạ: Quán Âm hiện tướng Thần Hổ gầm, tay cầm búa kiên định tâm hàng phục ma oán.
+        </h4>
+
+        <h4>69. Ta Bà Ha: Quán Âm hiện tướng chư Thiên Ma Vương tay cầm Xà Thương hóa đạo chúng sanh giải trừ tâm oán
+          hận.</h4>
+
+        <h4>70. Ba Đà Ma Yết Tất Đà Dạ: Quán Âm hiện tướng Linh Hương Thiên Bồ Tát bưng lư Như Ý hộ trì chúng sanh.</h4>
+
+        <h4>71. Ta Bà Ha: Quán Âm hiện tướng Tán Hoa Thiên Bồ Tát tay cầm bảo liên ngàn cánh thành tựu chúng sanh lợi
+          ích an lạc.</h4>
+
+        <h4>72. Na Ra Cẩn Trì Bàn Già Ra Dạ: Quán Âm hiện tướng Tôn Giả Phú Lâu Na tay bưng bình bát cứu độ chúng sanh
+          lìa tai nạn.</h4>
+
+        <h4>73. Ta Bà Ha: Quán Âm hiện tướng Bồ Tát Đà La Ni Từ tay bưng trái tươi bố thí độ sanh chân thật tu hành rõ
+          pháp tánh không.</h4>
+
+        <h4>74. Ma Bà Lợi Thắng Yết Ra Dạ: Quán Âm hiện tướng Bồ Tát Tam Ma Thiền Na kiết già trên bánh xe, tay bưng đèn
+          ngọc sáng khắp pháp giới.</h4>
+
+        <h4>75. Ta Bà Ha: Quán Âm hiện tướng tôn giả Đại Ca Diếp tay trái cầm chuỗi, tay mặt cầm thiền trượng chỉ dẫn
+          chúng sanh tu hành.</h4>
+
+        <h4>76. Nam Mô Hắc Ra Đa Ra Dạ Da: Quán Âm hiện tướng Bồ Tát Hư Không Tạng cầm hoa ngồi trên đá khiến cho chúng
+          sanh kiên định tín tâm dõng mãnh tinh tấn.</h4>
+
+        <h4>77. Nam Mô A Rị Da: Quán Âm hiện tướng Bồ Tát Phổ Hiền kiết già thiền tọa trên Hương Tượng khiến chúng sanh
+          viên mãn công hạnh.</h4>
+
+        <h4>78. Bà Lô Kiết Đế: Quán Âm hóa thân Bồ Tát Văn Thù ngồi trên sư tử tay chỉ hư không khến chúng sanh khai
+          ngộ.</h4>
+
+        <h4>79. Thước Bàn Ra Dạ: Quán Âm hiện tướng hoa sen ngàn cánh giải trừ chúng sanh ái sắc trần hư vọng, thấy tự
+          tánh không.</h4>
+
+        <h4>80. Ta Bà Ha: Quán Âm hiện tướng buông thõng hai tay giải trừ nhĩ căn phân biệt thanh trần hư vọng, nghe tự
+          tánh không.</h4>
+
+        <h4>81. Án Tất Điện Đô: Quán Âm hiện tướng mở hai bàn tay đoạn tỳ căn ái nhiễm hương trần, tự giác tánh không.
+        </h4>
+
+        <h4>82. Mạn Đà Ra: Quán Âm hiện tay Đâu La Miên đoạn trừ căn ái nhiễm vị trần hư vọng, tự giác tánh không.</h4>
+
+        <h4>83. Bạt Đà Dạ: Quán Âm hiện tướng tay bưng bát hương giải trừ tham ái chạm xúc, khiến chúng sanh đoạn thân
+          căn xúc trần hư vọng, tự giác tánh không.</h4>
+
+        <h4>84. Ta Bà Ha: Quán Âm hiện tướng tay cầm tràng phan giải trừ phân biệt các pháp, khiến chúng sanh đoạn ý căn
+          chấp pháp trần hư vọng, biết tự tánh không.</h4>
+
+      </article>
+    </div>
+  </main>
+
+  <footer class="border-t border-opacity-10 py-6 md:py-8 text-center"
+    style="border-color: color-mix(in srgb, var(--fg) 10%, transparent); color: var(--muted);">
+    <div class="w-full max-w-none md:max-w-4xl mx-auto px-4 md:px-6 lg:px-8">
+      <div class="flex flex-col gap-3 md:flex-row md:justify-between md:items-center">
+        <small> 2025 <a href="https://nmdan.com" class="no-underline hover:underline" style="color: var(--accent);">Minh
+            Dân</a></small>
+        <small>
+          <a href="https://forms.gle/CKNad1WWEJTCSJik7" target="_blank" rel="noopener noreferrer"
+            class="no-underline hover:underline inline-flex items-center gap-1" style="color: var(--accent);">
+            📝 Góp ý trang web
+          </a>
+        </small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme: follow saved preference or OS preference
+    (function initTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.dataset.theme = saved;
+      else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+
+    const root = document.documentElement;
+    const btnInc = document.getElementById('increase-font');
+    const btnDec = document.getElementById('decrease-font');
+    const btnTheme = document.getElementById('toggle-theme');
+
+    function setSize(mult) {
+      const base = parseFloat(getComputedStyle(root).getPropertyValue('--font-scale')) || 1;
+      const next = Math.min(1.5, Math.max(0.8, +(base * mult).toFixed(2)));
+      root.style.setProperty('--font-scale', next);
+      localStorage.setItem('font-scale', String(next));
+    }
+
+    btnInc.addEventListener('click', () => setSize(1.1));
+    btnDec.addEventListener('click', () => setSize(1 / 1.1));
+
+    btnTheme.addEventListener('click', () => {
+      const cur = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = cur;
+      localStorage.setItem('theme', cur);
+    });
+
+    // Load saved font scale
+    (function initFont() {
+      const saved = parseFloat(localStorage.getItem('font-scale'));
+      if (!isNaN(saved)) root.style.setProperty('--font-scale', saved);
+    })();
+
+    // Counter functionality
+    (function initCounter() {
+      const todayCountEl = document.getElementById('today-count');
+      const totalCountEl = document.getElementById('total-count');
+      const increaseTodayBtn = document.getElementById('increase-today-btn');
+      const decreaseTodayBtn = document.getElementById('decrease-today-btn');
+      const resetCountBtn = document.getElementById('reset-count-btn');
+      const playAudioBtn = document.getElementById('play-audio-btn');
+
+      // Get unique page identifier from document title (works for all pages)
+      const pageId = document.title
+        .replace(/[🙏🔊]/g, '') // Remove emojis
+        .trim()
+        .replace(/\s+/g, '-')
+        .toLowerCase()
+        .substring(0, 50); // Limit length
+      function getTodayKey() {
+        const today = new Date().toISOString().split('T')[0];
+        return `counter-${pageId}-today-${today}`;
+      }
+
+      function getTotalKey() {
+        return `counter-${pageId}-total`;
+      }
+
+      function loadCounts() {
+        const todayCount = parseInt(localStorage.getItem(getTodayKey())) || 0;
+        const totalCount = parseInt(localStorage.getItem(getTotalKey())) || 0;
+        todayCountEl.textContent = todayCount;
+        totalCountEl.textContent = totalCount;
+      }
+
+      function incrementToday() {
+        const todayKey = getTodayKey();
+        const totalKey = getTotalKey();
+        const todayCount = parseInt(localStorage.getItem(todayKey)) || 0;
+        const totalCount = parseInt(localStorage.getItem(totalKey)) || 0;
+
+        localStorage.setItem(todayKey, todayCount + 1);
+        localStorage.setItem(totalKey, totalCount + 1);
+        loadCounts();
+      }
+
+      function decrementToday() {
+        const todayKey = getTodayKey();
+        const totalKey = getTotalKey();
+        const todayCount = parseInt(localStorage.getItem(todayKey)) || 0;
+        const totalCount = parseInt(localStorage.getItem(totalKey)) || 0;
+
+        if (todayCount > 0) {
+          localStorage.setItem(todayKey, todayCount - 1);
+          localStorage.setItem(totalKey, Math.max(0, totalCount - 1));
+          loadCounts();
+        }
+      }
+
+      function resetAllData() {
+        if (confirm('Bạn có chắc muốn xóa tất cả dữ liệu đếm?')) {
+          localStorage.removeItem(getTodayKey());
+          localStorage.removeItem(getTotalKey());
+          loadCounts();
+        }
+      }
+
+      function playAudio() {
+        alert('🎵 Tệp âm thanh sẽ sớm có mặt');
+      }
+
+      increaseTodayBtn.addEventListener('click', incrementToday);
+      decreaseTodayBtn.addEventListener('click', decrementToday);
+      resetCountBtn.addEventListener('click', resetAllData);
+      playAudioBtn.addEventListener('click', playAudio);
+
+      loadCounts();
+    })();
+  </script>
+</body>
+
+</html>

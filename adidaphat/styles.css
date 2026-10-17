@@ -1,0 +1,310 @@
+:root {
+  --bg: #ffffff;
+  --fg: #111111;
+  --muted: #6b7280; /* gray-500 */
+  --accent: #2563eb; /* blue-600 */
+  --card: #f8fafc; /* slate-50 */
+  --font-scale: 1; /* persisted via JS */
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0f14;
+  --fg: #e5e7eb;
+  --muted: #9ca3af;
+  --accent: #60a5fa;
+  --card: #0f172a;
+}
+
+/* CSS Reset (minimal) */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+html {
+  /* Responsive font sizing */
+  font-size: calc(16px * var(--font-scale));
+}
+
+/* Mobile-first responsive font sizing */
+@media (min-width: 480px) {
+  html {
+    font-size: calc(17px * var(--font-scale));
+  }
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: calc(18px * var(--font-scale));
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: calc(19px * var(--font-scale));
+  }
+}
+
+body {
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile line height adjustment */
+@media (min-width: 768px) {
+  body {
+    line-height: 1.7;
+  }
+}
+
+/* Layout */
+.wrap {
+  max-width: 100%; /* Full width on mobile */
+  margin-inline: auto;
+  padding: 0 1rem;
+}
+
+/* Larger padding on bigger screens */
+@media (min-width: 768px) {
+  .wrap {
+    max-width: 70ch;
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .wrap {
+    padding: 0 2rem;
+  }
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  min-height: 60px; /* Ensure consistent header height */
+}
+
+@media (min-width: 768px) {
+  .site-header .wrap {
+    padding: 1rem 1.5rem;
+    min-height: 70px;
+  }
+}
+
+.site-title {
+  font-size: 1.1rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .site-title {
+    font-size: 1.25rem;
+  }
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 480px) {
+  .toolbar {
+    gap: 0.4rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .toolbar {
+    gap: 0.5rem;
+  }
+}
+
+.toolbar button,
+.toolbar .download {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, var(--fg) 20%, transparent);
+  background: color-mix(in srgb, var(--bg) 96%, transparent);
+  color: var(--fg);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.7rem;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
+  min-height: 44px; /* Better touch target */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .toolbar button,
+  .toolbar .download {
+    padding: 0.35rem 0.6rem;
+    min-height: auto;
+    font-size: 1rem;
+  }
+}
+
+.toolbar button:hover,
+.toolbar .download:hover {
+  border-color: color-mix(in srgb, var(--accent) 60%, var(--fg));
+  background: color-mix(in srgb, var(--accent) 5%, var(--bg));
+}
+
+.content {
+  padding: 1rem 0 2rem;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 2rem 0 3.5rem;
+  }
+}
+
+.text h1 {
+  margin: 0 0 1rem 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .text h1 {
+    font-size: 2.2rem;
+    margin: 0 0 2rem 0;
+  }
+}
+
+.text h2 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.2rem;
+  color: var(--accent);
+}
+
+@media (min-width: 768px) {
+  .text h2 {
+    font-size: 1.3rem;
+    margin: 0 0 1rem 0;
+  }
+}
+
+.text p {
+  margin: 0 0 0.8rem 0;
+  text-wrap: pretty;
+  text-align: left;
+}
+
+@media (min-width: 768px) {
+  .text p {
+    margin: 0 0 1.5rem 0;
+    text-align: justify;
+  }
+}
+
+/* Special styling for the main chant paragraphs */
+.text p:not(:first-child):not(:last-child) {
+  padding: 0.2rem 0;
+}
+
+@media (min-width: 768px) {
+  .text p:not(:first-child):not(:last-child) {
+    padding: 0.75rem 0;
+  }
+}
+
+/* Card-like background on larger screens */
+@media (min-width: 768px) {
+  .content .text {
+    background: var(--card);
+    border: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
+    border-radius: 0.75rem;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  }
+}
+
+@media (min-width: 1024px) {
+  .content .text {
+    padding: 2rem 2.5rem;
+  }
+}
+
+.site-footer {
+  border-top: 1px solid color-mix(in srgb, var(--fg) 10%, transparent);
+  padding: 1.5rem 0 2rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .site-footer {
+    padding: 2rem 0 2.5rem;
+  }
+}
+
+.site-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Improve readability on very small screens */
+@media (max-width: 320px) {
+  .wrap {
+    padding: 0 0.75rem;
+  }
+  
+  .site-header .wrap {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .toolbar {
+    gap: 0.25rem;
+  }
+  
+  .toolbar button,
+  .toolbar .download {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* Large screen optimizations */
+@media (min-width: 1200px) {
+  .wrap {
+    max-width: 75ch;
+  }
+  
+  .text h1 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Print styling */
+@media print {
+  .site-header, .toolbar, .site-footer { display: none; }
+  .wrap { max-width: none; }
+  body { color: #000; background: #fff; }
+  .text p { margin: 0 0 1rem 0; }
+}
